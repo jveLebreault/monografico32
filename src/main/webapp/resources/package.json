@@ -1,0 +1,17 @@
+{
+  "name": "monografico32-dependencies",
+  "version": "1.0.0",
+  "description": "Dependencies to be used with monografico 32 project",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dependencies",
+    "monografico32"
+  ],
+  "author": "Jose Elias Vargas Lebreault",
+  "license": "MIT"
+}
