@@ -19,6 +19,9 @@ public abstract class Persona {
     @NotNull
     @Size(min = 2, max = 50)
     private String apellidos;
+    
+    @NotNull
+    private Estado estado;
 
     public Persona(){}
 
@@ -54,5 +57,13 @@ public abstract class Persona {
 
     public String getApellidos(){
         return apellidos;
+    }
+    
+    public void setEstado(Estado estado){
+        this.estado = estado;
+    }
+    
+    public Estado getEstado(){
+        return estado;
     }
 }
