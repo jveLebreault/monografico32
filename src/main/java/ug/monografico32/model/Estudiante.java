@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
  */
 public class Estudiante extends Persona{
     
-    @Size(min = 1, max =1)
-    private String seccion;
+    
+    
+    
 }
