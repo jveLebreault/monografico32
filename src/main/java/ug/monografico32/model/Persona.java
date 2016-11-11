@@ -1,6 +1,8 @@
 package ug.monografico32.model;
 
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -9,6 +11,7 @@ import javax.validation.constraints.Size;
  */
 public abstract class Persona {
 
+    @Id @GeneratedValue
     private Long id;
 
     //Validation constraints to be applied to these attributes

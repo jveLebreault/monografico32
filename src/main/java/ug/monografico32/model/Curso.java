@@ -5,6 +5,8 @@
  */
 package ug.monografico32.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 /**
@@ -12,6 +14,9 @@ import javax.validation.constraints.Size;
  * @author Administrador
  */
 public class Curso {
+
+    @Id @GeneratedValue
+    private Long id;
     
     private Nivel nivel;
     
@@ -27,5 +32,13 @@ public class Curso {
     
     public Nivel getNivel(){
         return nivel;
+    }
+
+    public void setSeccion(String seccion){
+        this.seccion = seccion;
+    }
+
+    public String getSeccion(){
+        return seccion;
     }
 }
