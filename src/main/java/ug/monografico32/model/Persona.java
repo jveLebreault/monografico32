@@ -24,7 +24,7 @@ public abstract class Persona {
     private String apellidos;
     
     @NotNull
-    private Estado estado;
+    private Estado estado; //activo, inactivo etc...
 
     public Persona(){}
 
