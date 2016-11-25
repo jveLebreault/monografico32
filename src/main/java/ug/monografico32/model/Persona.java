@@ -32,6 +32,7 @@ public abstract class Persona {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.estado = Estado.ACTIVO;
     }
 
     public Persona(String nombres, String apellidos){
