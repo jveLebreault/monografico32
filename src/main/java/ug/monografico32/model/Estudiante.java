@@ -3,6 +3,7 @@ package ug.monografico32.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import javax.validation.Valid;
 
 /**
  * Created by Jose Elias on 25/10/2016.
@@ -21,6 +22,7 @@ public class Estudiante extends Persona{
 
     @NotNull
     @Size(min = 1)
+    @Valid
     private List<Tutor> tutores;
 
     private boolean esTransferido;

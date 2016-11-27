@@ -6,21 +6,24 @@
 package ug.monografico32.model;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import ug.monografico32.model.annotations.CursoGradoValido;
 
 /**
  *
  * @author Administrador
  */
-//TODO: Make custom validation constraint for Grado and Fecha
-//TODO: 
+//TODO: create fechaInicio and fechaFinal validators
+@CursoGradoValido
 public class Curso {
 
     @Id @GeneratedValue
@@ -37,46 +40,25 @@ public class Curso {
     private String seccion;
     
     //@NotNull
+    @Valid
     private List<Estudiante> estudiantes;
     
     @NotNull
+    @Valid
     private Docente docenteEncargado;
     //private Set<Asignaturas> asignaturas;
     
     @Future
-    private LocalDate fechaInicio;
+    @NotNull
+    private Instant fechaInicio;
     
     @Future
-    private LocalDate fechaFinal;
+    @NotNull
+    private Instant fechaFinal;
     
-    private void validarGrado() throws GradoException{
-        switch(nivel){
-            case INICIAL:
-                if( this.grado != Grado.KINDER || 
-                    this.grado != Grado.PRE_PRIMARIO ){
-                        throw new GradoException("Nivel inicial no puede"
-                                + " tener grado: "+this.grado);
-                }
-                break;
-            case BASICA:
-                if(this.grado == Grado.KINDER || 
-                   this.grado == Grado.PRE_PRIMARIO){
-                        throw new GradoException("Nivel Bascio no puede"
-                                + " tener grado: "+this.grado);
-                }
-            case MEDIA:
-                if( this.grado.getOrdinal()>4 || this.grado == Grado.KINDER || 
-                    this.grado == Grado.PRE_PRIMARIO){
-                        throw new GradoException("Nivel Media no puede"
-                                + " tener grado: "+this.grado);
-                }
-            default:
-                break;
-        }
-    }
     
     private void validarFechas(){
-        if(fechaInicio.isAfter(fechaFinal)){
+        if(this.fechaInicio.isAfter(this.fechaFinal)){
             throw new DateTimeException("Fecha Inicio es mayor a fecha Final");
         }
     }
@@ -84,16 +66,15 @@ public class Curso {
     public Curso(){}
     
     public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
-                LocalDate inicio, LocalDate termino) throws GradoException{
+                Instant inicio, Instant termino){
         this.nivel = nivel;
         this.grado = grado;
         this.seccion = seccion;
         this.docenteEncargado = encargado;
-        this.fechaFinal = inicio;
+        this.fechaInicio = inicio;
         this.fechaFinal = termino;
         estudiantes = new ArrayList<>();
-        validarGrado();
-        validarFechas();
+        //validarFechas();
     }
     
     public void setId(Long id){
@@ -104,18 +85,16 @@ public class Curso {
         return id;
     }
     
-    public void setNivel(Nivel nivel) throws GradoException{
+    public void setNivel(Nivel nivel){
         this.nivel = nivel;
-        validarGrado();
     }
     
     public Nivel getNivel(){
         return nivel;
     }
     
-    public void setGrado(Grado grado) throws GradoException{
+    public void setGrado(Grado grado){
         this.grado = grado;
-        validarGrado();
     }
     
     public Grado getGrado(){
@@ -145,7 +124,7 @@ public class Curso {
     public boolean eliminarEstudiante(final Estudiante estudiante){
         //final long estId = estudiante.getId();
         return estudiantes.removeIf( (Estudiante e) -> 
-                                        e.getId() == estudiante.getId() );
+                                        e.getId().equals( estudiante.getId() ));
     }
     
     public void setDocenteEncargado(Docente encargado){
@@ -156,29 +135,22 @@ public class Curso {
         return docenteEncargado;
     }
     
-    public void setFechaInicio(LocalDate inicio){
+    public void setFechaInicio(Instant inicio){
         this.fechaInicio = inicio;
         validarFechas();
     }
     
-    public LocalDate getFechaInicio(){
+    public Instant getFechaInicio(){
         return fechaInicio;
     }
     
-    public void setFechaFinal(LocalDate fin){
+    public void setFechaFinal(Instant fin){
         this.fechaFinal = fin;
         validarFechas();
     }
     
-    public LocalDate getFechaFinal(){
+    public Instant getFechaFinal(){
         return fechaFinal;
     }
     
-}
-
-class GradoException extends Exception{
-    
-    public GradoException(String message){
-        super(message);
-    }
 }

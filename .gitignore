@@ -3,3 +3,4 @@ target
 *.iml
 src/main/webapp/resources/node_modules
 nb-*
+/nbproject/
