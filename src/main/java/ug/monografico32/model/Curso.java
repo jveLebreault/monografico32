@@ -8,7 +8,6 @@ package ug.monografico32.model;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,8 +15,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import ug.monografico32.model.annotations.CursoGradoValido;
-import ug.monografico32.model.annotations.FechaInicioFinalValida;
+import ug.monografico32.model.validation.constraints.annotations.CursoGradoValido;
+import ug.monografico32.model.validation.constraints.annotations.FechaInicioFinalValida;
 
 /**
  *

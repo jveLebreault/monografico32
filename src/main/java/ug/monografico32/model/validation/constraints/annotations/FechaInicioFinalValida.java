@@ -1,7 +1,6 @@
-package ug.monografico32.model.annotations;
+package ug.monografico32.model.validation.constraints.annotations;
 
-import ug.monografico32.model.annotations.validators.CursoGradoValidator;
-import ug.monografico32.model.annotations.validators.FechaInicioFinalValidator;
+import ug.monografico32.model.validation.constraints.validators.FechaInicioFinalValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -22,7 +21,7 @@ import static java.lang.annotation.ElementType.TYPE;
 @Constraint( validatedBy = FechaInicioFinalValidator.class)
 public @interface FechaInicioFinalValida {
 
-    String message() default "{ug.monografico32.model.annotations.FechaInicioFinalValida.message}";
+    String message() default "{FechaInicioFinalValida.message}";
 
     Class<?>[] groups() default{};
     Class<? extends Payload>[] payload() default{};

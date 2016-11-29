@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ug.monografico32.model.annotations.validators;
+package ug.monografico32.model.validation.constraints.validators;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import ug.monografico32.model.Curso;
 import ug.monografico32.model.Grado;
-import ug.monografico32.model.annotations.CursoGradoValido;
+import ug.monografico32.model.validation.constraints.annotations.CursoGradoValido;
 
 /**
  *

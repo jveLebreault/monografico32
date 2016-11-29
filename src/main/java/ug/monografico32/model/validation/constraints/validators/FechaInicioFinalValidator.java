@@ -1,8 +1,7 @@
-package ug.monografico32.model.annotations.validators;
+package ug.monografico32.model.validation.constraints.validators;
 
 import ug.monografico32.model.Curso;
-import ug.monografico32.model.annotations.CursoGradoValido;
-import ug.monografico32.model.annotations.FechaInicioFinalValida;
+import ug.monografico32.model.validation.constraints.annotations.FechaInicioFinalValida;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
