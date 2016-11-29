@@ -52,11 +52,9 @@ public class CursoTest {
                 inicio, fin);
         //Nivel.BASICA.toString().toLowerCase();
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
-        for(ConstraintViolation<Curso> vv: violations){
-            System.out.print(vv.getMessage());
-        }
+
         assertEquals(1, violations.size());
-        assertEquals("Nivel inicial no puede tener grado septimo", 
+        assertEquals("Nivel inicial no puede tener grado 7mo",
                 violations.iterator().next().getMessage());
     }
     
@@ -72,7 +70,7 @@ public class CursoTest {
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
         
         assertEquals(1, violations.size());
-        assertEquals("Nivel basica no puede tener grado kinder", 
+        assertEquals("Nivel basica no puede tener grado Kinder",
                 violations.iterator().next().getMessage());
     }
     
@@ -88,8 +86,25 @@ public class CursoTest {
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
         
         assertEquals(1, violations.size());
-        assertEquals("Nivel media no puede tener grado pre_primario", 
+        assertEquals("Nivel media no puede tener grado Pre Primario",
                 violations.iterator().next().getMessage());
+    }
+
+    @Test
+    public void fechaInicioFinalConstraintTest(){
+
+        Docente encargado = getDocenteEncargado();
+        Instant inicio = getFechaInicio();
+        Instant fin = getFechaFinal();
+
+        Curso c = new Curso(Nivel.INICIAL, Grado.KINDER, "A", encargado, fin, inicio);
+
+        Set<ConstraintViolation<Curso>> violations = validator.validate( c );
+
+        assertEquals(1, violations.size());
+        assertEquals("Fecha de inicio deber ser anterior a fecha final",
+                violations.iterator().next().getMessage());
+
     }
     
 }

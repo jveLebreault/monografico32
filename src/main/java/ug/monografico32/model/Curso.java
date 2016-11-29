@@ -17,6 +17,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import ug.monografico32.model.annotations.CursoGradoValido;
+import ug.monografico32.model.annotations.FechaInicioFinalValida;
 
 /**
  *
@@ -24,6 +25,7 @@ import ug.monografico32.model.annotations.CursoGradoValido;
  */
 //TODO: create fechaInicio and fechaFinal validators
 @CursoGradoValido
+@FechaInicioFinalValida
 public class Curso {
 
     @Id @GeneratedValue
