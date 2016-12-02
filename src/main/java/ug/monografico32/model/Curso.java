@@ -22,7 +22,6 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
  *
  * @author Administrador
  */
-//TODO: create fechaInicio and fechaFinal validators
 @CursoGradoValido
 @FechaInicioFinalValida
 public class Curso {
@@ -57,13 +56,6 @@ public class Curso {
     @NotNull
     private Instant fechaFinal;
     
-    
-    private void validarFechas(){
-        if(this.fechaInicio.isAfter(this.fechaFinal)){
-            throw new DateTimeException("Fecha Inicio es mayor a fecha Final");
-        }
-    }
-    
     public Curso(){}
     
     public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
@@ -75,7 +67,6 @@ public class Curso {
         this.fechaInicio = inicio;
         this.fechaFinal = termino;
         estudiantes = new ArrayList<>();
-        //validarFechas();
     }
     
     public void setId(Long id){
@@ -138,7 +129,6 @@ public class Curso {
     
     public void setFechaInicio(Instant inicio){
         this.fechaInicio = inicio;
-        validarFechas();
     }
     
     public Instant getFechaInicio(){
@@ -147,7 +137,6 @@ public class Curso {
     
     public void setFechaFinal(Instant fin){
         this.fechaFinal = fin;
-        validarFechas();
     }
     
     public Instant getFechaFinal(){
