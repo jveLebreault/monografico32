@@ -5,5 +5,7 @@ package ug.monografico32.model;
  */
 public class AmazonS3Document extends CloudDocument{
 
-    //private static
+    public AmazonS3Document(String key, DocumentType dType) {
+        super(key, dType);
+    }
 }

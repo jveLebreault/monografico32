@@ -17,6 +17,15 @@ public abstract class CloudDocument {
 
     @NotNull
     private DocumentType documentType;
+    
+    public CloudDocument(String key, DocumentType dType){
+        this.documentKey = key;
+        this.documentType = dType;
+    }
+    
+    public CloudDocument(DocumentType dType){
+        this.documentType = dType;
+    }
 
     public void setDocumentURL(String documentKey){
         this.documentKey = documentKey;
