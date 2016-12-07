@@ -1,0 +1,30 @@
+.f-error.help-block,
+.f-error.control-label,
+.f-error.radio,
+.f-error.checkbox,
+.f-error.radio-inline,
+.f-error.checkbox-inline,
+.f-error.radio label,
+.f-error.checkbox label,
+.f-error.radio-inline label,
+.f-error.checkbox-inline label {
+    color: #a94442;
+}
+.f-error.form-control {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.f-error.form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+.f-error.input-group-addon {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #a94442;
+}
+.f-error.form-control-feedback {
+    color: #a94442;
+}

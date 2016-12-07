@@ -26,11 +26,12 @@ public class Estudiante extends Persona{
     @Valid
     private List<Tutor> tutores;
 
-    private boolean esTransferido;
+    @NotNull
+    private boolean transferido;
     private CloudDocument recordNotaTransferido;
     private CloudDocument certificadoBuenaConductaTransferido;
     
-    protected Estudiante(){}
+    public Estudiante(){}
     
     public Estudiante(String nombres, String apellidos, CloudDocument foto, 
                 CloudDocument certificadoMedico, CloudDocument actaNacimiento){
@@ -39,7 +40,7 @@ public class Estudiante extends Persona{
         this.certificadoMedico = certificadoMedico;
         this.actaNacimiento = actaNacimiento;
         tutores = new ArrayList<>();
-        this.esTransferido = false;
+        this.transferido = false;
     }
     
     public Estudiante(String nombres, String apellidos, CloudDocument foto, 
@@ -48,7 +49,7 @@ public class Estudiante extends Persona{
                 CloudDocument certificadoConductaTransferido){
         
         this(nombres, apellidos, foto, certificadoMedico, actaNacimiento);
-        this.esTransferido = true;
+        this.transferido = true;
         this.recordNotaTransferido = recordNotaTransferido;
         this.certificadoBuenaConductaTransferido = certificadoConductaTransferido;
     }
@@ -72,5 +73,13 @@ public class Estudiante extends Persona{
     public boolean eliminarTutor(final Tutor tutor){
         return tutores.removeIf( (Tutor t)-> 
                                 t.getId().equals(tutor.getId() ) );
+    }
+
+    public boolean isTransferido(){
+        return transferido;
+    }
+
+    public void setTransferido(boolean transferido){
+        this.transferido = transferido;
     }
 }

@@ -5,8 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!--
-TODO: Create script to show the fields recordDeNotasTransferido and 
-CertificadoMedicoTransferido if checkbox esTransferido is checked
+TODO: Show or hide fields depending on result of validation
 TODO: Create eiteher a second page to add Tutores or allow the user to add tutores
 in this same page
 -->
@@ -16,12 +15,13 @@ in this same page
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <body>
         <div class="container">
             <h2 class="h2">Enrolar estudiante</h2>
             
-            <form method="post" class="form-horizontal">
+            <form class="form-horizontal" method="post" data-th-action="@{/estudiante/agregar}" data-th-object="${estudiante}">
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3" 
                          data-th-insert="~{/agregar-persona::#persona}"></div>
@@ -29,36 +29,41 @@ in this same page
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3">
+
                         <div class="form-group">
                             <label class="control-label" for="foto">Foto:</label>
                             <input class="" type="file" name="foto" id="foto"/>
                         </div>
+
                         <div class="form-group">
                             <label class="control-label" for="certificadoMedico">Certificado Medico:</label>
                             <input class="" type="file" name="certificadoMedico" id="certificadoMedico"/>
                         </div>
+
                         <div class="form-group">
                             <label class="control-label" for="actaNacimiento">Acta de nacimiento:</label>
                             <input class="" type="file" name="actaNacimiento" id="actaNacimiento"/>
                         </div>
+
                         <div class="form-group">
-                            <label class="control-label checkbox-inline" for="esTransferido">
-                                <input class="" type="checkbox" name="esTransferido" id="esTransferido"/>
+                            <label class="control-label checkbox-inline" for="transferido" >
+                                <input class="" type="checkbox" data-th-field="*{transferido}" id="transferido" name="transferido"/>
                                 Es transferido?
                             </label>
                             <p class="help-block">Marque si el estudiante es procedente de otro centro educativo</p>
-                            <div id="camposTransferidos" hidden="hidden">
-                                    <div >
-                                        <label class="control-label" for="recordNotaTransferido">Record de notas:</label>
-                                        <input class="" type="file" name="recordNotaTransferido" id="recordNotaTransferido"/>
-                                    </div>
-                                    <div >
-                                        <label class="control-label" for="certificadoMedicoTransferido">Certificado medico:</label>
-                                        <input class="" type="file" name="certificadoMedicoTransferido" id="certificadoMedicoTransferido"/>
-                                    </div>
+                        </div>
+
+                        <div id="camposTransferidos" hidden="hidden">
+                            <div class="form-group">
+                                <label class="control-label" for="recordNotaTransferido">Record de notas:</label>
+                                <input class="" type="file" name="recordNotaTransferido" id="recordNotaTransferido"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="certificadoMedicoTransferido">Certificado medico:</label>
+                                <input class="" type="file" name="certificadoMedicoTransferido" id="certificadoMedicoTransferido"/>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 
@@ -71,5 +76,8 @@ in this same page
         
         <script data-th-replace="~{/agregar-persona::#jquery}"></script>
         <script data-th-replace="~{/agregar-persona::#bootstrap}"></script>
+        <script data-th-src="@{/resources/js/agregar-estudiante.js}"
+                src="../../../resources/js/agregar-estudiante.js"></script>
+
     </body>
 </html>

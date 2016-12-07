@@ -8,7 +8,11 @@
     <link   href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"
             type="text/css" media="all" rel="stylesheet"
             data-th-href="@{/resources/node_modules/bootstrap/dist/css/bootstrap.min.css}">
- 
+    <link rel="stylesheet"  type="text/css" media="all"
+          href="../../resources/css/standard.css"
+          data-th-href="@{/resources/css/standard.css}">
+
+
 </head>
     <body>
         <div class="container">
@@ -16,12 +20,18 @@
                 <div class="" id="persona">
                     <div class="form-group">
                         <label class="control-label" for="apellidos">Apellidos:</label>
-                        <input class="form-control" type="text" id="apellidos" minlength="2" maxlength="50" name="apellidos"/>
+                        <input class="form-control" type="text" id="apellidos"
+                               minlength="2" maxlength="50" name="apellidos"
+                               data-th-field="*{apellidos}"
+                               data-th-errorclass="f-error"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="nombres">Nombres:</label>
-                        <input class="form-control" type="text" id="nombres" minlength="2" maxlength="50" name="nombres"/>
+                        <input class="form-control" type="text" id="nombres"
+                               minlength="2" maxlength="50" name="nombres"
+                               data-th-field="*{nombres}"
+                               data-th-errorclass="f-error"/>
                     </div>
                 </div>
                 
