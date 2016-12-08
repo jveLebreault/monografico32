@@ -82,4 +82,44 @@ public class Estudiante extends Persona{
     public void setTransferido(boolean transferido){
         this.transferido = transferido;
     }
+
+    public void setFoto(CloudDocument foto){
+        this.foto = foto;
+    }
+
+    public CloudDocument getFoto(){
+        return foto;
+    }
+
+    public void setCertificadoMedico(CloudDocument certificadoMedico){
+        this.certificadoMedico = certificadoMedico;
+    }
+
+    public CloudDocument getCertificadoMedico(){
+        return certificadoMedico;
+    }
+
+    public void setActaNacimiento(CloudDocument actaNacimiento){
+        this.actaNacimiento = actaNacimiento;
+    }
+
+    public CloudDocument getActaNacimiento(){
+        return actaNacimiento;
+    }
+
+    public void setRecordNotaTransferido(CloudDocument recordNotaTransferido){
+        this.recordNotaTransferido = recordNotaTransferido;
+    }
+
+    public CloudDocument getRecordNotaTransferido(){
+        return recordNotaTransferido;
+    }
+
+    public void setCertificadoBuenaConductaTransferido(CloudDocument certificadoBuenaConductaTransferido){
+        this.certificadoBuenaConductaTransferido = certificadoBuenaConductaTransferido;
+    }
+
+    public CloudDocument getCertificadoBuenaConductaTransferido(){
+        return certificadoBuenaConductaTransferido;
+    }
 }

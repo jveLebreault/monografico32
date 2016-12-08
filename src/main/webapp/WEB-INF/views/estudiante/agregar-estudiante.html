@@ -21,7 +21,7 @@ in this same page
         <div class="container">
             <h2 class="h2">Enrolar estudiante</h2>
             
-            <form class="form-horizontal" method="post" data-th-action="@{/estudiante/agregar}" data-th-object="${estudiante}">
+            <form class="form-horizontal" method="post" data-th-action="@{/estudiante/agregar}" data-th-object="${estudiante}" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3" 
                          data-th-insert="~{/agregar-persona::#persona}"></div>
@@ -32,7 +32,8 @@ in this same page
 
                         <div class="form-group">
                             <label class="control-label" for="foto">Foto:</label>
-                            <input class="" type="file" name="foto" id="foto"/>
+                            <input class="" type="file" name="foto" id="foto" data-th-errorclass="f-error"/>
+                            <p data-th-if="${#fields.hasErrors('foto')}" data-th-errors="*{foto}"></p>
                         </div>
 
                         <div class="form-group">

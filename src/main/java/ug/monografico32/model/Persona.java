@@ -16,11 +16,11 @@ public abstract class Persona {
 
     //Validation constraints to be applied to these attributes
     @NotNull
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 50, message = "{LongitudNombres.message}")
     private String nombres;
 
     @NotNull
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 50, message = "{LongitudApellidos.message}")
     private String apellidos;
     
     @NotNull

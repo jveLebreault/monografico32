@@ -1,5 +1,7 @@
 package ug.monografico32.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,13 @@ import javax.validation.Valid;
 @RequestMapping( path = "/estudiante")
 public class EstudianteController {
 
+    @Autowired
+    private AmazonS3 s3Client;
+
+    public EstudianteController(AmazonS3 s3Client){
+        this.s3Client = s3Client;
+    }
+
     @GetMapping( path = "/agregar")
     public String enrolarEstudiante(Model model){
 
@@ -27,7 +36,8 @@ public class EstudianteController {
 
     @PostMapping( path = "/agregar")
     public String procesarEnrolar(@Valid Estudiante estudiante, Errors errors){
-
+        //TODO: Agregar estudiante a repositorio, subir archivos a nube con base en la clave generada por el repositorio,
+        //TODO: redireccionar a pa gina para agregar tutores
         if (errors.hasErrors()){
             return "estudiante/agregar-estudiante";
         }
