@@ -16,11 +16,16 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.spring4.webflow.view.AjaxThymeleafViewResolver;
+import org.thymeleaf.spring4.webflow.view.FlowAjaxThymeleafView;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,7 +33,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("ug.monografico32.controller")
+@ComponentScan(basePackages = "ug.monografico32.controller",
+        basePackageClasses = WebFlowConfig.class)
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -70,6 +76,25 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         viewResolver.setOrder(1);
         return viewResolver;
     }
+
+    /*@Bean
+    public AjaxThymeleafViewResolver thymeleafViewResolver(){
+        AjaxThymeleafViewResolver viewResolver = new AjaxThymeleafViewResolver();
+        viewResolver.setViewClass(FlowAjaxThymeleafView.class);
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setOrder(2);
+        return viewResolver;
+    }
+
+    @Bean
+    public MvcViewFactoryCreator mvcViewFactoryCreator(){
+        ViewResolver[] resolvers = new ViewResolver[] {thymeleafViewResolver()};
+        List<ViewResolver> list = Arrays.asList( resolvers );
+
+        MvcViewFactoryCreator viewFactoryCreator = new MvcViewFactoryCreator();
+        viewFactoryCreator.setViewResolvers(list);
+        return viewFactoryCreator;
+    }*/
 
     @Bean
     public SpringTemplateEngine templateEngine() {

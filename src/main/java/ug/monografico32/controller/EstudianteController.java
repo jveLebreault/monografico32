@@ -16,7 +16,7 @@ import javax.validation.Valid;
 /**
  * Created by Jose Elias on 23/11/2016.
  */
-@Controller
+/*@Controller
 @RequestMapping( path = "/estudiante")
 public class EstudianteController {
 
@@ -37,10 +37,10 @@ public class EstudianteController {
     @PostMapping( path = "/agregar")
     public String procesarEnrolar(@Valid Estudiante estudiante, Errors errors){
         //TODO: Agregar estudiante a repositorio, subir archivos a nube con base en la clave generada por el repositorio,
-        //TODO: redireccionar a pa gina para agregar tutores
+        //TODO: redireccionar a vista para agregar tutores
         if (errors.hasErrors()){
             return "estudiante/agregar-estudiante";
         }
         return "redirect:/home";
     }
-}
+}*/
