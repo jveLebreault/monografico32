@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,7 +11,7 @@ import javax.validation.Valid;
  * Created by Jose Elias on 25/10/2016.
  */
 //TODO: A custom validation to validate the existence of documents from transfered students
-public class Estudiante extends Persona{
+public class Estudiante extends Persona implements Serializable{
 
     @NotNull
     private CloudDocument foto;

@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!--
-TODO: Show or hide fields depending on result of validation
-TODO: Create eiteher a second page to add Tutores or allow the user to add tutores
-in this same page
--->
 <html>
     <head data-th-replace="~{/agregar-persona::header('Enrolar estudiante')}">
         <title>TODO supply a title</title>
@@ -21,7 +11,7 @@ in this same page
         <div class="container">
             <h2 class="h2">Enrolar estudiante</h2>
             
-            <form class="form-horizontal" method="post" data-th-action="@{/estudiante/agregar}" data-th-object="${estudiante}" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" data-th-object="${estudiante}" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3" 
                          data-th-insert="~{/agregar-persona::#persona}"></div>
@@ -69,7 +59,7 @@ in this same page
                 </div>
                 
                 <div class="form-group">
-                    <input type="submit" class="col-md-1 col-md-offset-3 btn btn-info"/>
+                    <input type="submit" class="col-md-1 col-md-offset-3 btn btn-info" name="_eventId_crearEstudiante" value="Enviar"/>
                 </div>
             </form>
         </div>

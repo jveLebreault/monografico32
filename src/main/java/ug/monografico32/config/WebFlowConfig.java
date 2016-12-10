@@ -3,6 +3,8 @@ package ug.monografico32.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -14,7 +16,6 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.webflow.view.AjaxThymeleafViewResolver;
 import org.thymeleaf.spring4.webflow.view.FlowAjaxThymeleafView;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,12 +33,9 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowDefinitionRegistry flowRegistry(){
 
         return getFlowDefinitionRegistryBuilder(flowBuilderServices()).
-                //setBasePath("/WEB-INF/views").
+                setBasePath("/WEB-INF/views").
+                addFlowLocation("/estudiante/agregar-flow.xml", "estudiante/agregar").
                 //addFlowLocationPattern("/**/*-flow.xml").
-                //addFlowLocation("/estudiante/*-flow.xml").
-                //setFlowBuilderServices()
-                        //builder
-                                addFlowLocation("/WEB-INF/views/estudiante/agregar-flow.xml","estudiante/agregar").
                 build();
     }
 
@@ -91,8 +89,13 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowBuilderServices flowBuilderServices(){
         return getFlowBuilderServicesBuilder().
                setViewFactoryCreator(mvcViewFactoryCreator()).
+               setValidator( validator()).
                build();
     }
 
+    @Bean
+    public Validator validator(){
+        return new LocalValidatorFactoryBean();
+    }
 
 }

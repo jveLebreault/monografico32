@@ -4,5 +4,6 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <view-state id="agregar-estudiante" model="flowScope.estudiante" view="estudiante/agregar-estudiante"/>
+    <var name="estudiante" class="ug.monografico32.model.Estudiante"/>
+    <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante"/>
 </flow>
