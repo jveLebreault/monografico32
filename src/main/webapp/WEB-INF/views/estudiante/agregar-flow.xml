@@ -5,5 +5,18 @@
                           http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <var name="estudiante" class="ug.monografico32.model.Estudiante"/>
-    <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante"/>
+
+    <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante">
+        <binder>
+            <binding property="nombres"/>
+            <binding property="apellidos"/>
+        </binder>
+        <transition on="crear" to="agregarTutor"/>
+    </view-state>
+    
+    <view-state id="agregarTutor" view="/tutor/agregar-tutor">
+        <var name="tutor" class="ug.monografico32.model.Tutor"/>
+        <transition on="masTutores" to="agregarTutor"/>
+        <transition on="terminarTutores" to=""/>
+    </view-state>
 </flow>

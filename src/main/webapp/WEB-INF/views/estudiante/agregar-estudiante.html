@@ -11,7 +11,7 @@
         <div class="container">
             <h2 class="h2">Enrolar estudiante</h2>
             
-            <form class="form-horizontal" method="post" data-th-object="${estudiante}" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" data-th-object="${estudiante}" enctype="multipart/form-data" data-th-action="${flowExecutionUrl}">
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3" 
                          data-th-insert="~{/agregar-persona::#persona}"></div>
@@ -22,8 +22,7 @@
 
                         <div class="form-group">
                             <label class="control-label" for="foto">Foto:</label>
-                            <input class="" type="file" name="foto" id="foto" data-th-errorclass="f-error"/>
-                            <p data-th-if="${#fields.hasErrors('foto')}" data-th-errors="*{foto}"></p>
+                            <input class="" type="file" name="foto" id="foto"/>
                         </div>
 
                         <div class="form-group">
@@ -59,7 +58,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <input type="submit" class="col-md-1 col-md-offset-3 btn btn-info" name="_eventId_crearEstudiante" value="Enviar"/>
+                    <input class="col-md-1 col-md-offset-3 btn btn-info" type="submit" name="_eventId_crear" value="Crear"/>
                 </div>
             </form>
         </div>
