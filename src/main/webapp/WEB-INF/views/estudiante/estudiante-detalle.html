@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head data-th-replace="~{/agregar-persona::header('Ver detalle estudiante')}">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <!--<span>contains</span>
+            <span data-th-text="${persistenceContext.contains(estudiante)}"></span>
+            <span>open:</span><span data-th-text="${persistenceContext.isOpen()}"></span>
+            <span>tx active:</span><span data-th-text="${persistenceContext.getTransaction().isActive()}"></span>-->
+            <div id="estudiante" data-th-object="${estudiante}" class="well well-lg">
+
+                <h3>Informacion de estudiante:</h3>
+                <strong data-th-text="|*{nombres} *{apellidos}|">Juan Perez</strong>
+                <p>
+                    <strong>Estado: </strong>
+                    <span data-th-text="*{estado}">Inactivo</span>
+                </p>
+
+                <div id="documentos">
+                    <p>
+                        <a href="#">Ver Foto</a> <br/>
+                        <a href="#">Ver Certificado medico</a><br/>
+                        <a href="#">Ver Acta de nacimiento</a><br/>
+                    </p>
+                    <p data-th-if="*{transferido}">
+                        <a href="#">Ver Record de notas transferido</a> <br/>
+                        <a href="#">Ver Certificado de buena conducta</a><br/>
+                    </p>
+                </div>
+            </div>
+
+            <div id="tutores" data-th-fragment="tutores" class="well">
+                <h4>Tutores: </h4>
+                <p data-th-each="tutor : ${estudiante.tutores}">
+                    <span data-th-text="${tutor.nombres}">Padre</span>
+                    <span data-th-text="${tutor.apellidos}">Perez</span> |
+                    <a href="#">Ver cedula</a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

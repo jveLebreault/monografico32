@@ -1,15 +1,17 @@
 package ug.monografico32.model;
 
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Created by Jose Elias on 25/10/2016.
  */
-public abstract class Persona {
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Persona implements Serializable{
 
     @Id @GeneratedValue
     private Long id;
@@ -24,15 +26,18 @@ public abstract class Persona {
     private String apellidos;
     
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Estado estado; //activo, inactivo etc...
 
-    public Persona(){}
+    public Persona(){
+        this.estado = Estado.PENDIENTE_APROBACION;
+    }
 
     public Persona(Long id, String nombres, String apellidos){
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.estado = Estado.ACTIVO;
+        this.estado = Estado.PENDIENTE_APROBACION;
     }
 
     public Persona(String nombres, String apellidos){

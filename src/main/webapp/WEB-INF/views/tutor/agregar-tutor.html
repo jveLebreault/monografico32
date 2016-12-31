@@ -3,13 +3,67 @@
     <head data-th-replace="~{/agregar-persona::header('Agregar tutor')}">
         <meta charset="UTF-8">
         <title>Agregar tutor</title>
+        <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
 
     <body>
-        <h3>Agregar tutor</h3>
+        <div class="container">
+            <h3>Agregar tutor</h3>
+            <p> <strong>Estudiante:</strong><br/>
+                <span data-th-text="${estudiante.nombres}">Juan</span>
+                <span data-th-text="${estudiante.apellidos}">Perez</span>
+            </p>
+
+            <div id="tutores" data-th-fragment="tutores">
+                <strong data-th-if="${#lists.isEmpty(estudiante.tutores)}">Debe de proveer por lo menos 1 tutor</strong>
+                <strong data-th-unless="${#lists.isEmpty(estudiante.tutores)}">Tutor(es):</strong>
+                <p data-th-each="tutor : ${estudiante.tutores}">
+                    <span data-th-text="${tutor.nombres}">Padre</span>
+                    <span data-th-text="${tutor.apellidos}">Perez</span>
+                </p>
+            </div>
+        </div>
+
+        <form id="tutorForm" class="form-horizontal" method="post" data-th-object="${tutor}" enctype="multipart/form-data" data-th-action="${flowExecutionUrl}">
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3"
+                     data-th-insert="~{/agregar-persona::#persona}">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="form-group">
+                        <label class="control-label" for="tutor-cedula">Cedula:</label>
+                        <input class="" type="file" name="tutor-cedula" id="tutor-cedula" required="required"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input id="mas-tutores" class="col-md-2 col-md-offset-3 btn btn-info" type="submit"
+                       name="_eventId_agregarTutor" value="Guardar y agregar otro tutor" />
+                <input class="col-md-1 col-md-offset-3 btn btn-info" type="submit" name="_eventId_siguiente" value="Siguiente >>" />
+            </div>
+
+            <div class="form-group">
+
+            </div>
+
+
+        </form>
+
+
+
         <script data-th-replace="~{/agregar-persona::#jquery}"></script>
         <script data-th-replace="~{/agregar-persona::#bootstrap}"></script>
-        <script data-th-src="@{/resources/js/agregar-estudiante.js}"
-                src="../../../resources/js/agregar-estudiante.js"></script>
+        <script type="text/javascript" data-th-src="@{/resources/dojo/dojo.js}"></script>
+        <script type="text/javascript" data-th-src="@{/resources/spring/Spring.js}"></script>
+        <script type="text/javascript" data-th-src="@{/resources/spring/Spring-Dojo.js}"></script>
+        <script type="text/javascript">
+            Spring.addDecoration(
+                    new Spring.AjaxEventDecoration({formId:'tutorForm',elementId:'mas-tutores',event:'onclick'}));
+        </script>
     </body>
 </html>

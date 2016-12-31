@@ -2,7 +2,9 @@ package ug.monografico32.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
@@ -13,17 +15,21 @@ import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
+import org.springframework.webflow.persistence.JpaFlowExecutionListener;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.webflow.view.AjaxThymeleafViewResolver;
 import org.thymeleaf.spring4.webflow.view.FlowAjaxThymeleafView;
+
+import javax.persistence.EntityManagerFactory;
+import javax.transaction.TransactionManager;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Jose Elias on 08/12/2016.
  */
-//TODO Fix the issue with the path of the template/flow
 @Configuration
+@ComponentScan
 public class WebFlowConfig extends AbstractFlowConfiguration {
 
     @Autowired
@@ -33,22 +39,25 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowDefinitionRegistry flowRegistry(){
 
         return getFlowDefinitionRegistryBuilder(flowBuilderServices()).
-                setBasePath("/WEB-INF/views").
-                addFlowLocation("/estudiante/agregar-flow.xml", "estudiante/agregar").
-                //addFlowLocationPattern("/**/*-flow.xml").
-                build();
+               setBasePath("/WEB-INF/views").
+               addFlowLocation("/estudiante/agregar-flow.xml", "estudiante/agregar").
+               build();
     }
 
     @Bean
-    public FlowExecutor flowExecutor(){
+    public FlowExecutor flowExecutor(JpaFlowExecutionListener flowExecutionListener){
         return getFlowExecutorBuilder(flowRegistry()).
-                build();
+               addFlowExecutionListener(flowExecutionListener).
+               setMaxFlowExecutions(5).
+               setMaxFlowExecutionSnapshots(10).
+               build();
     }
 
     @Bean
-    public FlowHandlerAdapter flowHandlerAdapter(){
+    public FlowHandlerAdapter flowHandlerAdapter(JpaFlowExecutionListener listener){
         FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
-        handlerAdapter.setFlowExecutor(flowExecutor());
+        handlerAdapter.setFlowExecutor(flowExecutor(listener));
+        handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
         return handlerAdapter;
     }
 
@@ -56,7 +65,6 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowHandlerMapping flowHandlerMapping(){
         FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
         handlerMapping.setFlowRegistry(flowRegistry());
-        //handlerMapping.setOrder();
         handlerMapping.setOrder(0);
         return handlerMapping;
     }
@@ -67,7 +75,6 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
         viewResolver.setViewClass(FlowAjaxThymeleafView.class);
         viewResolver.setTemplateEngine(webConfig.templateEngine());
         viewResolver.setOrder(0);
-        //viewResolver.
         return viewResolver;
     }
 
@@ -79,9 +86,6 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 
         MvcViewFactoryCreator viewFactoryCreator = new MvcViewFactoryCreator();
         viewFactoryCreator.setViewResolvers(list);
-        //viewFactoryCreator.setDefaultViewSuffix(".html");
-        //viewFactoryCreator.
-        //viewFactoryCreator.
         return viewFactoryCreator;
     }
 
@@ -96,6 +100,12 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public Validator validator(){
         return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public JpaFlowExecutionListener jpaFlowExecutionListener(EntityManagerFactory emf,
+                                                             PlatformTransactionManager tx){
+        return new JpaFlowExecutionListener(emf, tx);
     }
 
 }

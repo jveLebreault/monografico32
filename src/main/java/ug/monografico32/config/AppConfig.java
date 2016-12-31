@@ -22,7 +22,7 @@ import ug.monografico32.model.aws.URLSignerWrapper;
  */
 @Configuration
 @PropertySource("classpath:/aws/cloudfront.properties")
-//@ComponentScan( basePackageClasses = EstudianteController.class)
+@ComponentScan( basePackages = {"ug.monografico32.model"})
 public class AppConfig {
     
     @Autowired

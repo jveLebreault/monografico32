@@ -9,4 +9,8 @@ public class EstudianteMedia extends Estudiante {
 
     @NotNull
     private CloudDocument certificadoEducacionBasica;
+
+    public EstudianteMedia(){
+        super();
+    }
 }

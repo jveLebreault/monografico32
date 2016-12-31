@@ -41,12 +41,19 @@
     </dependency>
 
     <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.0.Final</version>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.5.Final</version>
     </dependency>
 
     <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.40</version>
+    </dependency>
+
+
+      <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>4.3.3.RELEASE</version>
@@ -70,8 +77,15 @@
         <version>2.4.4.RELEASE</version>
     </dependency>
 
-
     <dependency>
+        <groupId>org.springframework.webflow</groupId>
+        <artifactId>spring-js</artifactId>
+        <version>2.4.4.RELEASE</version>
+    </dependency>
+
+
+
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
         <version>4.3.3.RELEASE</version>

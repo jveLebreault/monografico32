@@ -1,47 +1,56 @@
 package ug.monografico32.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import javax.validation.Valid;
 
 /**
  * Created by Jose Elias on 25/10/2016.
  */
 //TODO: A custom validation to validate the existence of documents from transfered students
+@Entity
 public class Estudiante extends Persona implements Serializable{
 
-    @NotNull
-    private CloudDocument foto;
+    /*private CloudDocument foto;
 
-    @NotNull
     private CloudDocument certificadoMedico;
 
-    @NotNull
-    private CloudDocument actaNacimiento;
-
-    @NotNull
-    @Size(min = 1)
-    @Valid
-    private List<Tutor> tutores;
+    private CloudDocument actaNacimiento;*/
 
     @NotNull
     private boolean transferido;
-    private CloudDocument recordNotaTransferido;
-    private CloudDocument certificadoBuenaConductaTransferido;
+    /*private CloudDocument recordNotaTransferido;
+    private CloudDocument certificadoBuenaConductaTransferido;*/
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tutor> tutores;
+    {tutores = new ArrayList<>();}
+
+    @ManyToMany( mappedBy = "estudiantes")
+    private List<Curso> cursos;
+    {cursos = new ArrayList<>();}
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CloudDocument> documents;
+    {documents = new HashSet<>();}
     
-    public Estudiante(){}
+    public Estudiante(){
+        super();
+    }
     
     public Estudiante(String nombres, String apellidos, CloudDocument foto, 
                 CloudDocument certificadoMedico, CloudDocument actaNacimiento){
         super(nombres,apellidos);
-        this.foto = foto;
+        /*this.foto = foto;
         this.certificadoMedico = certificadoMedico;
-        this.actaNacimiento = actaNacimiento;
-        tutores = new ArrayList<>();
+        this.actaNacimiento = actaNacimiento;*/
+        /*tutores = new ArrayList<>();
+        cursos = new ArrayList<>();*/
         this.transferido = false;
+        documents.addAll( Arrays.asList(foto, certificadoMedico, actaNacimiento) );
     }
     
     public Estudiante(String nombres, String apellidos, CloudDocument foto, 
@@ -51,8 +60,10 @@ public class Estudiante extends Persona implements Serializable{
         
         this(nombres, apellidos, foto, certificadoMedico, actaNacimiento);
         this.transferido = true;
-        this.recordNotaTransferido = recordNotaTransferido;
-        this.certificadoBuenaConductaTransferido = certificadoConductaTransferido;
+        documents.addAll( Arrays.asList(recordNotaTransferido,
+                            certificadoConductaTransferido) );
+        /*this.recordNotaTransferido = recordNotaTransferido;
+        this.certificadoBuenaConductaTransferido = certificadoConductaTransferido;*/
     }
     
     public void setTutores(List<Tutor> tutores){
@@ -84,7 +95,7 @@ public class Estudiante extends Persona implements Serializable{
         this.transferido = transferido;
     }
 
-    public void setFoto(CloudDocument foto){
+    /*public void setFoto(CloudDocument foto){
         this.foto = foto;
     }
 
@@ -122,5 +133,46 @@ public class Estudiante extends Persona implements Serializable{
 
     public CloudDocument getCertificadoBuenaConductaTransferido(){
         return certificadoBuenaConductaTransferido;
+    }
+
+    public void setCursos(List<Curso> cursos){
+        this.cursos = cursos;
+    }*/
+    public void setCursos(List<Curso> cursos){
+        this.cursos = cursos;
+    }
+
+    public List<Curso> getCursos(){
+        return cursos;
+    }
+
+    public boolean agregarCurso(Curso curso){
+        return cursos.add(curso);
+    }
+
+    public boolean eliminarCurso(final Curso curso){
+        return cursos.removeIf( (Curso c)->
+                                c.getId().equals( curso.getId() ) );
+    }
+
+    public void setDocuments(Set<CloudDocument> docs){
+        this.documents = docs;
+    }
+
+    public Set<CloudDocument> getDocuments(){
+        return documents;
+    }
+
+    public boolean agregarDocumentos(CloudDocument... docs){
+        return documents.addAll( Arrays.asList(docs) );
+    }
+
+    public boolean agregarDocumento(CloudDocument doc){
+        return documents.add(doc);
+    }
+
+    public boolean eliminarDocumento(final CloudDocument doc){
+        return documents.removeIf( (d)->
+                                    d.equals(doc) );
     }
 }

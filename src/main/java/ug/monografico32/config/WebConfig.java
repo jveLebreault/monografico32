@@ -33,8 +33,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "ug.monografico32.controller",
-        basePackageClasses = WebFlowConfig.class)
+@ComponentScan(basePackages = "ug.monografico32.controller"/*,
+        basePackageClasses = WebFlowConfig.class*/)
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -51,8 +51,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
-                .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic());
+        registry.addResourceHandler("/resources/**").
+                addResourceLocations("/resources/").
+                addResourceLocations("classpath:/META-INF/web-resources/").
+                setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).
+                cachePublic());
     }
 
     @Bean
@@ -76,25 +79,6 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         viewResolver.setOrder(1);
         return viewResolver;
     }
-
-    /*@Bean
-    public AjaxThymeleafViewResolver thymeleafViewResolver(){
-        AjaxThymeleafViewResolver viewResolver = new AjaxThymeleafViewResolver();
-        viewResolver.setViewClass(FlowAjaxThymeleafView.class);
-        viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setOrder(2);
-        return viewResolver;
-    }
-
-    @Bean
-    public MvcViewFactoryCreator mvcViewFactoryCreator(){
-        ViewResolver[] resolvers = new ViewResolver[] {thymeleafViewResolver()};
-        List<ViewResolver> list = Arrays.asList( resolvers );
-
-        MvcViewFactoryCreator viewFactoryCreator = new MvcViewFactoryCreator();
-        viewFactoryCreator.setViewResolvers(list);
-        return viewFactoryCreator;
-    }*/
 
     @Bean
     public SpringTemplateEngine templateEngine() {

@@ -9,8 +9,7 @@ import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -24,36 +23,42 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
  */
 @CursoGradoValido
 @FechaInicioFinalValida
+@Entity
 public class Curso {
 
     @Id @GeneratedValue
     private Long id;
     
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Nivel nivel;
     
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Grado grado;
     
     @Size(min = 1, max =5)
     @NotNull
     private String seccion;
     
-    //@NotNull
+    @ManyToMany( cascade = CascadeType.ALL)
     @Valid
     private List<Estudiante> estudiantes;
     
     @NotNull
     @Valid
+    @OneToOne(cascade = CascadeType.ALL)
     private Docente docenteEncargado;
     //private Set<Asignaturas> asignaturas;
     
     @Future
     @NotNull
+    @Temporal( TemporalType.DATE )
     private Instant fechaInicio;
     
     @Future
     @NotNull
+    @Temporal( TemporalType.DATE )
     private Instant fechaFinal;
     
     public Curso(){}

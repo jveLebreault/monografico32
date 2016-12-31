@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-replace="~{/agregar-persona::header('Crear curso')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Crear curso</h2>
+        <form class="form-horizontal" method="post" data-th-object="${curso}">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <label class="control-label" for="nivel">Nivel:</label>
+                    <select class="form-control" id="nivel" name="nivel" data-th-field="*{nivel}">
+                        <option data-th-each="nivel : ${T (ug.monografico32.model.Nivel).values()}"
+                                data-th-value="${nivel}" data-th-text="${nivel}">Niveles</option>
+                        <option data-th-remove="all">Inicial</option>
+                        <option data-th-remove="all">Basica</option>
+                        <option data-th-remove="all">Media</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="grado">Grado:</label>
+                    <select name="grado" id="grado" data-th-field="*{grado}">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="seccion">Seccion: </label>
+                    <input class="form-control" id="seccion" type="text" data-th-field="*{seccion}" minlength="1" maxlength="5"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="fecha-inicio">Fecha de inicio:</label>
+                    <input class="form-control" type="date" id="fecha-inicio" name="fecha-inicio" data-th-field="*{fechaInicio}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="fecha-final">Fecha final:</label>
+                    <input class="form-control" type="date" id="fecha-final" name="fecha-final" data-th-field="*{fechaFinal}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="encargado">Docente encargado:</label>
+                    <select class="form-control" id="encargado" name="encargado">
+                        <option>Profesor 1</option>
+                        <option>Profesor 2</option>
+                        <option>Profesor 3</option>
+                        <option>Profesor 4</option>
+                        <option>Profesor 5</option>
+                        <option>Profesor 6</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary pull-right" value="Crear"/>
+                </div>
+            </div>
+        </form>
+    </div>
+<!--TODO: Add validation facilities on this form
+    TODO: Add dynamic behavior on change of the nivel option-->
+</body>
+</html>

@@ -3,20 +3,70 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    <persistence-context />
 
     <var name="estudiante" class="ug.monografico32.model.Estudiante"/>
+    <var name="documents" class="java.util.EnumMap<ug.monografico32.model.DocumentType,
+                                    org.springframework.web.multipart.MultipartFile>"/>
 
     <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante">
         <binder>
             <binding property="nombres"/>
             <binding property="apellidos"/>
+            <binding property="transferido"/>
         </binder>
-        <transition on="crear" to="agregarTutor"/>
+        <transition on="crear" to="keepFiles">
+            <evaluate expression="documents.put(DocumentType.FOTO,requestParameters.estudiante-foto)"/>
+            <evaluate expression="documents.add(DocumentType.CERTIFICADO_MEDICO,requestParameters.certificado-Medico)"/>
+            <evaluate expression="documents.add(DocumentType.ACTA_NACIMIENTO,requestParameters.acta-Nacimiento)"/>
+        </transition>
     </view-state>
-    
-    <view-state id="agregarTutor" view="/tutor/agregar-tutor">
+
+    <decision-state id="keepFiles">
+        <if test="estudiante.transferido" then="documentosTransferidos" else="agregarTutor"/>
+    </decision-state>
+
+    <action-state id="documentosTransferidos">
+        <evaluate expression="documents.add(requestParameters.record-NotaTransferido)"/>
+        <evaluate expression="documents.add(requestParameters.certificadoBuenaConducta)"/>
+    </action-state>
+
+    <view-state id="agregarTutor" view="tutor/agregar-tutor" model="tutor">
         <var name="tutor" class="ug.monografico32.model.Tutor"/>
-        <transition on="masTutores" to="agregarTutor"/>
-        <transition on="terminarTutores" to=""/>
+
+        <binder>
+            <binding property="nombres"/>
+            <binding property="apellidos"/>
+        </binder>
+
+        <on-render>
+            <set name="tutor" value="new ug.monografico32.model.Tutor()"/>
+        </on-render>
+
+        <transition on="agregarTutor">
+            <evaluate expression="estudiante.agregarTutor(tutor)"/>
+            <render fragments="tutores"/>
+        </transition>
+        
+        <transition on="siguiente" to="evaluarTutores"/>
     </view-state>
+
+    <decision-state id="evaluarTutores">
+        <if test="estudiante.tutores.size() > 0" then="persist" else="agregarTutor"/>
+
+    </decision-state>
+
+    <action-state id="persist">
+        <evaluate expression="persistenceContext.persist(estudiante)" />
+        <!--<evaluate expression="persistenceContext.flush()"/>-->
+        <!--<evaluate expression="persistenceContext.getTransaction().commit()"/>-->
+        <!--<evaluate expression="persistenceContext.close()"/>-->
+        <transition to="estudiante-detalle" />
+    </action-state>
+
+    <end-state id="estudiante-detalle" view="estudiante/estudiante-detalle" commit="true"/>
+    <!--<end-state id="estudiante-detalle" view="externalRedirect:estudiante/detalle">
+        <output name="estudiante" value="estudiante"/>
+    </end-state>-->
+    <!--TODO: Create class to upload files and put them with their owner object-->
 </flow>
