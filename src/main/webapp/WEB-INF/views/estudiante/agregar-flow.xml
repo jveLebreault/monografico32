@@ -3,11 +3,13 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
-    <persistence-context />
+    <persistence-context /> 
 
     <var name="estudiante" class="ug.monografico32.model.Estudiante"/>
-    <var name="documents" class="java.util.EnumMap<ug.monografico32.model.DocumentType,
-                                    org.springframework.web.multipart.MultipartFile>"/>
+    <!--<var name="documents" class="java.util.EnumMap<ug.monografico32.model.DocumentType,
+                                  org.springframework.web.multipart.MultipartFile>"/>-->
+    <!--<var name="documents" class="java.util.EnumMap"/>-->
+    
 
     <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante">
         <binder>
@@ -15,21 +17,23 @@
             <binding property="apellidos"/>
             <binding property="transferido"/>
         </binder>
-        <transition on="crear" to="keepFiles">
-            <evaluate expression="documents.put(DocumentType.FOTO,requestParameters.estudiante-foto)"/>
+        <transition on="crear" to="agregarTutor">
+            <evaluate expression="T(ug.monografico32.util.WebflowUtils).getEstudianteFiles(flowRequestContext)"
+            result="flowScope.documents"/>
+            <!--<evaluate expression="documents.put(DocumentType.FOTO,requestParameters.estudiante-foto)"/>
             <evaluate expression="documents.add(DocumentType.CERTIFICADO_MEDICO,requestParameters.certificado-Medico)"/>
-            <evaluate expression="documents.add(DocumentType.ACTA_NACIMIENTO,requestParameters.acta-Nacimiento)"/>
+            <evaluate expression="documents.add(DocumentType.ACTA_NACIMIENTO,requestParameters.acta-Nacimiento)"/>-->
         </transition>
     </view-state>
 
-    <decision-state id="keepFiles">
+    <!--<decision-state id="keepFiles">
         <if test="estudiante.transferido" then="documentosTransferidos" else="agregarTutor"/>
-    </decision-state>
+    </decision-state>-->
 
-    <action-state id="documentosTransferidos">
+    <!--<action-state id="documentosTransferidos">
         <evaluate expression="documents.add(requestParameters.record-NotaTransferido)"/>
         <evaluate expression="documents.add(requestParameters.certificadoBuenaConducta)"/>
-    </action-state>
+    </action-state>-->
 
     <view-state id="agregarTutor" view="tutor/agregar-tutor" model="tutor">
         <var name="tutor" class="ug.monografico32.model.Tutor"/>
@@ -57,7 +61,11 @@
     </decision-state>
 
     <action-state id="persist">
+        
         <evaluate expression="persistenceContext.persist(estudiante)" />
+        <evaluate expression="fileUploader.uploadFilesMap(documents, estudiante)" 
+                  result="requestScope.fileSet"/>
+        <evaluate expression="estudiante.setDocuments(fileSet)"/>
         <!--<evaluate expression="persistenceContext.flush()"/>-->
         <!--<evaluate expression="persistenceContext.getTransaction().commit()"/>-->
         <!--<evaluate expression="persistenceContext.close()"/>-->

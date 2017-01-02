@@ -35,11 +35,11 @@ public class EstudianteController {
         this.repository = repository;
     }
 
-    @GetMapping( path = "/{id}")
+    /*@GetMapping( path = "/{id}")
     public String showById(@PathVariable Long id, Model model){
         model.addAttribute( repository.findById(id) );
         return "estudiante/estudiante-detalle";
-    }
+    }*/
 
     /*@GetMapping(path = "/detalle")
     public String verDetalles(Estudiante estudiante, Model model){

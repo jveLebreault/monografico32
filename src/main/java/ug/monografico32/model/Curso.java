@@ -53,12 +53,12 @@ public class Curso {
     
     @Future
     @NotNull
-    @Temporal( TemporalType.DATE )
+    //@Temporal( TemporalType.DATE )
     private Instant fechaInicio;
     
     @Future
     @NotNull
-    @Temporal( TemporalType.DATE )
+    //@Temporal( TemporalType.DATE )
     private Instant fechaFinal;
     
     public Curso(){}
