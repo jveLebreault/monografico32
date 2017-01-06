@@ -6,10 +6,6 @@
     <persistence-context /> 
 
     <var name="estudiante" class="ug.monografico32.model.Estudiante"/>
-    <!--<var name="documents" class="java.util.EnumMap<ug.monografico32.model.DocumentType,
-                                  org.springframework.web.multipart.MultipartFile>"/>-->
-    <!--<var name="documents" class="java.util.EnumMap"/>-->
-    
 
     <view-state id="agregar-estudiante" model="estudiante" view="/estudiante/agregar-estudiante">
         <binder>
@@ -19,24 +15,16 @@
         </binder>
         <transition on="crear" to="agregarTutor">
             <evaluate expression="T(ug.monografico32.util.WebflowUtils).getEstudianteFiles(flowRequestContext)"
-            result="flowScope.documents"/>
-            <!--<evaluate expression="documents.put(DocumentType.FOTO,requestParameters.estudiante-foto)"/>
-            <evaluate expression="documents.add(DocumentType.CERTIFICADO_MEDICO,requestParameters.certificado-Medico)"/>
-            <evaluate expression="documents.add(DocumentType.ACTA_NACIMIENTO,requestParameters.acta-Nacimiento)"/>-->
+                      result="flowScope.documents"/>
+
+            <evaluate expression="T(ug.monografico32.util.WebflowUtils).getTutorFileMap()"
+                      result="flowScope.tutorFileMap"/>
         </transition>
     </view-state>
 
-    <!--<decision-state id="keepFiles">
-        <if test="estudiante.transferido" then="documentosTransferidos" else="agregarTutor"/>
-    </decision-state>-->
-
-    <!--<action-state id="documentosTransferidos">
-        <evaluate expression="documents.add(requestParameters.record-NotaTransferido)"/>
-        <evaluate expression="documents.add(requestParameters.certificadoBuenaConducta)"/>
-    </action-state>-->
-
     <view-state id="agregarTutor" view="tutor/agregar-tutor" model="tutor">
         <var name="tutor" class="ug.monografico32.model.Tutor"/>
+
 
         <binder>
             <binding property="nombres"/>
@@ -47,34 +35,38 @@
             <set name="tutor" value="new ug.monografico32.model.Tutor()"/>
         </on-render>
 
-        <transition on="agregarTutor">
-            <evaluate expression="estudiante.agregarTutor(tutor)"/>
-            <render fragments="tutores"/>
+        <transition on="agregarTutor" to="agregarTutor">
+            <evaluate expression="tutorFileMap.put(tutor,
+                                  flowRequestContext.getRequestParameters().getRequiredMultipartFile('tutor-cedula').getBytes())"/>
         </transition>
         
         <transition on="siguiente" to="evaluarTutores"/>
     </view-state>
 
     <decision-state id="evaluarTutores">
-        <if test="estudiante.tutores.size() > 0" then="persist" else="agregarTutor"/>
-
+        <if test="tutorFileMap.size() > 0" then="persist" else="agregarTutor"/>
     </decision-state>
 
     <action-state id="persist">
-        
+        <evaluate expression="T(ug.monografico32.util.WebflowUtils).
+                              extractTutorList(tutorFileMap)" result="flashScope.tutorList"/>
+
+        <evaluate expression="estudiante.setTutores(tutorList)" />
+
         <evaluate expression="persistenceContext.persist(estudiante)" />
-        <evaluate expression="fileUploader.uploadFilesMap(documents, estudiante)" 
-                  result="requestScope.fileSet"/>
+
+        <evaluate expression="fileUploader.uploadFilesMap(documents, estudiante)"
+                  result="flashScope.fileSet"/>
+
         <evaluate expression="estudiante.setDocuments(fileSet)"/>
-        <!--<evaluate expression="persistenceContext.flush()"/>-->
-        <!--<evaluate expression="persistenceContext.getTransaction().commit()"/>-->
-        <!--<evaluate expression="persistenceContext.close()"/>-->
-        <transition to="estudiante-detalle" />
+
+        <evaluate expression="fileUploader.uploadTutorFiles(estudiante.getTutores(),
+                              tutorFileMap)">
+            <attribute name="name" value="persist"/>
+        </evaluate>
+
+        <transition on="persist.success" to="estudiante-detalle"/>
     </action-state>
 
     <end-state id="estudiante-detalle" view="estudiante/estudiante-detalle" commit="true"/>
-    <!--<end-state id="estudiante-detalle" view="externalRedirect:estudiante/detalle">
-        <output name="estudiante" value="estudiante"/>
-    </end-state>-->
-    <!--TODO: Create class to upload files and put them with their owner object-->
 </flow>

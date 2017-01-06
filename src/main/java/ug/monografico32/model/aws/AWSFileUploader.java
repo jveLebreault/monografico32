@@ -5,17 +5,12 @@ import java.io.ByteArrayInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ug.monografico32.model.AmazonS3Document;
-import ug.monografico32.model.CloudDocument;
-import ug.monografico32.model.DocumentType;
-import ug.monografico32.model.Persona;
+import ug.monografico32.model.*;
 import ug.monografico32.util.IFileUploader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,13 +37,12 @@ public class AWSFileUploader implements IFileUploader {
         return new AmazonS3Document(sb.toString() ,t);
     }
 
-    public void deleteDocument(AmazonS3Document document){
+    public void deleteFile(AmazonS3Document document){
         s3Client.deleteObject(AMAZON_S3_BUCKET, document.getDocumentKey());
     }
     
     public Set<CloudDocument> uploadFilesMap(EnumMap<DocumentType, byte[]> 
                                              files, Persona p){
-        
         Set<CloudDocument> documents = new HashSet<>();
         
         files.entrySet().stream().forEach(e -> {
@@ -60,6 +54,7 @@ public class AWSFileUploader implements IFileUploader {
                 Logger.getLogger(AWSFileUploader.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+
         return documents;
     }
     
@@ -67,5 +62,14 @@ public class AWSFileUploader implements IFileUploader {
                                           files, Persona p, DocumentType key) throws IOException{
         ByteArrayInputStream is = new ByteArrayInputStream(files.get(key));
         return uploadFile( is, p, key);
+    }
+
+    public void uploadTutorFiles(List<Tutor> tutores, Map<Tutor, byte[]> map) throws IOException {
+
+        for(Tutor t : tutores ){
+            ByteArrayInputStream is = new ByteArrayInputStream( map.get(t) );
+            t.setCedula( uploadFile(is, t, DocumentType.CEDULA) );
+        }
+
     }
 }

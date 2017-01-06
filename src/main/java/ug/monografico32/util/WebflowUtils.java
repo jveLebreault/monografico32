@@ -5,13 +5,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.webflow.execution.RequestContext;
 import ug.monografico32.model.DocumentType;
 
-import java.util.EnumMap;
+import java.util.*;
+
 import org.springframework.webflow.core.collection.ParameterMap;
+import ug.monografico32.model.Tutor;
 
 /**
  * Created by Jose Elias on 31/12/2016.
  */
-//TODO: get files from context and save in map to eventually proccess these files and the end of the flow
 public class WebflowUtils {
 
     public static EnumMap getEstudianteFiles(RequestContext context) throws IOException{
@@ -37,7 +38,6 @@ public class WebflowUtils {
                     parameters.getRequiredMultipartFile("record-NotaTransferido").getBytes());
         }
         
-
         return documents;
     }
     
@@ -50,4 +50,17 @@ public class WebflowUtils {
                     parameters.getRequiredMultipartFile("tutor-cedula").getBytes());
         return files;
     }
+
+    public static List<Tutor> extractTutorList(Map<Tutor, byte[]> map){
+        List<Tutor> tutorList = new ArrayList<Tutor>();
+
+        map.forEach((tutor, file) -> tutorList.add(tutor) );
+
+        return tutorList;
+    }
+
+    public static Map<Tutor, byte[]> getTutorFileMap(){
+        return new HashMap<Tutor, byte[]>();
+    }
+
 }

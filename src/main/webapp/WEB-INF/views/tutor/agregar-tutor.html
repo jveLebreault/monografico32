@@ -15,11 +15,11 @@
             </p>
 
             <div id="tutores" data-th-fragment="tutores">
-                <strong data-th-if="${#lists.isEmpty(estudiante.tutores)}">Debe de proveer por lo menos 1 tutor</strong>
-                <strong data-th-unless="${#lists.isEmpty(estudiante.tutores)}">Tutor(es):</strong>
-                <p data-th-each="tutor : ${estudiante.tutores}">
-                    <span data-th-text="${tutor.nombres}">Padre</span>
-                    <span data-th-text="${tutor.apellidos}">Perez</span>
+                <strong data-th-if="${#maps.isEmpty(tutorFileMap)}">Debe de proveer por lo menos 1 tutor</strong>
+                <strong data-th-unless="${#maps.isEmpty(tutorFileMap)}">Tutor(es):</strong>
+                <p data-th-each="entry : ${tutorFileMap}">
+                    <span data-th-text="${entry.key.nombres}">Padre</span>
+                    <span data-th-text="${entry.key.apellidos}">Perez</span>
                 </p>
             </div>
         </div>
@@ -62,8 +62,8 @@
         <script type="text/javascript" data-th-src="@{/resources/spring/Spring.js}"></script>
         <script type="text/javascript" data-th-src="@{/resources/spring/Spring-Dojo.js}"></script>
         <script type="text/javascript">
-            Spring.addDecoration(
-                    new Spring.AjaxEventDecoration({formId:'tutorForm',elementId:'mas-tutores',event:'onclick'}));
+            /*Spring.addDecoration(
+                    new Spring.AjaxEventDecoration({formId:'tutorForm',elementId:'mas-tutores',event:'onclick'}));*/
         </script>
     </body>
 </html>
