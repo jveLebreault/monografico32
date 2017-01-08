@@ -25,7 +25,6 @@
     <view-state id="agregarTutor" view="tutor/agregar-tutor" model="tutor">
         <var name="tutor" class="ug.monografico32.model.Tutor"/>
 
-
         <binder>
             <binding property="nombres"/>
             <binding property="apellidos"/>
@@ -40,7 +39,7 @@
                                   flowRequestContext.getRequestParameters().getRequiredMultipartFile('tutor-cedula').getBytes())"/>
         </transition>
         
-        <transition on="siguiente" to="evaluarTutores"/>
+        <transition on="siguiente" to="evaluarTutores" validate="false" bind="false"/>
     </view-state>
 
     <decision-state id="evaluarTutores">
