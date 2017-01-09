@@ -17,6 +17,7 @@ public abstract class CloudDocument {
     private String documentKey;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private DocumentType documentType;
 
     @Override
@@ -29,7 +30,7 @@ public abstract class CloudDocument {
 
         CloudDocument doc = (CloudDocument) obj;
 
-        return( this.documentKey == doc.getDocumentKey() );
+        return( this.documentKey.equals( doc.getDocumentKey() ));
     }
 
     @Override
@@ -45,6 +46,8 @@ public abstract class CloudDocument {
     public CloudDocument(DocumentType dType){
         this.documentType = dType;
     }
+    
+    public CloudDocument(){}
 
     public void setDocumentKey(String documentKey){
         this.documentKey = documentKey;
@@ -61,4 +64,5 @@ public abstract class CloudDocument {
     public DocumentType getDocumentType(){
         return documentType;
     }
+    
 }

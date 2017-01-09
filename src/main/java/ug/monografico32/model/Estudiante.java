@@ -25,15 +25,19 @@ public class Estudiante extends Persona implements Serializable{
     /*private CloudDocument recordNotaTransferido;
     private CloudDocument certificadoBuenaConductaTransferido;*/
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Tutor> tutores;
     {tutores = new ArrayList<>();}
 
     @ManyToMany( mappedBy = "estudiantes")
     private List<Curso> cursos;
     {cursos = new ArrayList<>();}
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    
+    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Map<DocumentType, CloudDocument> documents;
+    {documents = new EnumMap(DocumentType.class);}*/
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<CloudDocument> documents;
     {documents = new HashSet<>();}
     

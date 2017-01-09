@@ -20,17 +20,20 @@
                     <strong>Estado: </strong>
                     <span data-th-text="*{estado}">Inactivo</span>
                 </p>
-
+                <br/>
                 <div id="documentos">
-                    <p>
-                        <a href="#">Ver Foto</a> <br/>
-                        <a href="#">Ver Certificado medico</a><br/>
-                        <a href="#">Ver Acta de nacimiento</a><br/>
+                    <h4>Documentos</h4>
+                    <p data-th-each="document : *{documents}">
+                        <a href="#" data-th-href="${document.getDocumentURL()}" 
+                           data-th-text="|Ver ${document.documentType.getLiteral()}|"
+                           target="_blank">Ver Foto</a>
+                        <a href="#" data-th-remove="all">Ver Certificado medico</a>
+                        <a href="#" data-th-remove="all">Ver Acta de nacimiento</a>
                     </p>
-                    <p data-th-if="*{transferido}">
+                    <!--<p data-th-if="*{transferido}">
                         <a href="#">Ver Record de notas transferido</a> <br/>
                         <a href="#">Ver Certificado de buena conducta</a><br/>
-                    </p>
+                    </p>-->
                 </div>
             </div>
 
