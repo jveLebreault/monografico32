@@ -27,7 +27,7 @@ public class AWSFileUploader implements IFileUploader {
 
     //document key: callerId/documentType
     @Override
-    public CloudDocument uploadFile(InputStream file, Persona p, DocumentType t) 
+    public AmazonS3Document uploadFile(InputStream file, Persona p, DocumentType t)
                                                             throws IOException {
 
         StringBuilder sb = new StringBuilder();
@@ -41,24 +41,23 @@ public class AWSFileUploader implements IFileUploader {
         s3Client.deleteObject(AMAZON_S3_BUCKET, document.getDocumentKey());
     }
     
-    public Set<CloudDocument> uploadFilesMap(EnumMap<DocumentType, byte[]> 
+    public Set<AmazonS3Document> uploadFilesMap(EnumMap<DocumentType, byte[]>
                                              files, Persona p){
-        Set<CloudDocument> documents = new HashSet<>();
+        Set<AmazonS3Document> documents = new HashSet<>();
         
         files.entrySet().stream().forEach(e -> {
             try {
-                CloudDocument doc = uploadFile(
+                AmazonS3Document doc = uploadFile(
                         new ByteArrayInputStream( e.getValue() ), p, e.getKey()); 
                 documents.add( doc );
             } catch (IOException ex) {
                 Logger.getLogger(AWSFileUploader.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
         return documents;
     }
     
-    public CloudDocument uploadSingleFile(EnumMap<DocumentType, byte[]> 
+    public AmazonS3Document uploadSingleFile(EnumMap<DocumentType, byte[]>
                                           files, Persona p, DocumentType key) throws IOException{
         ByteArrayInputStream is = new ByteArrayInputStream(files.get(key));
         return uploadFile( is, p, key);
@@ -70,6 +69,5 @@ public class AWSFileUploader implements IFileUploader {
             ByteArrayInputStream is = new ByteArrayInputStream( map.get(t) );
             t.setCedula( uploadFile(is, t, DocumentType.CEDULA) );
         }
-
     }
 }

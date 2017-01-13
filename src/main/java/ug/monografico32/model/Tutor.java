@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Tutor extends Persona implements Serializable{
 
     @OneToOne( cascade = CascadeType.ALL ,orphanRemoval = true)
-    private CloudDocument cedula;
+    private AmazonS3Document cedula;
 
     public Tutor(){
         super();
@@ -22,11 +22,11 @@ public class Tutor extends Persona implements Serializable{
         super(nombres, apellidos);
     }
 
-    public void setCedula(CloudDocument cedula){
+    public void setCedula(AmazonS3Document cedula){
         this.cedula = cedula;
     }
 
-    public CloudDocument getCedula(){
+    public AmazonS3Document getCedula(){
         return cedula;
     }
 }

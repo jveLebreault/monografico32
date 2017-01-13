@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
  * Created by Jose Elias on 24/11/2016.
  */
 @Entity
+//@MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class CloudDocument {
 

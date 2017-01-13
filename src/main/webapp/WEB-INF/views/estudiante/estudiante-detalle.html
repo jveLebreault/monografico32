@@ -24,7 +24,7 @@
                 <div id="documentos">
                     <h4>Documentos</h4>
                     <p data-th-each="document : *{documents}">
-                        <a href="#" data-th-href="${document.getDocumentURL()}" 
+                        <a href="#" data-th-href="${document.getDocumentURL()}"
                            data-th-text="|Ver ${document.documentType.getLiteral()}|"
                            target="_blank">Ver Foto</a>
                         <a href="#" data-th-remove="all">Ver Certificado medico</a>

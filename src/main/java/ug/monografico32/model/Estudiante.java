@@ -38,15 +38,15 @@ public class Estudiante extends Persona implements Serializable{
     {documents = new EnumMap(DocumentType.class);}*/
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<CloudDocument> documents;
+    private Set<AmazonS3Document> documents;
     {documents = new HashSet<>();}
     
     public Estudiante(){
         super();
     }
     
-    public Estudiante(String nombres, String apellidos, CloudDocument foto, 
-                CloudDocument certificadoMedico, CloudDocument actaNacimiento){
+    public Estudiante(String nombres, String apellidos, AmazonS3Document foto,
+                      AmazonS3Document certificadoMedico, AmazonS3Document actaNacimiento){
         super(nombres,apellidos);
         /*this.foto = foto;
         this.certificadoMedico = certificadoMedico;
@@ -57,10 +57,10 @@ public class Estudiante extends Persona implements Serializable{
         documents.addAll( Arrays.asList(foto, certificadoMedico, actaNacimiento) );
     }
     
-    public Estudiante(String nombres, String apellidos, CloudDocument foto, 
-                CloudDocument certificadoMedico, CloudDocument actaNacimiento, 
-                CloudDocument recordNotaTransferido, 
-                CloudDocument certificadoConductaTransferido){
+    public Estudiante(String nombres, String apellidos, AmazonS3Document foto,
+                      AmazonS3Document certificadoMedico, AmazonS3Document actaNacimiento,
+                      AmazonS3Document recordNotaTransferido,
+                      AmazonS3Document certificadoConductaTransferido){
         
         this(nombres, apellidos, foto, certificadoMedico, actaNacimiento);
         this.transferido = true;
@@ -159,23 +159,23 @@ public class Estudiante extends Persona implements Serializable{
                                 c.getId().equals( curso.getId() ) );
     }
 
-    public void setDocuments(Set<CloudDocument> docs){
+    public void setDocuments(Set<AmazonS3Document> docs){
         this.documents = docs;
     }
 
-    public Set<CloudDocument> getDocuments(){
+    public Set<AmazonS3Document> getDocuments(){
         return documents;
     }
 
-    public boolean agregarDocumentos(CloudDocument... docs){
+    public boolean agregarDocumentos(AmazonS3Document... docs){
         return documents.addAll( Arrays.asList(docs) );
     }
 
-    public boolean agregarDocumento(CloudDocument doc){
+    public boolean agregarDocumento(AmazonS3Document doc){
         return documents.add(doc);
     }
 
-    public boolean eliminarDocumento(final CloudDocument doc){
+    public boolean eliminarDocumento(final AmazonS3Document doc){
         return documents.removeIf( (d)->
                                     d.equals(doc) );
     }
