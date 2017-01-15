@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ug.monografico32.model.Curso;
 
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import ug.monografico32.dao.CursoRepository;
+import ug.monografico32.dao.DocenteRepository;
 
 /**
  * Created by Jose Elias on 20/12/2016.
@@ -16,6 +19,12 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(path = "/curso")
 public class CursoController {
+    
+    @Autowired
+    private CursoRepository cursoRepository;
+    
+    @Autowired
+    private DocenteRepository docenteRepository;
 
 
     @GetMapping(path = "/agregar")
@@ -32,6 +41,7 @@ public class CursoController {
             return "curso/agregar-curso";
         }
         //TODO: persist curso after succesful creation
+        cursoRepository.save(curso);
         return "curso/curso-detalle";
 
     }
