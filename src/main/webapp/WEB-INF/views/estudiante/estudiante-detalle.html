@@ -24,16 +24,12 @@
                 <div id="documentos">
                     <h4>Documentos</h4>
                     <p data-th-each="document : *{documents}">
-                        <a href="#" data-th-href="${document.getDocumentURL()}"
+                        <a href="#" data-th-href="${@urlSignerWrapper.getURLFor(document.documentKey)}"
                            data-th-text="|Ver ${document.documentType.getLiteral()}|"
                            target="_blank">Ver Foto</a>
                         <a href="#" data-th-remove="all">Ver Certificado medico</a>
                         <a href="#" data-th-remove="all">Ver Acta de nacimiento</a>
                     </p>
-                    <!--<p data-th-if="*{transferido}">
-                        <a href="#">Ver Record de notas transferido</a> <br/>
-                        <a href="#">Ver Certificado de buena conducta</a><br/>
-                    </p>-->
                 </div>
             </div>
 
@@ -42,7 +38,8 @@
                 <p data-th-each="tutor : ${estudiante.tutores}">
                     <span data-th-text="${tutor.nombres}">Padre</span>
                     <span data-th-text="${tutor.apellidos}">Perez</span> |
-                    <a href="#">Ver cedula</a>
+                    <a href="#" target="_blank"
+                       data-th-href="${@urlSignerWrapper.getURLFor(tutor.cedula.documentKey)}">Ver cedula</a>
                 </p>
             </div>
         </div>

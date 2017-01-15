@@ -15,17 +15,18 @@
                     <select class="form-control" id="nivel" name="nivel" data-th-field="*{nivel}">
                         <option data-th-each="nivel : ${T (ug.monografico32.model.Nivel).values()}"
                                 data-th-value="${nivel}" data-th-text="${nivel}">Niveles</option>
-                        <option data-th-remove="all">Inicial</option>
-                        <option data-th-remove="all">Basica</option>
-                        <option data-th-remove="all">Media</option>
+                        <option value="" data-th-remove="all">Inicial</option>
+                        <option value="" data-th-remove="all">Basica</option>
+                        <option value="" data-th-remove="all">Media</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="grado">Grado:</label>
-                    <select name="grado" id="grado" data-th-field="*{grado}">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control" name="grado" id="grado" data-th-field="*{grado}">
+                        <option data-th-each="grado : ${T (ug.monografico32.model.Grado).values()}"
+                                data-th-value="${grado}" data-th-text="${grado.getLiteral()}">1</option>
+                        <option value="" data-th-remove="all">2</option>
+                        <option value="" data-th-remove="all">3</option>
                     </select>
                 </div>
 

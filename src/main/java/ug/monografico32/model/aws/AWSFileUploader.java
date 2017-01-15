@@ -1,6 +1,8 @@
 package ug.monografico32.model.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import eu.medsea.mimeutil.MimeUtil;
 import java.io.ByteArrayInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +26,25 @@ public class AWSFileUploader implements IFileUploader {
 
     @Autowired
     private AmazonS3 s3Client;
+    
+    public AWSFileUploader(AmazonS3 s3Client){
+        this.s3Client = s3Client;
+        MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+        MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.OpendesktopMimeDetector");
+    }
 
     //document key: callerId/documentType
     @Override
     public AmazonS3Document uploadFile(InputStream file, Persona p, DocumentType t)
                                                             throws IOException {
-
+        ObjectMetadata metadata = new ObjectMetadata();
+        String mimeType = MimeUtil.getMimeTypes(file).toArray()[0].toString();
+        System.out.println(mimeType);
+        metadata.setContentType(mimeType);
         StringBuilder sb = new StringBuilder();
         sb.append(p.getId()).append("/").append(t.name());
 
-        s3Client.putObject(AMAZON_S3_BUCKET, sb.toString(), file, null);
+        s3Client.putObject(AMAZON_S3_BUCKET, sb.toString(), file, metadata);
         return new AmazonS3Document(sb.toString() ,t);
     }
 
