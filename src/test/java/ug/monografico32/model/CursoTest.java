@@ -8,6 +8,7 @@ package ug.monografico32.model;
 import java.time.temporal.ChronoUnit;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -33,20 +34,20 @@ public class CursoTest {
         return new Docente("Juan", "Perez");
     }
     
-    public Instant getFechaInicio(){
-        return Instant.now().plus(1, ChronoUnit.DAYS);
+    public Date getFechaInicio(){
+        return Date.from( Instant.now().plus(1, ChronoUnit.DAYS) );
     }
     
-    public Instant getFechaFinal(){
-        return Instant.now().plus(3, ChronoUnit.DAYS);
+    public Date getFechaFinal(){
+        return Date.from(Instant.now().plus(3, ChronoUnit.DAYS));
     }
     
     @Test
     public void nivelInicialGradoConstraintTest() {
         
         Docente encargado = getDocenteEncargado();
-        Instant inicio = getFechaInicio();
-        Instant fin = getFechaFinal();
+        Date inicio = getFechaInicio();
+        Date fin = getFechaFinal();
         
         Curso c = new Curso(Nivel.INICIAL, Grado.SEPTIMO, "B", encargado, 
                 inicio, fin);
@@ -61,8 +62,8 @@ public class CursoTest {
     @Test
     public void nivelBasicoGradoConstraintTest(){
         Docente encargado = getDocenteEncargado();
-        Instant inicio = getFechaInicio();
-        Instant fin = getFechaFinal();
+        Date inicio = getFechaInicio();
+        Date fin = getFechaFinal();
         
         Curso c = new Curso(Nivel.BASICA, Grado.KINDER, "B", encargado, 
                 inicio, fin);
@@ -77,8 +78,8 @@ public class CursoTest {
     @Test
     public void nivelMedioGradoConstraintTest(){
         Docente encargado = getDocenteEncargado();
-        Instant inicio = getFechaInicio();
-        Instant fin = getFechaFinal();
+        Date inicio = getFechaInicio();
+        Date fin = getFechaFinal();
         
         Curso c = new Curso(Nivel.MEDIA, Grado.PRE_PRIMARIO, "B", encargado, 
                 inicio, fin);
@@ -94,8 +95,8 @@ public class CursoTest {
     public void fechaInicioFinalConstraintTest(){
 
         Docente encargado = getDocenteEncargado();
-        Instant inicio = getFechaInicio();
-        Instant fin = getFechaFinal();
+        Date inicio = getFechaInicio();
+        Date fin = getFechaFinal();
 
         Curso c = new Curso(Nivel.INICIAL, Grado.KINDER, "A", encargado, fin, inicio);
 

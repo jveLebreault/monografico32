@@ -8,12 +8,15 @@ package ug.monografico32.model;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import ug.monografico32.model.validation.constraints.annotations.CursoGradoValido;
 import ug.monografico32.model.validation.constraints.annotations.FechaInicioFinalValida;
 
@@ -53,18 +56,23 @@ public class Curso {
     
     @Future
     @NotNull
-    //@Temporal( TemporalType.DATE )
-    private Instant fechaInicio;
+    @Temporal( TemporalType.DATE )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaInicio;
+    //private Instant fechaInicio;
     
     @Future
     @NotNull
-    //@Temporal( TemporalType.DATE )
-    private Instant fechaFinal;
+    @Temporal( TemporalType.DATE )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaFinal;
+    //private Instant fechaFinal;
+
     
     public Curso(){}
     
     public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
-                Instant inicio, Instant termino){
+                Date inicio, Date termino){
         this.nivel = nivel;
         this.grado = grado;
         this.seccion = seccion;
@@ -132,19 +140,19 @@ public class Curso {
         return docenteEncargado;
     }
     
-    public void setFechaInicio(Instant inicio){
+    public void setFechaInicio(Date inicio){
         this.fechaInicio = inicio;
     }
     
-    public Instant getFechaInicio(){
+    public Date getFechaInicio(){
         return fechaInicio;
     }
     
-    public void setFechaFinal(Instant fin){
+    public void setFechaFinal(Date fin){
         this.fechaFinal = fin;
     }
     
-    public Instant getFechaFinal(){
+    public Date getFechaFinal(){
         return fechaFinal;
     }
     

@@ -13,5 +13,7 @@ import ug.monografico32.model.Curso;
  * @author Administrador
  */
 public interface CursoRepository extends JpaRepository<Curso, Long>{
+
+    public Curso findById(Long id);
     
 }

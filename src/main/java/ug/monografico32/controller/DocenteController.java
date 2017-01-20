@@ -42,9 +42,7 @@ public class DocenteController {
             return "docente/agregar-docente";
 
         docente = repository.save(docente);
-        //model.addAttribute(docente);
-        return "docente/docente-detalle";
-
+        return "redirect:"+docente.getId();
     }
 
     @GetMapping( path = "/{id}")

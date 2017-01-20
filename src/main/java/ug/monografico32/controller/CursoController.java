@@ -3,9 +3,8 @@ package ug.monografico32.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 import ug.monografico32.model.Curso;
 
 import javax.validation.Valid;
@@ -31,18 +30,32 @@ public class CursoController {
     public String agregarCurso(Model model){
 
         model.addAttribute( new Curso() );
+        model.addAttribute("docentes", docenteRepository.findAll() );
         return "curso/agregar-curso";
     }
 
     @PostMapping(path = "/agregar")
-    public String procesarCurso(@Valid Curso curso, BindingResult bindingResult){
+    public String procesarCurso(@Valid Curso curso, BindingResult bindingResult,
+                                @RequestParam("docenteEncargado")Long docenteId){
+
+        System.out.println("docenteId: "+docenteId);
 
         if ( bindingResult.hasErrors() ){
+            System.out.println("Errors: ");
+            for(ObjectError err : bindingResult.getAllErrors()){
+                System.out.println(err.toString());
+            }
             return "curso/agregar-curso";
         }
-        //TODO: persist curso after succesful creation
-        cursoRepository.save(curso);
-        return "curso/curso-detalle";
+        curso = cursoRepository.save(curso);
+        return "redirect:"+curso.getId();
+    }
 
+    @GetMapping(path = "/{id}")
+    public String verDetalle(@PathVariable Long id, Model model){
+        Curso curso = cursoRepository.findById(id);
+
+        model.addAttribute(curso);
+        return "curso/ver-detalle";
     }
 }
