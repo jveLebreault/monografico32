@@ -28,7 +28,7 @@ public class CursoController {
 
     @GetMapping(path = "/agregar")
     public String agregarCurso(Model model){
-
+        
         model.addAttribute( new Curso() );
         model.addAttribute("docentes", docenteRepository.findAll() );
         return "curso/agregar-curso";
@@ -36,16 +36,17 @@ public class CursoController {
 
     @PostMapping(path = "/agregar")
     public String procesarCurso(@Valid Curso curso, BindingResult bindingResult,
-                                @RequestParam("docenteEncargado")Long docenteId){
+                                Model model){
 
-        System.out.println("docenteId: "+docenteId);
-        System.out.println( "Es Long:? " + (docenteId instanceof Long));
+        /*System.out.println("docenteId: "+docenteId);
+        System.out.println( "Es Long:? " + (docenteId instanceof Long));*/
 
         if ( bindingResult.hasErrors() ){
-            System.out.println("Errors: ");
+            /*System.out.println("Errors: ");
             for(ObjectError err : bindingResult.getAllErrors()){
                 System.out.println(err.toString());
-            }
+            }*/
+            model.addAttribute("docentes", docenteRepository.findAll() );
             return "curso/agregar-curso";
         }
         curso = cursoRepository.save(curso);

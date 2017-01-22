@@ -27,7 +27,7 @@ import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import ug.monografico32.dao.DocenteRepository;
-import ug.monografico32.util.converter.LongToDocente;
+import ug.monografico32.util.converter.StringToDocenteConverter;
 
 /**
  * Created by Jose Elias on 24/10/2016.
@@ -105,7 +105,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
  
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter( new LongToDocente(docenteRepo) );
+        registry.addConverter( new StringToDocenteConverter(docenteRepo) );
     }
     
     /*@Bean

@@ -14,12 +14,12 @@ import ug.monografico32.model.Docente;
  *
  * @author Administrador
  */
-public class LongToDocente implements Converter<String, Docente>{
+public class StringToDocenteConverter implements Converter<String, Docente>{
         
     @Autowired
     private DocenteRepository repository;
     
-    public LongToDocente(DocenteRepository repository){
+    public StringToDocenteConverter(DocenteRepository repository){
         this.repository = repository;
     }
     
@@ -27,11 +27,8 @@ public class LongToDocente implements Converter<String, Docente>{
     public Docente convert(String s) {
         if((s == null) || s.isEmpty() )
             throw new IllegalArgumentException();
-        if( repository == null)
-            System.out.println("Repository null");
         
         Long id = Long.parseLong(s);
-        System.out.println("LongToDocente: "+id);
         return repository.findById(id);
     }
     
