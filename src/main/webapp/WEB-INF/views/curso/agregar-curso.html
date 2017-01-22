@@ -54,7 +54,9 @@
 
                 <div class="form-group">
                     <label class="control-label" for="docenteEncargado">Docente encargado:</label>
-                    <select class="form-control" id="docenteEncargado" name="docenteEncargado" data-th-errorclass="f-error">
+                    <select class="form-control" id="docenteEncargado" 
+                            name="docenteEncargado" data-th-errorclass="f-error"
+                            data-th-field="*{docenteEncargado}">
                         <option data-th-each="docente : ${docentes}"
                                 data-th-value="${docente.id}" data-th-text="|${docente.nombres} ${docente.apellidos}|">Profesor 1</option>
                         <option value="" data-th-remove="all">Profesor 2</option>

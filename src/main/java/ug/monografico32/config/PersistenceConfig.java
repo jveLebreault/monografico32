@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
-import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -29,12 +28,6 @@ public class PersistenceConfig {
     public DataSource datasource(){
         return new JndiDataSourceLookup().getDataSource("jdbc/monografico32DB");
     }
-   /* @Bean
-    public JndiObjectFactoryBean entityManagerFactory(){
-        JndiObjectFactoryBean jndiObject = new JndiObjectFactoryBean();
-        jndiObject.setJndiName("jdbc/monografico32DB");
-        return jndiObject;
-    }*/
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){

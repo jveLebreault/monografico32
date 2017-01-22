@@ -50,7 +50,7 @@ public class Curso {
     
     @NotNull
     @Valid
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Docente docenteEncargado;
     //private Set<Asignaturas> asignaturas;
     

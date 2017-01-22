@@ -1,6 +1,7 @@
 package ug.monografico32.config;
 
-import org.springframework.beans.BeansException;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -16,17 +17,17 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.spring4.webflow.view.AjaxThymeleafViewResolver;
-import org.thymeleaf.spring4.webflow.view.FlowAjaxThymeleafView;
 import org.thymeleaf.templatemode.TemplateMode;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
+import ug.monografico32.dao.DocenteRepository;
+import ug.monografico32.util.converter.LongToDocente;
 
 /**
  * Created by Jose Elias on 24/10/2016.
@@ -38,7 +39,10 @@ import java.util.concurrent.TimeUnit;
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
-
+    
+    @Autowired
+    private DocenteRepository docenteRepo;
+    
     @Override
     public void setApplicationContext(ApplicationContext applicationContext){
         this.applicationContext = applicationContext;
@@ -98,4 +102,27 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         templateResolver.setCacheable(false);
         return templateResolver;
     }
+ 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter( new LongToDocente(docenteRepo) );
+    }
+    
+    /*@Bean
+    public LongToDocente aa(DocenteRepository repository){
+        return new LongToDocente(repository);
+    }*/
+    
+    /*@Bean( name = "conversionService")
+    public ConversionServiceFactoryBean getConversionService(DocenteRepository repository){
+        ConversionServiceFactoryBean conversionService = new ConversionServiceFactoryBean();
+        
+        LongToDocente longToDocenteConverter = new LongToDocente(repository);
+        
+        Set<Converter> converters = new HashSet<>();
+        converters.add(longToDocenteConverter);
+        
+        conversionService.setConverters(converters);
+        return conversionService;
+    }*/
 }

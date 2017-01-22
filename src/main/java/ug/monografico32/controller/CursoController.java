@@ -39,6 +39,7 @@ public class CursoController {
                                 @RequestParam("docenteEncargado")Long docenteId){
 
         System.out.println("docenteId: "+docenteId);
+        System.out.println( "Es Long:? " + (docenteId instanceof Long));
 
         if ( bindingResult.hasErrors() ){
             System.out.println("Errors: ");
@@ -56,6 +57,6 @@ public class CursoController {
         Curso curso = cursoRepository.findById(id);
 
         model.addAttribute(curso);
-        return "curso/ver-detalle";
+        return "curso/curso-detalle";
     }
 }
