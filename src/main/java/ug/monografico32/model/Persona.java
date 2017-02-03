@@ -67,6 +67,10 @@ public abstract class Persona implements Serializable{
     public String getApellidos(){
         return apellidos;
     }
+
+    public String getNombreCompleto(){
+        return nombres+" "+apellidos;
+    }
     
     public void setEstado(Estado estado){
         this.estado = estado;

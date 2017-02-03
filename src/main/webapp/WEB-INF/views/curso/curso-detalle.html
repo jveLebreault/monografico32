@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head data-th-replace="~{/agregar-persona::header('Detalles del curso')}">
+<head data-th-replace="~{/agregar-persona::header('Detalle del curso')}">
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <span data-th-text="|${curso.nivel} ${curso.grado}|"></span>
+
+    <div class="container">
+        <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
+        <h2 data-th-text="${curso.grado.literal}">Kinder <small data-th-text="${curso.seccion}">Seccion: a</small></h2>
+        <p class="pull-right">
+            <b>Periodo desde:</b><br/>
+            <span data-th-text="${curso.fechaInicio}">01/01/2017</span>
+            <span>hasta</span>
+            <span data-th-text="${curso.fechaFinal}">10/10/2017</span>
+        </p>
+        <p>
+            <b>Docente encargado:</b>
+            <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
+        </p>
+        <p>
+            <a href="#">Ver estudiantes inscritos</a>
+        </p>
+    </div>
+    <div class="container">
+        <h3>Horario</h3>
+    </div>
 </body>
 </html>

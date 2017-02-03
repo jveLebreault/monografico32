@@ -52,21 +52,18 @@ public class Curso {
     @Valid
     @OneToOne(cascade = CascadeType.MERGE)
     private Docente docenteEncargado;
-    //private Set<Asignaturas> asignaturas;
     
     @Future
     @NotNull
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicio;
-    //private Instant fechaInicio;
     
     @Future
     @NotNull
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinal;
-    //private Instant fechaFinal;
 
     
     public Curso(){}
