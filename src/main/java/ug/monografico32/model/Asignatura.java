@@ -8,6 +8,11 @@ public class Asignatura {
     private String nombre;
     private String clave;
 
+    Asignatura(String nombre, String clave) {
+        this.nombre = nombre;
+        this.clave = clave;
+    }
+
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
