@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
@@ -64,6 +65,9 @@ public class Curso {
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinal;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<Clase> clases;
 
     
     public Curso(){}
@@ -151,6 +155,23 @@ public class Curso {
     
     public Date getFechaFinal(){
         return fechaFinal;
+    }
+
+    public void setClases(Set<Clase> clases){
+        this.clases = clases;
+    }
+
+    public Set<Clase> getClases(){
+        return clases;
+    }
+
+    //TODO: Verify if a class colides
+    public boolean agregarClase(Clase clase){
+        return clases.add(clase);
+    }
+
+    public boolean eliminarClase(Clase clase){
+        return clases.remove(clase);
     }
     
 }
