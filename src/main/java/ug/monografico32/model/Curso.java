@@ -5,6 +5,7 @@
  */
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
 @CursoGradoValido
 @FechaInicioFinalValida
 @Entity
-public class Curso {
+public class Curso implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
@@ -45,13 +46,13 @@ public class Curso {
     @NotNull
     private String seccion;
     
-    @ManyToMany( cascade = CascadeType.ALL)
+    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Valid
     private List<Estudiante> estudiantes;
     
     @NotNull
     @Valid
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Docente docenteEncargado;
     
     @Future
@@ -67,6 +68,7 @@ public class Curso {
     private Date fechaFinal;
 
     @ElementCollection(fetch = FetchType.LAZY)
+    @OneToMany
     private Set<Clase> clases;
 
     

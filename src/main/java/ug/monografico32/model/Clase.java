@@ -1,20 +1,33 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Jose Elias on 28/01/2017.
  */
-public class Clase {
-
+@Entity
+public class Clase implements Serializable {
+    
+    @Id @GeneratedValue
+    private Long id;
+    
+    @NotNull
     private Asignatura asignatura;
-
+    
+    @NotNull
     private Docente instructor;
-
+    
+    @ElementCollection
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
     
@@ -62,6 +75,7 @@ public class Clase {
         
         if(colisiones.size()>0){
             SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+            
             StringBuilder bld = new StringBuilder();
             bld.append("Colisiones detectadas en: ");
             

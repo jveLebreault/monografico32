@@ -1,7 +1,9 @@
 package ug.monografico32.model;
 
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 /**
  * Created by Jose Elias on 25/10/2016.
@@ -9,8 +11,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Docente extends Persona{
 
-    @OneToOne(mappedBy = "docenteEncargado")
-    private Curso cursoEncargado;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Curso> cursosEncargado;
 
     public Docente(){
         super();
@@ -20,11 +22,11 @@ public class Docente extends Persona{
         super(nombres, apellidos);
     }
 
-    public void setCursoEncargado(Curso curso){
-        this.cursoEncargado = curso;
+    public void setCursoEncargado(List<Curso> curso){
+        this.cursosEncargado = curso;
     }
 
-    public Curso getCursoEncargado(){
-        return cursoEncargado;
+    public List<Curso> getCursoEncargado(){
+        return cursosEncargado;
     }
 }

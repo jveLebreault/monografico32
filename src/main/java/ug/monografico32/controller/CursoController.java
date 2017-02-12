@@ -1,5 +1,6 @@
 package ug.monografico32.controller;
 
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,5 +60,13 @@ public class CursoController {
 
         model.addAttribute(curso);
         return "curso/curso-detalle";
+    }
+    
+    @GetMapping(path = "/all")
+    public String verTodos(Model model){
+        List<Curso>cursos = cursoRepository.findAll();
+        
+        model.addAttribute(cursos);
+        return "curso/ver-todos";
     }
 }

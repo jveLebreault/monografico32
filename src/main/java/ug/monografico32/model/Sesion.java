@@ -1,21 +1,30 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.DayOfWeek;
 import java.util.Date;
+import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Created by Jose Elias on 01/02/2017.
  */
-public class Sesion {
+@Embeddable
+public class Sesion implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private DayOfWeek dia;
-
+    
+    @Temporal(TemporalType.TIME)
     private Date horaInicio;
-
+    
+    @Temporal(TemporalType.TIME)
     private Date horaFinal;
+
+    public Sesion() {}
     
     public Sesion(DayOfWeek dia, Date inicio, Date fin){
         this.dia = dia;

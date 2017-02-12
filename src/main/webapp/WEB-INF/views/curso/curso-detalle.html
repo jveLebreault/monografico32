@@ -9,7 +9,7 @@
 
     <div class="container">
         <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
-        <h2 data-th-text="${curso.grado.literal}">Kinder <small data-th-text="${curso.seccion}">Seccion: a</small></h2>
+        <span class="h2" data-th-text="${curso.grado.literal}">Kinder</span><span class="h2"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
         <p class="pull-right">
             <b>Periodo desde:</b><br/>
             <span data-th-text="${curso.fechaInicio}">01/01/2017</span>
