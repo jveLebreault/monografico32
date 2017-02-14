@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Crear nueva asignatura')}">
+    <meta charset="UTF-8">
+    <title>Nueva asignatura</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+
+</head>
+<body>
+    <div class="container">
+        <h3>Nueva asignatura</h3>
+        <form class="form-horizontal" method="post" data-th-object="${asignatura}">
+            <div class="col-md-7 col-md-offset-2">
+                <div class="form-group">
+                    <label class="control-label" for="nombre-asignatura">Nombre:</label>
+                    <input class="form-control" type="text" name="nombre-asignatura" id="nombre-asignatura"
+                           data-th-field="*{nombre}" minlength="10" maxlength="60"
+                           data-th-errorclass="f-error" required="required"/>
+                    <strong data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}"></strong>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="clave-asignatura">Clave:</label>
+                    <input class="form-control" type="text" name="clave-asignatura" id="clave-asignatura"
+                           data-th-field="*{clave}" minlength="3" maxlength="10"
+                           data-th-errorclass="f-error" required="required"/>
+                    <strong data-th-if="${#fields.hasErrors('clave')}" data-th-errors="*{clave}"></strong>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary"/>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>
