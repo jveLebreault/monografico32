@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<head data-th-replace="~{/agregar-persona::header('Detalles de asignatura')}">
+<head data-th-replace="~{/agregar-persona::header('Todas las asignaturas')}">
     <meta charset="UTF-8">
     <title>Nueva asignatura</title>
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body>
     <div class="container">
-        <h3>Detalle de la asignatura</h3>
-        <div class="well well-sm">
+        <h3>Todas las asignaturas</h3>
+        <div class="well well-sm" data-th-each="asignatura : ${asignaturaList}">
             <strong data-th-text="${asignatura.clave}">Clave</strong><br/>
-            <span data-th-text="${asignatura.nombre}">Nombre</span>
+            <span data-th-text="${asignatura.nombre}">Nombre</span><br/>
+            <a data-th-href="|/asignatura/${asignatura.id}|" href="#">Ver detalles</a>
         </div>
     </div>
 </body>

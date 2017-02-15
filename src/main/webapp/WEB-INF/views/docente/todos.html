@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<head data-th-replace="~{/agregar-persona::header('Todas las asignaturas')}">
+    <meta charset="UTF-8">
+    <title>Nueva asignatura</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
     <body>
-        <div>
+        <div class="container">
             <p data-th-each="docente : ${docentes}">
                 <span data-th-text="${docente.nombres}"></span>
-                <span data-th-text="${docente.apellidos}"></span>
+                <span data-th-text="${docente.apellidos}"></span><br/>
+                <a data-th-href="|/docente/${docente.id}|" href="#">Ver detalles</a>
             </p>
             
         </div>
