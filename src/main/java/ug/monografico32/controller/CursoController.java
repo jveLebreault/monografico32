@@ -56,10 +56,16 @@ public class CursoController {
 
     @GetMapping(path = "/{id}")
     public String verDetalle(@PathVariable Long id, Model model){
-        Curso curso = cursoRepository.findById(id);
+        Curso curso = cursoRepository.findByIdAndFetchClases(id);
 
         model.addAttribute(curso);
         return "curso/curso-detalle";
+    }
+
+    @GetMapping(path = "/{id}/estudiantes")
+    public String verEstudiantes(){
+        //TODO: Make this work dude!!
+        return "";
     }
     
     @GetMapping(path = "/all")

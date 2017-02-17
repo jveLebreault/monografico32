@@ -67,8 +67,8 @@ public class Curso implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinal;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @OneToMany
+    @ElementCollection
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Clase> clases;
 
     

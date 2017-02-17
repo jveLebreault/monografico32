@@ -6,6 +6,8 @@
 package ug.monografico32.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ug.monografico32.model.Curso;
 
 /**
@@ -15,5 +17,11 @@ import ug.monografico32.model.Curso;
 public interface CursoRepository extends JpaRepository<Curso, Long>{
 
     public Curso findById(Long id);
+
+    @Query("SELECT c FROM Curso c LEFT JOIN FETCH c.clases WHERE c.id = ?1")
+    public Curso findByIdAndFetchClases(Long id);
+
+    @Query("SELECT c FROM Curso c JOIN FETCH c.estudiantes WHERE c.id = ?1")
+    public Curso findByIdAndFetchEstudiantes(Long id);
     
 }

@@ -21,11 +21,17 @@
             <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
         </p>
         <p>
-            <a href="#">Ver estudiantes inscritos</a>
+            <a href="#" target="_blank"
+               data-th-href="@{{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
         </p>
     </div>
-    <div class="container">
-        <h3>Horario</h3>
+    <div class="container" data-th-switch="${#sets.isEmpty(curso.getClases())}">
+        <div data-th-case="true">
+            <strong data-th-text="#{noclases}">No class</strong><br/>
+            <a href="#">Agregar clases</a>
+        </div>
+
+        <div data-th-case="false">FALSE</div>
     </div>
 </body>
 </html>

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head data-th-replace="~{/agregar-persona::header('Agregar docente')}">
+    <title>TODO supply a title</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../../../../../../../../Desktop/f2toMe/jquery.js"></script>
 </head>
 <body>
     <div class="container" data-th-object="${docente}">
-        <p>
-            <span data-th-text="*{nombres}"></span>
-            <span data-th-text="*{apellidos}"></span>
+        <h3>Informacion de docente</h3>
+        <p class="well well-lg">
+            <strong data-th-text="*{nombres}">Juana</strong>
+            <strong data-th-text="*{apellidos}">D'arc</strong>
         </p>
     </div>
 </body>
