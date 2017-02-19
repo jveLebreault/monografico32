@@ -7,9 +7,10 @@
 </head>
     <body>
         <div class="container">
-            <p data-th-each="docente : ${docentes}">
-                <span data-th-text="${docente.nombres}"></span>
-                <span data-th-text="${docente.apellidos}"></span><br/>
+            <h3 class="page-header">Lista de docentes</h3>
+            <p class="well well-sm" data-th-each="docente : ${docentes}">
+                <strong data-th-text="${docente.nombres}"></strong>
+                <strong data-th-text="${docente.apellidos}"></strong><br/>
                 <a data-th-href="|/docente/${docente.id}|" href="#">Ver detalles</a>
             </p>
             
