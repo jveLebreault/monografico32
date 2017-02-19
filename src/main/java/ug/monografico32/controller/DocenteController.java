@@ -38,9 +38,9 @@ public class DocenteController {
     @PostMapping(path = "/agregar")
     public String procesarDocente(@Valid Docente docente, BindingResult result, Model model){
 
-        if( result.hasErrors() )
+        if( result.hasErrors() ){
             return "docente/agregar-docente";
-
+        }
         docente = repository.save(docente);
         return "redirect:"+docente.getId();
     }

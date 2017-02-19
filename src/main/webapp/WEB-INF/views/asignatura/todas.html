@@ -8,6 +8,7 @@
 <body>
     <div class="container">
         <h3 class="page-header">Todas las asignaturas</h3>
+        <strong data-th-if="${#lists.isEmpty(asignaturaList)}">No existen asignaturas</strong>
         <div class="well well-sm" data-th-each="asignatura : ${asignaturaList}">
             <strong data-th-text="${asignatura.clave}">Clave</strong><br/>
             <span data-th-text="${asignatura.nombre}">Nombre</span><br/>

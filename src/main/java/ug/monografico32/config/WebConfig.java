@@ -26,7 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.dao.DocenteRepository;
+import ug.monografico32.util.converter.StringToAsignaturaConverter;
 import ug.monografico32.util.converter.StringToDocenteConverter;
 
 /**
@@ -34,14 +36,17 @@ import ug.monografico32.util.converter.StringToDocenteConverter;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "ug.monografico32.controller"/*,
+@ComponentScan(basePackages = {"ug.monografico32.controller", "ug.monografico32.util.converter"}/*,
         basePackageClasses = WebFlowConfig.class*/)
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
     
     @Autowired
-    private DocenteRepository docenteRepo;
+    private DocenteRepository docenteRepository;
+    
+    @Autowired
+    private AsignaturaRepository asignaturaRepository;
     
     @Override
     public void setApplicationContext(ApplicationContext applicationContext){
@@ -105,7 +110,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
  
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter( new StringToDocenteConverter(docenteRepo) );
+        registry.addConverter( new StringToDocenteConverter( docenteRepository) );
+        registry.addConverter( new StringToAsignaturaConverter( asignaturaRepository) );
     }
     
     /*@Bean

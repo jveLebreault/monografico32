@@ -7,6 +7,7 @@ package ug.monografico32.util.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Docente;
 
@@ -19,15 +20,12 @@ public class StringToDocenteConverter implements Converter<String, Docente>{
     @Autowired
     private DocenteRepository repository;
     
-    public StringToDocenteConverter(DocenteRepository repository){
-        this.repository = repository;
+    public StringToDocenteConverter(DocenteRepository repo){
+        this.repository = repo;
     }
     
     @Override
     public Docente convert(String s) {
-        if((s == null) || s.isEmpty() )
-            throw new IllegalArgumentException();
-        
         Long id = Long.parseLong(s);
         return repository.findById(id);
     }

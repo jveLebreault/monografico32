@@ -39,7 +39,7 @@ public class CursoGradoValidator implements ConstraintValidator<CursoGradoValido
                    gradoActual != Grado.PRE_PRIMARIO);
                 
             case MEDIA:
-                return( gradoActual.getOrdinal()<4 && (gradoActual != Grado.KINDER &&
+                return( gradoActual.getOrdinal()<=4 && (gradoActual != Grado.KINDER &&
                     gradoActual != Grado.PRE_PRIMARIO) );
                     
             default:
