@@ -32,12 +32,13 @@ public class DocenteController {
     @GetMapping(path = "/agregar")
     public String agregarDocente(Model model){
         model.addAttribute( new Docente() );
+        System.out.println("docente/agregar @GetMapping");
         return "docente/agregar-docente";
     }
 
     @PostMapping(path = "/agregar")
-    public String procesarDocente(@Valid Docente docente, BindingResult result, Model model){
-
+    public String procesarDocente(@Valid Docente docente, BindingResult result){
+        System.out.println("docente/agregar @PostMapping");
         if( result.hasErrors() ){
             return "docente/agregar-docente";
         }

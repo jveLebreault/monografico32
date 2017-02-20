@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ public class Docente extends Persona{
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Curso> cursosEncargado;
+    {cursosEncargado = new ArrayList<>();}
 
     public Docente(){
         super();
