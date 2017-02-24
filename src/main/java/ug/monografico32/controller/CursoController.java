@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
 
 import javax.validation.Valid;
@@ -41,7 +42,6 @@ public class CursoController {
 
         /*System.out.println("docenteId: "+docenteId);
         System.out.println( "Es Long:? " + (docenteId instanceof Long));*/
-
         if ( bindingResult.hasErrors() ){
             /*System.out.println("Errors: ");
             for(ObjectError err : bindingResult.getAllErrors()){
@@ -62,7 +62,7 @@ public class CursoController {
         return "curso/curso-detalle";
     }
 
-    @GetMapping(path = "/{id}/estudiantes")
+    @GetMapping(path = "/{curso}/estudiantes")
     public String verEstudiantes(){
         //TODO: Make this work dude!!
         return "";
@@ -74,5 +74,12 @@ public class CursoController {
         
         model.addAttribute(cursos);
         return "curso/ver-todos";
+    }
+
+    @GetMapping( path = "/{curso}/clase")
+    public String agregarClase(Model model, @PathVariable Curso curso){
+        model.addAttribute( curso );
+        model.addAttribute( new Clase());
+        return "clase/agregar-clase";
     }
 }

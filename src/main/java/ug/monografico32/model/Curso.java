@@ -175,5 +175,9 @@ public class Curso implements Serializable {
     public boolean eliminarClase(Clase clase){
         return clases.remove(clase);
     }
+
+    public String getGradoSeccion(){
+        return getGrado().getLiteral()+" "+getSeccion();
+    }
     
 }

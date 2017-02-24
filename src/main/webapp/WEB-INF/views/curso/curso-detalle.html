@@ -25,13 +25,14 @@
                data-th-href="@{{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
         </p>
     </div>
-    <div class="container" data-th-switch="${#sets.isEmpty(curso.getClases())}">
-        <div data-th-case="true">
-            <strong data-th-text="#{noclases}">No class</strong><br/>
-            <a href="#">Agregar clases</a>
+    <div class="container" >
+        <div data-th-switch="${#sets.isEmpty(curso.clases)}">
+            <div data-th-case="true">
+                <strong data-th-text="#{noclases}">No class</strong><br/>
+            </div>
+            <div data-th-case="false">FALSE</div>
         </div>
-
-        <div data-th-case="false">FALSE</div>
+        <a href="#" data-th-href="@{{id}/clase(id=${curso.id})}">Agregar clases</a>
     </div>
 </body>
 </html>

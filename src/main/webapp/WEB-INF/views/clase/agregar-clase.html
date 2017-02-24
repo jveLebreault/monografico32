@@ -11,6 +11,11 @@ and open the template in the editor.
         <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="container">
+            <h3 class="page-header" data-th-text="#{clase.agregar(${curso.getGradoSeccion()})}"></h3>
+            <form class="form-horizontal" method="post" data-th-object="${clase}">
+
+            </form>
+        </div>
     </body>
 </html>

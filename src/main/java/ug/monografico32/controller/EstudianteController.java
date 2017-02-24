@@ -35,19 +35,10 @@ public class EstudianteController {
         this.repository = repository;
     }
 
-    @GetMapping( path = "/info/{id}")
+    @GetMapping( path = "/{id}")
     public String showById(@PathVariable Long id, Model model){
         model.addAttribute( repository.findById(id) );
         return "estudiante/estudiante-detalle";
     }
-
-    /*@GetMapping(path = "/detalle")
-    public String verDetalles(Estudiante estudiante, Model model){
-        estudiante = repository.save(estudiante);
-        model.addAttribute(estudiante);
-
-        return "estudiante/estudiante-detalle";
-    }*/
-
 
 }
