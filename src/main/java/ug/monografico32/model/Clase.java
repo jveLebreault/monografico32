@@ -2,7 +2,10 @@ package ug.monografico32.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.CollectionTable;
@@ -17,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Clase implements Serializable {
-    
+
     @Id @GeneratedValue
     private Long id;
     
@@ -31,6 +34,9 @@ public class Clase implements Serializable {
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
     
+    private Map<DayOfWeek, Sesion> sezz;
+    { sezz = new EnumMap<>(DayOfWeek.class);}
+    
     public Clase(){}
     
     public Clase(Asignatura asignatura, Docente instructor){
@@ -43,7 +49,14 @@ public class Clase implements Serializable {
         this.instructor = instructor;
         this.sesiones = sesiones;
     }
+    
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
     public void setAsignatura(Asignatura asignatura) {
         this.asignatura = asignatura;
     }

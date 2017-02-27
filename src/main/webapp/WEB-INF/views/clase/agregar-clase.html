@@ -12,9 +12,31 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-            <h3 class="page-header" data-th-text="#{clase.agregar(${curso.getGradoSeccion()})}"></h3>
-            <form class="form-horizontal" method="post" data-th-object="${clase}">
-
+            <h3 class="page-header" data-th-text="#{clase.agregar(${curso.getGradoSeccion()})}">Agregar clase</h3>
+            <form class="form-horizontal col-md-8 col-md-offset-2" method="post" data-th-object="${clase}">
+                <div class="form-group">
+                    <label class="control-label" for="asignatura">Asignatura:</label>
+                    <select class="form-control" name="asignatura" id="asignatura" data-th-field="*{asignatura}">
+                        <option data-th-each="asignatura : ${asignaturas}"
+                                data-th-value="${asignatura.id}"
+                                data-th-text="|${asignatura.nombre} - ${asignatura.clave}|">Asignatura 1</option>
+                        <option data-th-remove="all" value="">Asignatura 2</option>
+                    </select>
+                    <strong data-th-if="${#fields.hasErrors('asignatura')}" data-th-errors="*{asignatura}"></strong>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="instructor">Instructor:</label>
+                    <select class="form-control" name="instructor" id="instructor" data-th-field="*{instructor}">
+                        <option data-th-each="instructor : ${instructores}"
+                                data-th-value="${instructor.id}"
+                                data-th-text="${instructor.getNombreCompleto()}">Instructor 1</option>
+                        <option data-th-remove="all" value="">Instructor 2</option>
+                    </select>
+                    <strong data-th-if="${#fields.hasErrors('instructor')}" data-th-errors="*{instructor}"></strong>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Crear"/>
+                </div>
             </form>
         </div>
     </body>

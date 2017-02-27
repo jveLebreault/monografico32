@@ -22,7 +22,7 @@
         </p>
         <p>
             <a href="#" target="_blank"
-               data-th-href="@{{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
+               data-th-href="@{/{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
         </p>
     </div>
     <div class="container" >
@@ -32,7 +32,7 @@
             </div>
             <div data-th-case="false">FALSE</div>
         </div>
-        <a href="#" data-th-href="@{{id}/clase(id=${curso.id})}">Agregar clases</a>
+        <a href="#" data-th-href="@{/clase/agregar/{curso}(curso=${curso.id})}">Agregar clases</a>
     </div>
 </body>
 </html>

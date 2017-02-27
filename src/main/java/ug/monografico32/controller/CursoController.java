@@ -76,10 +76,4 @@ public class CursoController {
         return "curso/ver-todos";
     }
 
-    @GetMapping( path = "/{curso}/clase")
-    public String agregarClase(Model model, @PathVariable Curso curso){
-        model.addAttribute( curso );
-        model.addAttribute( new Clase());
-        return "clase/agregar-clase";
-    }
 }

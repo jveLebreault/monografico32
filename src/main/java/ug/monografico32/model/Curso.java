@@ -10,8 +10,10 @@ import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
@@ -168,8 +170,17 @@ public class Curso implements Serializable {
     }
 
     //TODO: Verify if a class colides
-    public boolean agregarClase(Clase clase){
-        return clases.add(clase);
+    public boolean agregarClase(Clase newClase){
+        
+        List<Sesion> colisiones = clases.stream().collect(ArrayList::new, 
+                                (ArrayList list, Clase clase)->list.add( clase.getSesiones() ), 
+                                ArrayList::addAll).
+                                stream().filter( Sesion::checkForCollision ).
+                                collect(Collectors.toList());
+        if(colisiones.size() > 0){
+            return false;
+        }
+        return clases.add(newClase);
     }
 
     public boolean eliminarClase(Clase clase){
