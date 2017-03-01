@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
 
@@ -13,11 +14,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
+import ug.monografico32.model.Docente;
 
 /**
  * Created by Jose Elias on 20/12/2016.
  */
 @Controller
+@SessionAttributes("docentes")
 @RequestMapping(path = "/curso")
 public class CursoController {
     
@@ -38,26 +41,20 @@ public class CursoController {
 
     @PostMapping(path = "/agregar")
     public String procesarCurso(@Valid Curso curso, BindingResult bindingResult,
-                                Model model){
+                                Model model, @ModelAttribute("docentes") List<Docente> docentes,
+                                SessionStatus sessionStatus){
 
-        /*System.out.println("docenteId: "+docenteId);
-        System.out.println( "Es Long:? " + (docenteId instanceof Long));*/
         if ( bindingResult.hasErrors() ){
-            /*System.out.println("Errors: ");
-            for(ObjectError err : bindingResult.getAllErrors()){
-                System.out.println(err.toString());
-            }*/
-            model.addAttribute("docentes", docenteRepository.findAll() );
             return "curso/agregar-curso";
         }
+
         curso = cursoRepository.save(curso);
+        sessionStatus.setComplete();
         return "redirect:"+curso.getId();
     }
 
     @GetMapping(path = "/{id}")
-    public String verDetalle(@PathVariable Long id, Model model){
-        Curso curso = cursoRepository.findByIdAndFetchClases(id);
-
+    public String verDetalle(@PathVariable("id") Curso curso, Model model){
         model.addAttribute(curso);
         return "curso/curso-detalle";
     }

@@ -59,8 +59,8 @@
                             data-th-field="*{docenteEncargado}">
                         <option data-th-each="docente : ${docentes}"
                                 data-th-value="${docente.id}" data-th-text="|${docente.nombres} ${docente.apellidos}|">Profesor 1</option>
-                        <option value="" data-th-remove="all">Profesor 2</option>
-                        <option value="" data-th-remove="all">Profesor 3</option>
+                        <option value="0" data-th-remove="all">Profesor 2</option>
+                        <option value="0" data-th-remove="all">Profesor 3</option>
                     </select>
                     <strong data-th-if="${#fields.hasErrors('docenteEncargado')}" data-th-errors="*{docenteEncargado}"></strong>
                 </div>
