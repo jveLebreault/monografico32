@@ -172,14 +172,14 @@ public class Curso implements Serializable {
     //TODO: Verify if a class colides
     public boolean agregarClase(Clase newClase){
         
-        List<Sesion> colisiones = clases.stream().collect(ArrayList::new, 
+        /*List<Sesion> colisiones = clases.stream().collect(ArrayList::new,
                                 (ArrayList list, Clase clase)->list.add( clase.getSesiones() ), 
                                 ArrayList::addAll).
                                 stream().filter( Sesion::checkForCollision ).
                                 collect(Collectors.toList());
         if(colisiones.size() > 0){
             return false;
-        }
+        }*/
         return clases.add(newClase);
     }
 
@@ -190,5 +190,33 @@ public class Curso implements Serializable {
     public String getGradoSeccion(){
         return getGrado().getLiteral()+" "+getSeccion();
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+
+        if(obj == this)
+            return true;
+        if(obj instanceof Curso){
+            Curso curso = (Curso) obj;
+
+            return ( (this.getNivel().equals(curso.getNivel())) &&
+                     (this.getGrado().equals(curso.getGrado())) &&
+                     (this.getSeccion().equals(curso.getSeccion())) &&
+                     (this.getFechaInicio().equals(curso.getFechaInicio())) &&
+                     (this.getFechaFinal().equals(curso.getFechaFinal())) );
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getNivel().hashCode() +
+                this.getGrado().hashCode() +
+                this.getSeccion().hashCode() +
+                this.getFechaInicio().hashCode() +
+                this.getFechaFinal().hashCode();
+    }
 }

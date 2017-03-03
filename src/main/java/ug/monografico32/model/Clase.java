@@ -34,9 +34,6 @@ public class Clase implements Serializable {
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
     
-    private Map<DayOfWeek, Sesion> sezz;
-    { sezz = new EnumMap<>(DayOfWeek.class);}
-    
     public Clase(){}
     
     public Clase(Asignatura asignatura, Docente instructor){
@@ -105,13 +102,36 @@ public class Clase implements Serializable {
     public boolean removerSesion(Sesion sesion){
         return sesiones.remove(sesion);
     }
-    /**
-     * Package private class to express CollisonExceptions in a Clase Object
-     */
-    class CollisionException extends Exception {
 
-        public CollisionException(String msg) {
-            super(msg);
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+
+        if(obj == this)
+            return true;
+
+        if(obj instanceof Clase){
+            Clase clase = (Clase) obj;
+
+            return ( (this.getAsignatura().equals(clase.getAsignatura())) &&
+                     (this.getInstructor().equals(clase.getInstructor())) );
         }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getAsignatura().hashCode() + this.getInstructor().hashCode();
+    }
+}
+/**
+ * Package private class to express CollisonExceptions in a Clase Object
+ */
+class CollisionException extends Exception {
+
+    public CollisionException(String msg) {
+        super(msg);
     }
 }

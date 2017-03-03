@@ -1,5 +1,7 @@
 package ug.monografico32.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -52,5 +54,26 @@ public class Asignatura implements Serializable {
 
     public String getClave() {
         return clave;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null)
+            return false;
+
+        if(obj == this)
+            return true;
+
+        if(obj instanceof Asignatura){
+            Asignatura param = (Asignatura) obj;
+
+            return (this.getClave().equals(param.getClave()));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getClave().hashCode();
     }
 }

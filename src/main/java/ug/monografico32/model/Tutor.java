@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Jose Elias on 24/11/2016.
  */
 @Entity
-public class Tutor extends Persona implements Serializable{
+public class Tutor extends PersonaLegal implements Serializable{
 
     @OneToOne( cascade = CascadeType.ALL ,orphanRemoval = true)
     private AmazonS3Document cedula;
@@ -18,8 +18,8 @@ public class Tutor extends Persona implements Serializable{
         super();
     }
 
-    public Tutor(String nombres, String apellidos){
-        super(nombres, apellidos);
+    public Tutor(String nombres, String apellidos, String nroCedula){
+        super(nombres, apellidos,nroCedula);
     }
 
     public void setCedula(AmazonS3Document cedula){

@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.OneToMany;
  * Created by Jose Elias on 25/10/2016.
  */
 @Entity
-public class Docente extends Persona{
+public class Docente extends PersonaLegal implements Serializable{
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Curso> cursosEncargado;
@@ -20,8 +21,8 @@ public class Docente extends Persona{
         super();
     }
     
-    public Docente(String nombres, String apellidos){
-        super(nombres, apellidos);
+    public Docente(String nombres, String apellidos, String cedula){
+        super(nombres, apellidos, cedula);
     }
 
     public void setCursoEncargado(List<Curso> curso){
