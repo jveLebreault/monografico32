@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.*;
@@ -169,17 +170,7 @@ public class Curso implements Serializable {
         return clases;
     }
 
-    //TODO: Verify if a class colides
     public boolean agregarClase(Clase newClase){
-        
-        /*List<Sesion> colisiones = clases.stream().collect(ArrayList::new,
-                                (ArrayList list, Clase clase)->list.add( clase.getSesiones() ), 
-                                ArrayList::addAll).
-                                stream().filter( Sesion::checkForCollision ).
-                                collect(Collectors.toList());
-        if(colisiones.size() > 0){
-            return false;
-        }*/
         return clases.add(newClase);
     }
 
@@ -213,10 +204,6 @@ public class Curso implements Serializable {
 
     @Override
     public int hashCode() {
-        return this.getNivel().hashCode() +
-                this.getGrado().hashCode() +
-                this.getSeccion().hashCode() +
-                this.getFechaInicio().hashCode() +
-                this.getFechaFinal().hashCode();
+        return Objects.hash(nivel, grado, seccion, fechaInicio, fechaFinal);
     }
 }

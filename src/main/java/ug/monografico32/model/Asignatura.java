@@ -3,6 +3,7 @@ package ug.monografico32.model;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -74,6 +75,6 @@ public class Asignatura implements Serializable {
 
     @Override
     public int hashCode() {
-        return this.getClave().hashCode();
+        return Objects.hash(clave);
     }
 }

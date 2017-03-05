@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -26,7 +27,7 @@ abstract public class PersonaLegal extends Persona{
     }
 
     public void setNumeroCedula(String cedula) {
-        this.numeroCedula = numeroCedula;
+        this.numeroCedula = cedula;
     }
 
     @Override
@@ -46,6 +47,6 @@ abstract public class PersonaLegal extends Persona{
 
     @Override
     public int hashCode() {
-        return this.getNumeroCedula().hashCode();
+        return Objects.hash(numeroCedula);
     }
 }

@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.util.Objects;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -36,7 +37,7 @@ public abstract class CloudDocument {
 
     @Override
     public int hashCode() {
-        return documentKey.hashCode();
+        return Objects.hash(documentKey);
     }
 
     public CloudDocument(String key, DocumentType dType){

@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.CollectionTable;
@@ -123,7 +124,7 @@ public class Clase implements Serializable {
 
     @Override
     public int hashCode() {
-        return this.getAsignatura().hashCode() + this.getInstructor().hashCode();
+        return Objects.hash(asignatura, instructor);
     }
 }
 /**

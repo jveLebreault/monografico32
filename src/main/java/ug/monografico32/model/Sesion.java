@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.DayOfWeek;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,6 +55,32 @@ public class Sesion implements Serializable {
 
     public Date getHoraFinal() {
         return horaFinal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dia, horaInicio, horaFinal);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(! (obj instanceof Sesion))
+            return false;
+        
+        if (this == obj) 
+            return true;
+        
+        final Sesion other = (Sesion) obj;
+        if (this.dia != other.dia) {
+            return false;
+        }
+        if (!Objects.equals(this.horaInicio, other.horaInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.horaFinal, other.horaFinal)) {
+            return false;
+        }
+        return true;
     }
     
     /**
