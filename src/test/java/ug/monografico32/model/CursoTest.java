@@ -31,7 +31,7 @@ public class CursoTest {
     }
     
     public Docente getDocenteEncargado(){
-        return new Docente("Juan", "Perez");
+        return new Docente("Juan", "Perez", "123456789101");
     }
     
     public Date getFechaInicio(){
