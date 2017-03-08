@@ -55,6 +55,7 @@ public class Clase implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public void setAsignatura(Asignatura asignatura) {
         this.asignatura = asignatura;
     }
@@ -79,25 +80,12 @@ public class Clase implements Serializable {
         return sesiones;
     }
 
-    public boolean agregarSesion(final Sesion sesion) throws CollisionException{
-        Set<Sesion> colisiones = sesiones.stream()
-                            .filter(e -> Sesion.checkForCollision(sesion, e))
-                            .collect(Collectors.toSet());
-        
-        if(colisiones.size()>0){
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-            
-            StringBuilder bld = new StringBuilder();
-            bld.append("Colisiones detectadas en: ");
-            
-            for(Sesion s: sesiones){
-                bld.append(s.getDia()).append(": ").append(df.format(s.getHoraInicio()))
-                   .append("-").append(df.format(s.getHoraFinal())).append(". ");
-            }
-            throw new CollisionException(bld.toString());
-        }
-        
+    public boolean agregarSesion(final Sesion sesion){
         return sesiones.add(sesion);
+    }
+
+    public boolean agregarSesion(final Set<Sesion> sesiones){
+        return sesiones.addAll(sesiones);
     }
 
     public boolean removerSesion(Sesion sesion){

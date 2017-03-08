@@ -71,7 +71,8 @@ public class Sesion implements Serializable {
             return true;
         
         final Sesion other = (Sesion) obj;
-        if (this.dia != other.dia) {
+        return checkForCollision(this, other);
+        /*if (this.dia != other.dia) {
             return false;
         }
         if (!Objects.equals(this.horaInicio, other.horaInicio)) {
@@ -80,7 +81,7 @@ public class Sesion implements Serializable {
         if (!Objects.equals(this.horaFinal, other.horaFinal)) {
             return false;
         }
-        return true;
+        return true;*/
     }
     
     /**
