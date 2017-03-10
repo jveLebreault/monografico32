@@ -20,10 +20,17 @@ public class Horario {
     private Long id;
     
     private List<Clase> clases;
+    {clases = new ArrayList<>();}
     
     @Transient
     private List<Sesion> colisiones;
     {colisiones = new ArrayList<>();}
+
+    public Horario(){}
+
+    public Horario(List<Clase> clases){
+        this.clases = clases;
+    }
 
     public List<Clase> getClases(){
         return clases;
@@ -35,16 +42,6 @@ public class Horario {
 
 
     public boolean agregarClase(Clase newClase){
-
-        List<Sesion> sesionList = getAllSesions();
-
-        colisiones = newClase.getSesiones().stream().
-                filter(sesion -> sesionList.contains(sesion)).
-                collect(Collectors.toList());
-
-        if( colisiones.size() > 0){
-            return false;
-        }
 
         if( clases.contains(newClase) ){
             int index = clases.indexOf(newClase);
@@ -76,4 +73,25 @@ public class Horario {
         return clases.stream().flatMap(clase -> clase.getSesiones().stream()).
                 collect(Collectors.toList());
     }
+
+    public boolean checkForColisions(Clase newClase){
+        clearColisiones();
+        List<Sesion> sesionList = getAllSesions();
+
+        colisiones = newClase.getSesiones().stream().
+                filter(sesion -> sesionList.contains(sesion)).
+                collect(Collectors.toList());
+
+        if( colisiones.size() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public void clearColisiones(){
+        if ( !colisiones.isEmpty() )
+            colisiones.clear();
+    }
+
+
 }

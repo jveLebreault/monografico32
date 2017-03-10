@@ -17,57 +17,45 @@ import static org.junit.Assert.*;
  *
  * @author Administrador
  */
-//Might be better to re write this class as SesionTest and check is  
-//Sesion.checkForCollisions works ok and then make a different test class 
-//to work with actual tests for Clase
-public class ClaseTest {
-    
-    private Asignatura a;
-    private Docente d;
+public class SesionTest {
     
     private Calendar now; 
     private Calendar later;
     
-    /*@Before
+    @Before
     public void setUp(){
-        a = new Asignatura("Biologia","014");
-        d =  new Docente("Juan", "Valcez", "123456789101");
+        /*a = new Asignatura("Biologia","014");
+        d =  new Docente("Juan", "Valcez", "123456789101");*/
         now = Calendar.getInstance();
         later = Calendar.getInstance();
     }
     
-    @Test(expected = CollisionException.class)
+    @Test
     public void sameStartAndFinishTime() throws CollisionException{
-        
-        Clase c = new Clase(a,d);
-        
+
         later.add(Calendar.HOUR, 2);
         
         Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
         Sesion s2 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
-        
-            c.agregarSesion(s1);
-            c.agregarSesion(s2);
+
+        assertTrue( Sesion.checkForCollision(s1,s2) );
         
     }
     
-    @Test(expected = CollisionException.class)
+    @Test
     public void sesionContainsAnother() throws CollisionException{
-        Clase c = new Clase(a,d);
         
         later.add(Calendar.HOUR,4);
         Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
         now.add(Calendar.HOUR, 1);
         later.add(Calendar.HOUR,-2);
         Sesion s2 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
-        
-        c.agregarSesion(s1);
-        c.agregarSesion(s2);
+
+        assertTrue( Sesion.checkForCollision(s1,s2) );
     }
     
-    @Test(expected = CollisionException.class)
+    @Test
     public void sesionColidesPartially() throws CollisionException{
-        Clase c = new Clase(a,d);
         
         later.add(Calendar.HOUR, 2);
         Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
@@ -75,24 +63,9 @@ public class ClaseTest {
         now.add(Calendar.HOUR, 1);
         later.add(Calendar.HOUR, 1);
         Sesion s2 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
-        
-        c.agregarSesion(s1);
-        c.agregarSesion(s2);
+
+        assertTrue( Sesion.checkForCollision(s1,s2) );
+        assertTrue( Sesion.checkForCollision(s2,s1) );
     }
-    
-    @Test
-    public void agregarDosSesiones() throws CollisionException{
-        Clase c = new Clase(a,d);
-        
-        later.add(Calendar.HOUR, 2);
-        Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
-        
-        now.add(Calendar.HOUR,3);
-        later.add(Calendar.HOUR, 5);
-        
-        Sesion s2 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
-        c.agregarSesion(s1);
-        c.agregarSesion(s2);
-        assertTrue(c.getSesiones().size() == 2);
-    }*/
+
 }
