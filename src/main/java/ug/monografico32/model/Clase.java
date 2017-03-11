@@ -85,11 +85,11 @@ public class Clase implements Serializable {
     }
 
     public boolean agregarSesion(final Set<Sesion> sesiones){
-        return sesiones.addAll(sesiones);
+        return this.sesiones.addAll(sesiones);
     }
 
     public boolean removerSesion(Sesion sesion){
-        return sesiones.remove(sesion);
+        return this.sesiones.remove(sesion);
     }
 
     @Override

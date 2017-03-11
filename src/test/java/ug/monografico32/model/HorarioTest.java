@@ -1,6 +1,5 @@
 package ug.monografico32.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,9 +62,11 @@ public class HorarioTest {
     }
 
     @Test
-    public void twoSesiones(){
-
+    public void unaClaseConDosSesiones(){
+        assertFalse( horario.getClases().contains(bio));
+        
         assertTrue( horario.agregarClase(bio) );
+        assertTrue( horario.getClases().contains(bio));
         assertTrue( horario.getAllSesions().size() == 2);
         assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.FRIDAY));
         assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.MONDAY));
@@ -73,11 +74,14 @@ public class HorarioTest {
 
     @Test
     public void twoColisiones(){
-
-        assertTrue( horario.agregarClase(bio) );
+        unaClaseConDosSesiones();
+        
+        Sesion s5 = new Sesion(s2.getDia(), s2.getHoraInicio(), s2.getHoraFinal());
+        
         assertFalse( horario.agregarClase(col) );
         assertTrue( horario.getColisiones().size() == 2 );
-        assertTrue( horario.getColisiones().contains(s1));
+        assertTrue( horario.getColisiones().contains(s1) );
+        assertTrue( horario.getColisiones().contains(s5) );
     }
 
     @Test
@@ -91,24 +95,43 @@ public class HorarioTest {
 
     @Test
     public void addToExistingClase(){
-        Sesion s5 = new Sesion(DayOfWeek.SATURDAY, start.getTime(), end.getTime());
-        bio.agregarSesion(s5);
-
-        assertTrue( horario.agregarClase(bio) );
-
-        int index = horario.getClases().indexOf(bio);
+        unaClaseConDosSesiones();
+        
+        Sesion s6 = new Sesion(DayOfWeek.SATURDAY, start.getTime(), end.getTime());
+        Clase bio2 = new Clase( bio.getAsignatura(), bio.getInstructor());
+        bio2.agregarSesion(s6);
+        
+        assertTrue( bio2.getSesiones().size() == 1 );
+        assertTrue( horario.getClases().contains(bio2));
+        assertTrue( horario.agregarClase(bio2) );
+        
+        int index = horario.getClases().indexOf(bio2);
         Clase c1 = horario.getClases().get(index);
-
+        
         assertTrue(c1.getSesiones().size() == 3);
         assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.SATURDAY) );
-        assertTrue( horario.getAllSesions().contains(s5));
+        assertTrue( horario.getAllSesions().contains(s6));
     }
 
     @Test
     public void addToExistingAfterColision(){
-        /*twoColisiones();
-        System.out.println( horario.getColisiones().size());
-        addToExistingClase();
-        assertTrue( horario.getColisiones().isEmpty() );*/
+        assertTrue( horario.agregarClase(bio) );
+        assertFalse( horario.agregarClase(col) );
+        assertTrue( horario.getColisiones().size() == 2 );
+        
+        Sesion s6 = new Sesion(DayOfWeek.SATURDAY, start.getTime(), end.getTime());
+        Clase bio2 = new Clase( bio.getAsignatura(), bio.getInstructor());
+        bio2.agregarSesion(s6);
+        
+        assertTrue( bio2.getSesiones().size() == 1 );
+        assertTrue( horario.getClases().contains(bio2));
+        assertTrue( horario.agregarClase(bio2) );
+        
+        int index = horario.getClases().indexOf(bio2);
+        Clase c1 = horario.getClases().get(index);
+        
+        assertTrue(c1.getSesiones().size() == 3);
+        assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.SATURDAY) );
+        assertTrue( horario.getAllSesions().contains(s6));
     }
 }

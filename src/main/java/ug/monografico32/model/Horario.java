@@ -42,13 +42,16 @@ public class Horario {
 
 
     public boolean agregarClase(Clase newClase){
-
+        boolean doesCollides = checkForColisions(newClase);
         if( clases.contains(newClase) ){
             int index = clases.indexOf(newClase);
             Clase clase = clases.get(index);
             return clase.agregarSesion( newClase.getSesiones() );
         }
-
+        else if(doesCollides){
+            return false;
+        }
+            
         return clases.add(newClase);
     }
 
@@ -61,31 +64,22 @@ public class Horario {
     }
 
     public Map<DayOfWeek, List<Sesion>> getSesionsByDayOfWeek(){
-        //return getAllSesions().stream().collect( Collectors.groupingBy( Sesion::getDia ) );
         return clases.stream().flatMap(clase -> clase.getSesiones().stream()).
                 collect( Collectors.groupingBy( Sesion::getDia));
     }
 
     public List<Sesion> getAllSesions(){
-        /*return clases.stream().collect( ArrayList::new,
-                (ArrayList list, Clase clase) -> list.addAll( clase.getSesiones()),
-                 ArrayList::addAll );*/
         return clases.stream().flatMap(clase -> clase.getSesiones().stream()).
                 collect(Collectors.toList());
     }
 
     public boolean checkForColisions(Clase newClase){
-        clearColisiones();
         List<Sesion> sesionList = getAllSesions();
 
         colisiones = newClase.getSesiones().stream().
                 filter(sesion -> sesionList.contains(sesion)).
                 collect(Collectors.toList());
-
-        if( colisiones.size() > 0){
-            return true;
-        }
-        return false;
+        return !colisiones.isEmpty();
     }
 
     public void clearColisiones(){
