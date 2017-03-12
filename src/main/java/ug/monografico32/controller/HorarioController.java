@@ -32,9 +32,9 @@ import ug.monografico32.model.Docente;
  * @author Administrador
  */
 @Controller
-@SessionAttributes({"curso", "asignaturas", "instructores"})
-@RequestMapping( path = "/clase")
-public class ClaseController {
+@SessionAttributes({"curso", "asignaturas", "instructores","clase"})
+@RequestMapping( path = "/horario")
+public class HorarioController {
     
     @Autowired
     private CursoRepository cursoRepository;
@@ -45,26 +45,20 @@ public class ClaseController {
     @Autowired
     private AsignaturaRepository asignaturaRepository;
     
-    @GetMapping( path = "/agregar/{curso}")
+    @GetMapping( path = "/agregar/clase/{curso}")
     public String agregarClase(Model model, @PathVariable Curso curso){
         model.addAttribute( curso );
         model.addAttribute("asignaturas", asignaturaRepository.findAll());
         model.addAttribute("instructores", docenteRepository.findAll());
         model.addAttribute( new Clase());
-        return "clase/agregar-clase";
+        return "clase/crear-clase";
     }
     
     @PostMapping( path = "/agregar/{curso}" )
-    public String procesarClase( @Valid Clase clase, BindingResult bindingResult,
-                                 @ModelAttribute Curso curso, 
-                                 /*@ModelAttribute List<Docente> instructores,
-                                 @ModelAttribute List<Asignatura> asignaturas,*/
-                                 SessionStatus status){
+    public String procesarClase( @Valid Clase clase, BindingResult bindingResult){
         if( bindingResult.hasErrors() ){
             return "clase/agregar-clase";
         }
-        curso.agregarClase(clase);
-        status.setComplete();
         return "";
     }
     

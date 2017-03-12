@@ -69,10 +69,10 @@ public class Curso implements Serializable {
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinal;
-
-    @ElementCollection
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Clase> clases;
+    
+    @OneToOne
+    private Horario horario;
+    {horario = new Horario();}
 
     
     public Curso(){}
@@ -161,21 +161,13 @@ public class Curso implements Serializable {
     public Date getFechaFinal(){
         return fechaFinal;
     }
-
-    public void setClases(Set<Clase> clases){
-        this.clases = clases;
+    
+    public void setHorario(Horario horario){
+        this.horario = horario;
     }
-
-    public Set<Clase> getClases(){
-        return clases;
-    }
-
-    public boolean agregarClase(Clase newClase){
-        return clases.add(newClase);
-    }
-
-    public boolean eliminarClase(Clase clase){
-        return clases.remove(clase);
+    
+    public Horario getHorario(){
+        return horario;
     }
 
     public String getGradoSeccion(){

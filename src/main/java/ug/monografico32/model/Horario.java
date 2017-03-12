@@ -1,24 +1,28 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 /**
  * Created by Jose Elias on 28/01/2017.
  */
 //TODO: Create test for this class
-//@Entity
-public class Horario {
+@Entity
+public class Horario implements Serializable{
     
-    //@Id @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
     
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Clase> clases;
     {clases = new ArrayList<>();}
     

@@ -1,15 +1,9 @@
 package ug.monografico32.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.util.EnumMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
-import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
