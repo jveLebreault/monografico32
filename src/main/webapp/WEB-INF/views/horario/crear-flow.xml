@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    <persistence-context />
+    <input name="curso" required="true" type="ug.monografico32.model.Curso"/>
+
+    <on-start>
+        <evaluate expression="horarioService.getAllDocentes()" result="flowScope.instructores"/>
+        <evaluate expression="horarioService.getAllAsignaturas()" result="flowScope.asignaturas"/>
+        <set name="flowScope.clase" value="new ug.monografico32.model.Clase()"/>
+    </on-start>
+
+    <view-state id="crear-clase" view="horario/crear-clase" model="clase">
+
+        <binder>
+            <binding property="asignatura" required="true"/>
+            <binding property="instructor" required="true"/>
+        </binder>
+
+        <transition on="crear" to="agregar-sesiones"/>
+    </view-state>
+
+    <view-state id="agregar-sesiones" view="horario/crear-sesion" model="sesion">
+        <var name="sesion" class="ug.monografico32.model.Sesion"/>
+
+        <on-render>
+            <set name="sesion" value="new ug.monografico32.model.Sesion()"/>
+        </on-render>
+
+        <transition on="agregar" to="agregar-sesiones">
+            <set name="viewScope.colision" value="false" />
+            <evaluate expression="clase.agregarSesion(sesion)" result="viewScope.colision"
+                      result-type="boolean"/>
+        </transition>
+
+        <transition on="eliminar" bind="false" validate="false">
+            <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).eliminarSesion(flowRequestContext)"/>
+        </transition>
+
+        <transition on="terminar"  bind="false" validate="false" to="validate"/>
+    </view-state>
+    
+    <decision-state id="validate">
+        <if test="! clase.sesiones.isEmpty()" then="persist" else="agregar-sesiones"/>
+    </decision-state>
+
+    <action-state id="persist">
+        <evaluate expression="curso.horario.agregarClase(clase)" />
+        <evaluate expression="persistenceContext.persist(curso)"/>
+    </action-state>
+</flow>

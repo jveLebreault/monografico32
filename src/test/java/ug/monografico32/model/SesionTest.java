@@ -31,7 +31,7 @@ public class SesionTest {
     }
     
     @Test
-    public void sameStartAndFinishTime() throws CollisionException{
+    public void sameStartAndFinishTime(){
 
         later.add(Calendar.HOUR, 2);
         
@@ -43,7 +43,7 @@ public class SesionTest {
     }
     
     @Test
-    public void sesionContainsAnother() throws CollisionException{
+    public void sesionContainsAnother(){
         
         later.add(Calendar.HOUR,4);
         Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());
@@ -55,7 +55,7 @@ public class SesionTest {
     }
     
     @Test
-    public void sesionColidesPartially() throws CollisionException{
+    public void sesionColidesPartially(){
         
         later.add(Calendar.HOUR, 2);
         Sesion s1 = new Sesion(DayOfWeek.FRIDAY, now.getTime(), later.getTime());

@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.http.CacheControl;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -38,20 +42,20 @@ import ug.monografico32.util.converter.StringToDocenteConverter;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ug.monografico32.controller", "ug.monografico32.util.converter"}/*,
-        basePackageClasses = WebFlowConfig.class*/)
+@ComponentScan(basePackages = {"ug.monografico32.controller",
+        "ug.monografico32.util.converter", "ug.monografico32.service"})
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
-    
-    @Autowired
-    private DocenteRepository docenteRepository;
-    
-    @Autowired
-    private AsignaturaRepository asignaturaRepository;
 
     @Autowired
-    private CursoRepository cursoRepository;
+    private StringToCursoConverter stringToCursoConverter;
+
+    @Autowired
+    private StringToAsignaturaConverter stringToAsignaturaConverter;
+
+    @Autowired
+    private StringToDocenteConverter stringToDocenteConverter;
     
     @Override
     public void setApplicationContext(ApplicationContext applicationContext){
@@ -115,26 +119,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
  
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter( new StringToDocenteConverter( docenteRepository) );
-        registry.addConverter( new StringToAsignaturaConverter( asignaturaRepository) );
-        registry.addConverter( new StringToCursoConverter( cursoRepository ));
+        registry.addConverter( stringToDocenteConverter );
+        registry.addConverter( stringToAsignaturaConverter);
+        registry.addConverter( stringToCursoConverter );
     }
-    
-    /*@Bean
-    public LongToDocente aa(DocenteRepository repository){
-        return new LongToDocente(repository);
-    }*/
-    
-    /*@Bean( name = "conversionService")
-    public ConversionServiceFactoryBean getConversionService(DocenteRepository repository){
-        ConversionServiceFactoryBean conversionService = new ConversionServiceFactoryBean();
-        
-        LongToDocente longToDocenteConverter = new LongToDocente(repository);
-        
-        Set<Converter> converters = new HashSet<>();
-        converters.add(longToDocenteConverter);
-        
-        conversionService.setConverters(converters);
+
+    @Bean(name = "conversionService")
+    public ConversionService conversionService(){
+        FormattingConversionService conversionService = new DefaultFormattingConversionService(true);
+        conversionService.addConverter(stringToAsignaturaConverter);
+        conversionService.addConverter(stringToCursoConverter);
+        conversionService.addConverter(stringToDocenteConverter);
+
         return conversionService;
-    }*/
+    }
 }

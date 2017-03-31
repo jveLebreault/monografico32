@@ -109,12 +109,3 @@ public class Clase implements Serializable {
         return Objects.hash(asignatura, instructor);
     }
 }
-/**
- * Package private class to express CollisonExceptions in a Clase Object
- */
-class CollisionException extends Exception {
-
-    public CollisionException(String msg) {
-        super(msg);
-    }
-}

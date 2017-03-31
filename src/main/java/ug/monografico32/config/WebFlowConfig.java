@@ -1,6 +1,8 @@
 package ug.monografico32.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.convert.ConversionService;
+import org.springframework.binding.convert.service.DefaultConversionService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,9 @@ import org.springframework.webflow.persistence.JpaFlowExecutionListener;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.webflow.view.AjaxThymeleafViewResolver;
 import org.thymeleaf.spring4.webflow.view.FlowAjaxThymeleafView;
+import ug.monografico32.util.converter.StringToAsignaturaConverter;
+import ug.monografico32.util.converter.StringToCursoConverter;
+import ug.monografico32.util.converter.StringToDocenteConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.TransactionManager;
@@ -35,12 +40,22 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Autowired
     private WebConfig webConfig;
 
+    @Autowired
+    private StringToCursoConverter stringToCursoConverter;
+
+    @Autowired
+    private StringToAsignaturaConverter stringToAsignaturaConverter;
+
+    @Autowired
+    private StringToDocenteConverter stringToDocenteConverter;
+
     @Bean
     public FlowDefinitionRegistry flowRegistry(){
 
         return getFlowDefinitionRegistryBuilder(flowBuilderServices()).
                setBasePath("/WEB-INF/views").
                addFlowLocation("/estudiante/agregar-flow.xml", "estudiante/agregar").
+               addFlowLocation("/horario/crear-flow.xml","horario/agregar").
                build();
     }
 
@@ -93,8 +108,16 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowBuilderServices flowBuilderServices(){
         return getFlowBuilderServicesBuilder().
                setViewFactoryCreator(mvcViewFactoryCreator()).
+               setConversionService(conversionService()).
                setValidator( validator()).
                build();
+    }
+
+    @Bean
+    public ConversionService conversionService(){
+        DefaultConversionService conversionService =
+                new DefaultConversionService( webConfig.conversionService());
+        return conversionService;
     }
 
     @Bean

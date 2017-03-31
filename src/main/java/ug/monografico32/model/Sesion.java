@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,10 +24,12 @@ public class Sesion implements Serializable {
 
     @NotNull
     @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "HH:mm")
     private Date horaInicio;
 
     @NotNull
     @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "HH:mm")
     private Date horaFinal;
 
     public Sesion() {}
@@ -63,7 +66,8 @@ public class Sesion implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dia, horaInicio, horaFinal);
+        //return Objects.hash(dia, horaInicio, horaFinal);
+        return 0;
     }
 
     @Override
@@ -71,21 +75,11 @@ public class Sesion implements Serializable {
         if(! (obj instanceof Sesion))
             return false;
         
-        if (this == obj) 
+        if (this == obj)
             return true;
-        
+
         final Sesion other = (Sesion) obj;
         return checkForCollision(this, other);
-        /*if (this.dia != other.dia) {
-            return false;
-        }
-        if (!Objects.equals(this.horaInicio, other.horaInicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.horaFinal, other.horaFinal)) {
-            return false;
-        }
-        return true;*/
     }
     
     /**

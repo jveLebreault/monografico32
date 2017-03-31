@@ -15,7 +15,6 @@ import javax.persistence.Transient;
 /**
  * Created by Jose Elias on 28/01/2017.
  */
-//TODO: Create test for this class
 @Entity
 public class Horario implements Serializable{
     

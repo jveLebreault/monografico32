@@ -15,6 +15,7 @@ import ug.monografico32.model.Docente;
  *
  * @author Administrador
  */
+@Component
 public class StringToDocenteConverter implements Converter<String, Docente>{
         
     @Autowired

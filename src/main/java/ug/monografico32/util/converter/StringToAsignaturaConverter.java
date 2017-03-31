@@ -15,6 +15,7 @@ import ug.monografico32.model.Asignatura;
  *
  * @author Administrador
  */
+@Component
 public class StringToAsignaturaConverter implements Converter<String, Asignatura>{
     
     @Autowired

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Crear sesion(es) ')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header" data-th-text="|Agregar sesion(es) a ${clase.asignatura.nombre}|">Agregar sesion(es) a :</h2>
+        <form id="session-form" class="form-horizontal col-md-8 col-md-offset-2"
+              method="post" data-th-object="${sesion}" data-th-action="${flowExecutionUrl}">
+            <div class="form-group">
+                <label class="control-label">Dia de encuentro:</label>
+                <select class="form-control" id="dia" name="dia" data-th-field="*{dia}">
+                    <option data-th-each="day : ${T (java.time.DayOfWeek).values()}"
+                            data-th-value="${day}" data-th-text="${day}">Lunes</option>
+                    <option value="" data-th-remove="all">Martes</option>
+                    <option value="" data-th-remove="all">Miercoles</option>
+                    <option value="" data-th-remove="all">Jueves</option>
+                    <option value="" data-th-remove="all">Viernes</option>
+                </select>
+                <strong id="dia-error" data-th-if="${#fields.hasErrors('dia')}" data-th-errors="*{dia}"></strong>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Hora de inicio:</label>
+                <input class="form-control" type="time" name="horaInicio" data-th-field="*{horaInicio}" placeholder="00:00 a.m."/>
+                <strong data-th-fragment="horaInicio-error" data-th-errors="*{horaInicio}"></strong>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Hora final:</label>
+                <input class="form-control" type="time" name="horaFinal" data-th-field="*{horaFinal}" placeholder="00:00 p.m."/>
+                <strong data-th-fragment="horaFinal-error" data-th-errors="*{horaFinal}"></strong>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Terminar" name="_eventId_terminar"/>
+                <input id="add-session" type="submit" class="btn btn-primary" value="Agregar" name="_eventId_agregar"/>
+            </div>
+
+        </form>
+
+        <div class="col-md-8 col-md-offset-2" data-th-fragment="sesiones">
+            <strong class="text-center" data-th-if="${colision} == false">Sesion no agregada, colisiona con sesiones existentes</strong>
+            <strong data-th-if="${#sets.isEmpty(clase.sesiones)}">Debe agregar una sesion por lo menos</strong>
+            <table class="table table-bordered table-striped" data-th-unless="${#sets.isEmpty(clase.sesiones)}">
+                <caption class="text-center"><strong>Sesiones</strong></caption>
+                <thead>
+                    <tr>
+                        <th>Dia</th>
+                        <th>Hora de inicio</th>
+                        <th>Hora final</th>
+                        <th>    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="sesion : ${clase.sesiones}">
+                        <td data-th-text="${sesion.dia}">Lunes</td>
+                        <td data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}">10:00 AM</td>
+                        <td data-th-text="${#dates.format(sesion.horaFinal, 'hh:mm a')}">10:30 AM</td>
+                        <td>
+                            <a href="" data-th-href="@{${flowExecutionUrl}(_eventId='eliminar',
+                            dia=${sesion.dia}, horaInicio=${sesion.horaInicio.getTime()}, horaFinal=${sesion.horaFinal.getTime()})}">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr data-th-remove="all">
+                        <td>Miercoles</td>
+                        <td>10:00 AM</td>
+                        <td>10:30 AM</td>
+                        <td> <a href="" data-th-href="">Eliminar</a> </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" data-th-src="@{/resources/dojo/dojo.js}"></script>
+    <script type="text/javascript" data-th-src="@{/resources/spring/Spring.js}"></script>
+    <script type="text/javascript" data-th-src="@{/resources/spring/Spring-Dojo.js}"></script>
+    <script>
+        /*Spring.addDecoration(
+                new Spring.AjaxEventDecoration({
+                    formId: 'session-form',
+                    elementId: 'add-session',
+                    event: 'onclick'
+                })
+        );*/
+    </script>
+</body>
+</html>

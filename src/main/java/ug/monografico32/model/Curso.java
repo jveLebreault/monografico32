@@ -52,7 +52,8 @@ public class Curso implements Serializable {
     @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Valid
     private List<Estudiante> estudiantes;
-    
+    {estudiantes = new ArrayList<>();}
+
     @NotNull
     @Valid
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -70,7 +71,7 @@ public class Curso implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinal;
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private Horario horario;
     {horario = new Horario();}
 
@@ -85,7 +86,7 @@ public class Curso implements Serializable {
         this.docenteEncargado = encargado;
         this.fechaInicio = inicio;
         this.fechaFinal = termino;
-        estudiantes = new ArrayList<>();
+        //estudiantes = new ArrayList<>();
     }
     
     public void setId(Long id){

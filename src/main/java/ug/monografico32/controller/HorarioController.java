@@ -51,15 +51,15 @@ public class HorarioController {
         model.addAttribute("asignaturas", asignaturaRepository.findAll());
         model.addAttribute("instructores", docenteRepository.findAll());
         model.addAttribute( new Clase());
-        return "clase/crear-clase";
+        return "horario/crear-clase";
     }
     
-    @PostMapping( path = "/agregar/{curso}" )
+    @PostMapping( path = "/agregar/clase/{curso}" )
     public String procesarClase( @Valid Clase clase, BindingResult bindingResult){
         if( bindingResult.hasErrors() ){
             return "clase/agregar-clase";
         }
-        return "";
+        return "horario/crear-sesion";
     }
     
     
