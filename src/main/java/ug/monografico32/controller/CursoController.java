@@ -45,6 +45,7 @@ public class CursoController {
                                 SessionStatus sessionStatus){
 
         if ( bindingResult.hasErrors() ){
+            System.out.println("\n\n\n"+bindingResult.getAllErrors().get(0)+"\n\n\n");
             return "curso/agregar-curso";
         }
 
@@ -54,7 +55,8 @@ public class CursoController {
     }
 
     @GetMapping(path = "/{id}")
-    public String verDetalle(@PathVariable("id") Curso curso, Model model){
+    public String verDetalle(@PathVariable("id") Long cursoId, Model model){
+        Curso curso = cursoRepository.findByIdAndFetchHorario(cursoId);
         model.addAttribute(curso);
         return "curso/curso-detalle";
     }
