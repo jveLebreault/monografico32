@@ -45,7 +45,6 @@ public class CursoController {
                                 SessionStatus sessionStatus){
 
         if ( bindingResult.hasErrors() ){
-            System.out.println("\n\n\n"+bindingResult.getAllErrors().get(0)+"\n\n\n");
             return "curso/agregar-curso";
         }
 
