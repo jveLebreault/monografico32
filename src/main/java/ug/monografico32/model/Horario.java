@@ -35,6 +35,15 @@ public class Horario implements Serializable{
         this.clases = clases;
     }
 
+    public Long getId() {
+
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<Clase> getClases(){
         return clases;
     }
