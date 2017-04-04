@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-fragment="header(title)">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title data-th-text="${title}">Registrar persona</title>
+    <link   href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"
+            type="text/css" media="all" rel="stylesheet"
+            data-th-href="@{/resources/node_modules/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet"  type="text/css" media="all"
+          href="../../resources/css/standard.css"
+          data-th-href="@{/resources/css/standard.css}">
+
+
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal">
+        <div class="" id="persona">
+            <div class="form-group">
+                <label class="control-label" for="apellidos">Apellidos:</label>
+                <input class="form-control" type="text" id="apellidos"
+                       minlength="2" maxlength="50" name="apellidos"
+                       data-th-field="*{apellidos}"
+                       data-th-errorclass="f-error"/>
+                <p data-th-if="${#fields.hasErrors('apellidos')}" data-th-errors="*{apellidos}"></p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="nombres">Nombres:</label>
+                <input class="form-control" type="text" id="nombres"
+                       minlength="2" maxlength="50" name="nombres"
+                       data-th-field="*{nombres}"
+                       data-th-errorclass="f-error"/>
+                <p data-th-if="${#fields.hasErrors('nombres')}" data-th-errors="*{nombres}"></p>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="cedula">Cedula:</label>
+                <input class="form-control" type="text" id="cedula"
+                        minlength="11" maxlength="13" name="numeroCedula"
+                        data-th-field="*{numeroCedula}" data-th-errorclass="f-error"/>
+                <strong data-th-if="${#fields.hasErrors('numeroCedula')}" data-th-errors="*{numeroCedula}"></strong>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn-primary" type="submit">Enviar</button>
+        </div>
+    </form>
+</div>
+
+<script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script id="bootstrap" src="../../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"
+        type="text/javascript"
+        data-th-src="@{/resources/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
+</body>
+</html>

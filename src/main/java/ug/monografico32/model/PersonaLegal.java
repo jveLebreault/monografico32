@@ -1,14 +1,21 @@
 package ug.monografico32.model;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Jose Elias on 03/03/2017.
  */
+@MappedSuperclass
 abstract public class PersonaLegal extends Persona{
 
+    @Column(unique = true)
     @NotNull
+    @Size(min = 11, max = 13)
     private String numeroCedula;
 
     public PersonaLegal(){}
