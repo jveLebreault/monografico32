@@ -6,6 +6,7 @@ import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Asignatura;
+import ug.monografico32.model.Curso;
 import ug.monografico32.model.Docente;
 
 import java.util.List;

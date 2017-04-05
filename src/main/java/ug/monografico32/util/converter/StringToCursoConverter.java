@@ -20,6 +20,6 @@ public class StringToCursoConverter implements Converter<String, Curso> {
     @Override
     public Curso convert(String s) {
         Long id = Long.parseLong(s);
-        return repository.findById(id);
+        return repository.findByIdAndFetchHorario(id);
     }
 }

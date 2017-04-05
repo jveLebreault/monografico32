@@ -23,10 +23,6 @@ public class HorarioFlowUtils {
 
         if (params.contains("dia") && params.contains("horaInicio") &&
                 params.contains("horaFinal")) {
-            Curso curso = (Curso) context.getFlowScope().get("curso");
-            if(curso.getHorario() == null){
-                System.out.print("\n\n\n\\nHORARIO ES NULL\n\n\n");
-            }
             Clase clase = (Clase) context.getFlowScope().get("clase");
 
             DayOfWeek dia = DayOfWeek.valueOf(params.get("dia"));

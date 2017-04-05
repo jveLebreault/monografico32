@@ -47,6 +47,15 @@
 
     <action-state id="persist">
         <evaluate expression="curso.horario.agregarClase(clase)" />
-        <evaluate expression="persistenceContext.persist(curso)"/>
+
+        <evaluate expression="persistenceContext.persist(curso)" >
+            <attribute name="name" value="persist"/>
+        </evaluate>
+
+        <transition on="persist.success" to="curso-detalle"/>
     </action-state>
+
+    <end-state id="curso-detalle" view="curso/curso-detalle" commit="true">
+        <!--<output name="curso" value="flowScope.curso"/>-->
+    </end-state>
 </flow>
