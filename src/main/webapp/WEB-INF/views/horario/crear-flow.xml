@@ -46,6 +46,8 @@
     </decision-state>
 
     <action-state id="persist">
+        <evaluate expression="persistenceContext.persist(clase)" />
+
         <evaluate expression="curso.horario.agregarClase(clase)" />
 
         <evaluate expression="persistenceContext.persist(curso)" >
@@ -55,7 +57,7 @@
         <transition on="persist.success" to="curso-detalle"/>
     </action-state>
 
-    <end-state id="curso-detalle" view="curso/curso-detalle" commit="true">
-        <!--<output name="curso" value="flowScope.curso"/>-->
+    <end-state id="curso-detalle" view="externalRedirect:contextRelative:curso/#{curso.id}" commit="true">
+        <output name="curso" value="flowScope.curso"/>
     </end-state>
 </flow>

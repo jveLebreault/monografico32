@@ -20,7 +20,7 @@ public class FechaInicioFinalValidator implements ConstraintValidator<FechaInici
       if( c == null){
          return true;
       }
-      //System.out.println(c.getGrado()+"\n"+c.getNivel()+"\n"+c.getSeccion()+c.getFechaInicio()+"\n"+c.getFechaFinal());
+
       if( (c.getFechaFinal() == null) || (c.getFechaInicio() == null))
          return false;
 

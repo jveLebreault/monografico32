@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,12 +17,17 @@ public class Clase implements Serializable {
     private Long id;
     
     @NotNull
+    @OneToOne
     private Asignatura asignatura;
     
     @NotNull
+    @OneToOne
     private Docente instructor;
-    
-    @ElementCollection
+
+    /**
+     * sesiones is a set so it doesn't accept duplicate Sesion objects
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
     
