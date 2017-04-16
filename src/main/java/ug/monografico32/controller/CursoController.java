@@ -57,6 +57,7 @@ public class CursoController {
     public String verDetalle(@PathVariable("id") Long cursoId, Model model){
         Curso curso = cursoRepository.findByIdAndFetchHorario(cursoId);
         model.addAttribute(curso);
+        model.addAttribute("s", curso.getHorario().getSesionsByDayOfWeek());
         return "curso/curso-detalle";
     }
 

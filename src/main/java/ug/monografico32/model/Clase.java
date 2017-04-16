@@ -27,7 +27,7 @@ public class Clase implements Serializable {
     /**
      * sesiones is a set so it doesn't accept duplicate Sesion objects
      */
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
     

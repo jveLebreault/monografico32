@@ -19,8 +19,8 @@ public interface CursoRepository extends JpaRepository<Curso, Long>{
     public Curso findById(Long id);
 
     @Query("SELECT c FROM Curso c LEFT JOIN FETCH c.horario h " +
-                                 "LEFT JOIN FETCH h.clases cs " +
-                                 "LEFT JOIN FETCH cs.sesiones "+
+                                 "JOIN FETCH h.clases cs " +
+                                 "JOIN FETCH cs.sesiones "+
                                  "WHERE c.id = ?1")
     public Curso findByIdAndFetchHorario(Long id);
 

@@ -30,7 +30,43 @@
             <div data-th-case="true">
                 <strong data-th-text="#{noclases}">No class</strong><br/>
             </div>
-            <div data-th-case="false">FALSE</div>
+            <div id="horario" data-th-case="false">
+                <div>
+                    <span data-th-each="clase : ${curso.horario.clases}">
+                        <span data-th-text="${clase.id}"></span>
+                    </span>
+                    <div data-th-each="entry : ${s}">
+                        <strong data-th-text="${entry.key}"></strong>
+                        <span data-th-text="${entry.value.size()}"></span>
+                        <div data-th-each="sesion : ${entry.value}">
+                            <span data-th-text="${sesion.horaInicio}"></span>
+                            <span data-th-text="${sesion.horaFinal}"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+               <!-- <table class="table table-bordered table-striped">
+                    <caption class="text-center"><strong>Horario</strong></caption>
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Hora de Incio</th>
+                            <th>Hora Final</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr data-th-each="entry : ${s}">
+                            <td data-th-text="${entry.key}"></td>
+                            <td data-th-each="sesion : ${entry.value}">
+                                <span data-th-text="${sesion.horaInicio}"></span>
+                            </td>
+                            <td>
+                                <span data-th-text="${sesion.horaFinal}"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>-->
+            </div>
         </div>
         <a href="#" target="_blank" data-th-href="@{/horario/agregar(curso=${curso.id})}">Agregar clases</a>
     </div>
