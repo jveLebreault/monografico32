@@ -23,6 +23,7 @@
         <p>
             <a href="#" target="_blank"
                data-th-href="@{/{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
+            <hr/>
         </p>
     </div>
     <div class="container" >
@@ -30,17 +31,15 @@
             <div data-th-case="true">
                 <strong data-th-text="#{noclases}">No class</strong><br/>
             </div>
-            <div id="horario" data-th-case="false">
+            <div class="row" id="horario" data-th-case="false" >
                 <div>
-                    <span data-th-each="clase : ${curso.horario.clases}">
-                        <span data-th-text="${clase.id}"></span>
-                    </span>
-                    <div data-th-each="entry : ${s}">
-                        <strong data-th-text="${entry.key}"></strong>
-                        <span data-th-text="${entry.value.size()}"></span>
-                        <div data-th-each="sesion : ${entry.value}">
-                            <span data-th-text="${sesion.horaInicio}"></span>
-                            <span data-th-text="${sesion.horaFinal}"></span>
+                    <div class="col-sm-2" style="border-left-style: solid; border-left-width: 1px;" data-th-each="entry : ${curso.horario.getSesionsByDayOfWeek()}">
+                        <h4 class="text-capitalize text-center" data-th-text="${entry.key}"></h4>
+                        <div style="border-top-style: solid; border-top-width: 1px;" data-th-each="sesion : ${entry.value}">
+                            <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}"></span> -
+                            <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}"></span><br/>
+                            <a data-th-text="${sesion.clase.asignatura.clave}"
+                                data-th-href="@{/horario/clase/{id}(id=${sesion.clase.id})}"></a>
                         </div>
                     </div>
                     
@@ -68,6 +67,7 @@
                 </table>-->
             </div>
         </div>
+        <hr/>
         <a href="#" target="_blank" data-th-href="@{/horario/agregar(curso=${curso.id})}">Agregar clases</a>
     </div>
 </body>

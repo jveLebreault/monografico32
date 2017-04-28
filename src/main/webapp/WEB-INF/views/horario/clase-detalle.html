@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Detalle de clase)}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3 class="page-header">Asignatura: <small data-th-text="|${curso.asignatura.nombre} - ${curso.asignatura.clave}|">Educacion fisica - EDU101</small></h3>
+        <h4>Instructor: <small data-th-text="${curso.instructor}">Juan Perez</small></h4><br/><br/>
+        <h4>Sesiones</h4>
+        <div class="row">
+            <div class="col-sm-3" style="border-left-style: solid; border-left-width: 1px;" data-th-each="sesion : ${curso.sesiones}">
+                <h5 data-th-text="${sesion.dia}">Lunes</h5>
+                <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}">10:30 AM</span> -
+                <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}">12:30 PM</span><br/>
+            </div>
+            <div class="col-sm-3" style="border-left-style: solid; border-left-width: 1px;" data-th-remove="all">
+                <h5 data-th-text="${sesion.dia}">Miercoles</h5>
+                <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}">10:30 AM</span> -
+                <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}">12:30 PM</span><br/>
+            </div>
+        </div>
+        <br/>
+        <!-- TODO: Make this link point to horario/agregar webflow with the
+                class id and curso id as params-->
+        <a data-th-href="@{}">Agregar sesiones</a>
+    </div>
+</body>
+</html>

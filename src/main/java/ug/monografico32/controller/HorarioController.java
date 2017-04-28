@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import ug.monografico32.dao.AsignaturaRepository;
+import ug.monografico32.dao.ClaseRepository;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Asignatura;
@@ -32,34 +33,18 @@ import ug.monografico32.model.Docente;
  * @author Administrador
  */
 @Controller
-@SessionAttributes({"curso", "asignaturas", "instructores","clase"})
+//@SessionAttributes({"curso", "asignaturas", "instructores","clase"})
 @RequestMapping( path = "/horario")
 public class HorarioController {
     
     @Autowired
-    private CursoRepository cursoRepository;
+    private ClaseRepository claseRepository;
     
-    @Autowired
-    private DocenteRepository docenteRepository;
-    
-    @Autowired
-    private AsignaturaRepository asignaturaRepository;
-    
-    @GetMapping( path = "/agregar/clase/{curso}")
-    public String agregarClase(Model model, @PathVariable Curso curso){
-        model.addAttribute( curso );
-        model.addAttribute("asignaturas", asignaturaRepository.findAll());
-        model.addAttribute("instructores", docenteRepository.findAll());
-        model.addAttribute( new Clase());
-        return "horario/crear-clase";
-    }
-    
-    @PostMapping( path = "/agregar/clase/{curso}" )
-    public String procesarClase( @Valid Clase clase, BindingResult bindingResult){
-        if( bindingResult.hasErrors() ){
-            return "clase/agregar-clase";
-        }
-        return "horario/crear-sesion";
+    @GetMapping( path = "/clase/{claseId}")
+    public String verClase(Model model, @PathVariable("claseId") Long id){
+        Clase clase = claseRepository.findAndFetchSesiones(id);
+        model.addAttribute(clase);
+        return "horario/clase-detalle";
     }
     
     

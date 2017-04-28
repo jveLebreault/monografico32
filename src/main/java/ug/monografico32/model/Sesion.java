@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import org.hibernate.annotations.Parent;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import javax.persistence.EnumType;
@@ -17,6 +18,9 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class Sesion implements Serializable {
+
+    @Parent
+    private Clase clase;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -62,6 +66,14 @@ public class Sesion implements Serializable {
 
     public Date getHoraFinal() {
         return horaFinal;
+    }
+
+    public Clase getClase(){
+        return this.clase;
+    }
+
+    public void setClase(Clase clase){
+        this.clase = clase;
     }
 
     @Override

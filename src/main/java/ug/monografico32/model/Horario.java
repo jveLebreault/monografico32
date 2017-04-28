@@ -5,12 +5,7 @@ import java.time.DayOfWeek;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * Created by Jose Elias on 28/01/2017.
@@ -20,10 +15,13 @@ public class Horario implements Serializable{
     
     @Id @GeneratedValue
     private Long id;
+
+    @OneToOne(mappedBy = "horario")
+    private Curso curso;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Clase> clases;
-    {clases = new ArrayList<>();}
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Clase> clases;
+    {clases = new HashSet<>();}
     
     @Transient
     private List<Sesion> colisiones;
@@ -31,7 +29,7 @@ public class Horario implements Serializable{
 
     public Horario(){}
 
-    public Horario(List<Clase> clases){
+    public Horario(Set<Clase> clases){
         this.clases = clases;
     }
 
@@ -44,11 +42,19 @@ public class Horario implements Serializable{
         this.id = id;
     }
 
-    public List<Clase> getClases(){
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Set<Clase> getClases(){
         return clases;
     }
 
-    public void setClases(List<Clase> clases){
+    public void setClases(Set<Clase> clases){
         this.clases = clases;
     }
 
@@ -56,8 +62,11 @@ public class Horario implements Serializable{
     public boolean agregarClase(Clase newClase){
         boolean doesCollides = checkForColisions(newClase);
         if( clases.contains(newClase) ){
-            int index = clases.indexOf(newClase);
-            Clase clase = clases.get(index);
+
+            Clase clase = clases.stream().
+                    filter(c -> c.equals(newClase)).findFirst().
+                    orElse(newClase);
+
             return clase.agregarSesion( newClase.getSesiones() );
         }
         else if(doesCollides){
@@ -77,7 +86,8 @@ public class Horario implements Serializable{
 
     public Map<DayOfWeek, List<Sesion>> getSesionsByDayOfWeek(){
         return clases.stream().flatMap(clase -> clase.getSesiones().stream()).
-                collect( Collectors.groupingBy( Sesion::getDia));
+                collect( Collectors.
+                        groupingBy( Sesion::getDia, TreeMap::new, Collectors.toList()));
     }
 
     public List<Sesion> getAllSesions(){

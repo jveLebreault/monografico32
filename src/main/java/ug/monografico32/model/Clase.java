@@ -30,6 +30,9 @@ public class Clase implements Serializable {
     @ElementCollection(fetch = FetchType.LAZY)
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
+
+    @ManyToOne()
+    private Horario horario;
     
     public Clase(){}
     
