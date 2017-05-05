@@ -3,13 +3,26 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
     <persistence-context />
-    <input name="curso" required="true" type="ug.monografico32.model.Curso"/>
 
-    <on-start>
+    <input name="curso" type="ug.monografico32.model.Curso"/>
+    <input name="clase" type="ug.monografico32.model.Clase"/>
+
+   <!-- <on-start>
         <evaluate expression="horarioService.getAllDocentes()" result="flowScope.instructores"/>
         <evaluate expression="horarioService.getAllAsignaturas()" result="flowScope.asignaturas"/>
         <set name="flowScope.clase" value="new ug.monografico32.model.Clase()"/>
-    </on-start>
+    </on-start> -->
+
+    <action-state id="selectInitialState" >
+        <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).selectInitialState(flowRequestContext)"/>
+        <transition on="procesar-curso" to="crear-clase"/>
+        <transition on="procesar-clase" to="procesar-clase"/>
+        <transition on="error"          to="error"/>
+    </action-state>
+
+    <action-state id="procesar-clase">
+        <!--TODO: THIS -->
+    </action-state>
 
     <view-state id="crear-clase" view="horario/crear-clase" model="clase">
 
@@ -18,8 +31,19 @@
             <binding property="instructor" required="true"/>
         </binder>
 
-        <transition on="crear" to="agregar-sesiones"/>
+        <on-entry>
+            <evaluate expression="horarioService.getAllDocentes()" result="flowScope.instructores"/>
+            <evaluate expression="horarioService.getAllAsignaturas()" result="flowScope.asignaturas"/>
+            <set name="flowScope.clase" value="new ug.monografico32.model.Clase()"/>
+        </on-entry>
+
+        <transition on="crear" to="validar-clase"/>
     </view-state>
+
+    <action-state id="validar-clase">
+        <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).validateClase(flowRequestContext)"/>
+        <transition on="success" to="agregar-sesiones"/>
+    </action-state>
 
     <view-state id="agregar-sesiones" view="horario/crear-sesion" model="sesion">
         <var name="sesion" class="ug.monografico32.model.Sesion"/>
@@ -60,4 +84,6 @@
     <end-state id="curso-detalle" view="externalRedirect:contextRelative:curso/#{curso.id}" commit="true">
         <output name="curso" value="flowScope.curso"/>
     </end-state>
+
+    <end-state id="error" view="" />
 </flow>

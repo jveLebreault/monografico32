@@ -58,14 +58,26 @@ public class Horario implements Serializable{
         this.clases = clases;
     }
 
+    /**
+     *
+     * @param newClase Clase to look for
+     * @return the clase being looked for, returns the same param if no Clase was found
+     */
+    public Clase findClase(Clase newClase){
+        return clases.stream().
+                filter(c -> c.equals(newClase)).findFirst().
+                orElse(newClase);
+    }
+
+    public boolean containsClase(Clase clase){
+        return clases.contains(clase);
+    }
 
     public boolean agregarClase(Clase newClase){
         boolean doesCollides = checkForColisions(newClase);
         if( clases.contains(newClase) ){
 
-            Clase clase = clases.stream().
-                    filter(c -> c.equals(newClase)).findFirst().
-                    orElse(newClase);
+            Clase clase = findClase(newClase);
 
             return clase.agregarSesion( newClase.getSesiones() );
         }

@@ -1,5 +1,6 @@
 package ug.monografico32.util;
 
+import org.springframework.webflow.core.collection.MutableAttributeMap;
 import org.springframework.webflow.core.collection.ParameterMap;
 import org.springframework.webflow.execution.RequestContext;
 import ug.monografico32.model.Clase;
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Created by Jose Elias on 20/03/2017.
@@ -38,5 +40,35 @@ public class HorarioFlowUtils {
             return clase.removerSesion(sesion);
         }
         return false;
+    }
+
+    public static String selectInitialState(RequestContext context){
+        ParameterMap params = context.getRequestParameters();
+
+        if( params.contains("curso") )
+            return "procesar-curso";
+
+        if( params.contains("clase") )
+            return "procesar-clase";
+
+        return "error";
+    }
+
+    /**
+     *
+     * @param context
+     * Checks
+     */
+    public static void validateClase(RequestContext context){
+        MutableAttributeMap attrs = context.getFlowScope();
+        Curso curso = (Curso) attrs.get("curso");
+        Clase clase = (Clase) attrs.get("clase");
+
+        Optional<Clase> result =  curso.getHorario().getClases().stream().
+                filter(c -> c.getAsignatura().equals(clase.getAsignatura()) ).
+                findFirst();
+
+        result.ifPresent(c -> attrs.put("clase", c));
+
     }
 }
