@@ -71,6 +71,14 @@ public class Clase implements Serializable {
         return instructor;
     }
 
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horario horario) {
+        this.horario = horario;
+    }
+
     public void setSesiones(Set<Sesion> sesiones) {
         this.sesiones = sesiones;
     }
