@@ -115,7 +115,12 @@ public class Horario implements Serializable{
                 collect(Collectors.toList());
         return !colisiones.isEmpty();
     }
-
+    
+    public boolean doesSesionColides(Sesion sesion){
+        return this.getAllSesions().stream().
+                            anyMatch(s -> Sesion.checkForCollision(s, sesion));
+    }
+    
     public void clearColisiones(){
         if ( !colisiones.isEmpty() )
             colisiones.clear();

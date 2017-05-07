@@ -57,7 +57,8 @@ public class HorarioFlowUtils {
     /**
      *
      * @param context
-     * Checks
+     * Verifica is existe una clase con la misma asignatura que la clase en 
+     * FlowScope, de ser asi pone en FlowScope la Clase existente con sesiones creadas
      */
     public static void validateClase(RequestContext context){
         MutableAttributeMap attrs = context.getFlowScope();
@@ -69,6 +70,12 @@ public class HorarioFlowUtils {
                 findFirst();
 
         result.ifPresent(c -> attrs.put("clase", c));
-
+    }
+    
+    public static void populateFlowScopeFromClase(RequestContext context){
+        MutableAttributeMap attrs = context.getFlowScope();
+        Clase clase = (Clase) attrs.get("clase");
+        
+        attrs.put("curso", clase.getHorario().getCurso());
     }
 }

@@ -7,12 +7,6 @@
     <input name="curso" type="ug.monografico32.model.Curso"/>
     <input name="clase" type="ug.monografico32.model.Clase"/>
 
-   <!-- <on-start>
-        <evaluate expression="horarioService.getAllDocentes()" result="flowScope.instructores"/>
-        <evaluate expression="horarioService.getAllAsignaturas()" result="flowScope.asignaturas"/>
-        <set name="flowScope.clase" value="new ug.monografico32.model.Clase()"/>
-    </on-start> -->
-
     <action-state id="selectInitialState" >
         <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).selectInitialState(flowRequestContext)"/>
         <transition on="procesar-curso" to="crear-clase"/>
@@ -21,7 +15,8 @@
     </action-state>
 
     <action-state id="procesar-clase">
-        <!--TODO: THIS -->
+        <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).populateFlowScopeFromClase(flowRequestContext)" />
+        <transition to="agregar-sesiones"/>
     </action-state>
 
     <view-state id="crear-clase" view="horario/crear-clase" model="clase">
@@ -66,7 +61,7 @@
     </view-state>
     
     <decision-state id="validate">
-        <if test="! clase.sesiones.isEmpty()" then="persist" else="agregar-sesiones"/>
+        <if test="!clase.sesiones.isEmpty()" then="persist" else="agregar-sesiones"/>
     </decision-state>
 
     <action-state id="persist">
@@ -74,7 +69,7 @@
 
         <evaluate expression="curso.horario.agregarClase(clase)" />
 
-        <evaluate expression="persistenceContext.persist(curso)" >
+        <evaluate expression="persistenceContext.merge(curso)" result="flowScope.curso">
             <attribute name="name" value="persist"/>
         </evaluate>
 
