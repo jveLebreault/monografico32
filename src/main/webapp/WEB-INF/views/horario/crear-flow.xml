@@ -15,7 +15,7 @@
     </action-state>
 
     <action-state id="procesar-clase">
-        <evaluate expression="T(ug.monografico32.util.HorarioFlowUtils).populateFlowScopeFromClase(flowRequestContext)" />
+        <evaluate expression="horarioService.getCursoFromClase(clase)" result="flowScope.curso"/>
         <transition to="agregar-sesiones"/>
     </action-state>
 
@@ -49,7 +49,7 @@
 
         <transition on="agregar" to="agregar-sesiones">
             <set name="viewScope.colision" value="false" />
-            <evaluate expression="clase.agregarSesion(sesion)" result="viewScope.colision"
+            <evaluate expression="((!curso.horario.doesSesionColides(sesion)) and (clase.agregarSesion(sesion)))" result="viewScope.colision"
                       result-type="boolean"/>
         </transition>
 

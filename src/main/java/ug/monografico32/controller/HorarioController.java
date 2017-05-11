@@ -33,7 +33,6 @@ import ug.monografico32.model.Docente;
  * @author Administrador
  */
 @Controller
-//@SessionAttributes({"curso", "asignaturas", "instructores","clase"})
 @RequestMapping( path = "/horario")
 public class HorarioController {
     

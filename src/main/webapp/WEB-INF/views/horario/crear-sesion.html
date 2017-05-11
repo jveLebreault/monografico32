@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary pull-right" value="Terminar" name="_eventId_terminar"/>
+                <input type="submit" class="btn btn-primary pull-right" value="Terminar" name="_eventId_terminar" data-th-disabled="${clase.sesiones.isEmpty()}"/>
                 <input id="add-session" type="submit" class="btn btn-primary" value="Agregar" name="_eventId_agregar"/>
             </div>
 
@@ -74,7 +74,6 @@
 
             </table>
         </div>
-        <span data-th-text="|Colision: ${curso.horario.checkForColisions(clase)}|"></span>
     </div>
 
     <script type="text/javascript" data-th-src="@{/resources/dojo/dojo.js}"></script>
