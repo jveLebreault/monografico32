@@ -1,5 +1,7 @@
 package ug.monografico32.model;
 
+import org.springframework.core.annotation.Order;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -28,10 +30,11 @@ public class Clase implements Serializable {
      * sesiones is a set so it doesn't accept duplicate Sesion objects
      */
     @ElementCollection(fetch = FetchType.LAZY)
+    @OrderBy("horaInicio ASC, dia ASC")
     private Set<Sesion> sesiones;
     {sesiones = new HashSet<>();}
 
-    @ManyToOne()
+    @ManyToOne
     private Horario horario;
     
     public Clase(){}
