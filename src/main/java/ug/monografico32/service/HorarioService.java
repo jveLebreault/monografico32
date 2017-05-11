@@ -6,6 +6,7 @@ import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Asignatura;
+import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
 import ug.monografico32.model.Docente;
 
@@ -32,5 +33,9 @@ public class HorarioService {
 
     public List<Docente> getAllDocentes(){
         return docenteRepository.findAll();
+    }
+
+    public Curso getCursoFromClase(Clase clase){
+        return cursoRepository.findCursoContainingClase(clase);
     }
 }
