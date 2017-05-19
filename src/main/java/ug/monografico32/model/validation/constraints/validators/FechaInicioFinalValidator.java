@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Created by Jose Elias on 28/11/2016.
  */
-public class FechaInicioFinalValidator implements ConstraintValidator<FechaInicioFinalValida, Curso> {
+/*public class FechaInicioFinalValidator implements ConstraintValidator<FechaInicioFinalValida, Curso> {
 
    @Override
    public void initialize(FechaInicioFinalValida constraint) {
@@ -26,4 +26,4 @@ public class FechaInicioFinalValidator implements ConstraintValidator<FechaInici
 
       return c.getFechaFinal().after( c.getFechaInicio() );
    }
-}
+}*/

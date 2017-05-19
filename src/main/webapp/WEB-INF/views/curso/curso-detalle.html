@@ -9,7 +9,7 @@
 
     <div class="container">
         <h4 class="page-header" data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
-        <span class="h2" data-th-text="${curso.grado.literal}">Kinder</span><span class="h2"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+        <span class="h2" data-th-text="${curso.grado.literal}">Kinder </span><span class="h2"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
         <p class="pull-right">
             <b>Periodo desde:</b><br/>
             <span data-th-text="${curso.fechaInicio}">01/01/2017</span>
@@ -44,27 +44,6 @@
                     </div>
                     
                 </div>
-               <!-- <table class="table table-bordered table-striped">
-                    <caption class="text-center"><strong>Horario</strong></caption>
-                    <thead>
-                        <tr>
-                            <th>Dia</th>
-                            <th>Hora de Incio</th>
-                            <th>Hora Final</th>
-                        </tr>                        
-                    </thead>
-                    <tbody>
-                        <tr data-th-each="entry : ${s}">
-                            <td data-th-text="${entry.key}"></td>
-                            <td data-th-each="sesion : ${entry.value}">
-                                <span data-th-text="${sesion.horaInicio}"></span>
-                            </td>
-                            <td>
-                                <span data-th-text="${sesion.horaFinal}"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>-->
             </div>
         </div>
         <hr/>

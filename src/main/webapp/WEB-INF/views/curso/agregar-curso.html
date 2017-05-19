@@ -39,17 +39,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="fecha-inicio">Fecha de inicio:</label>
-                    <input class="form-control" type="date" id="fecha-inicio" name="fecha-inicio"
-                           data-th-field="*{fechaInicio}" data-th-errorclass="f-error"/>
-                    <strong data-th-if="${#fields.hasErrors('fechaInicio')}" data-th-errors="*{fechaInicio}"></strong>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="fecha-final">Fecha final:</label>
-                    <input class="form-control" type="date" id="fecha-final" name="fecha-final"
-                           data-th-field="*{fechaFinal}" data-th-errorclass="f-error"/>
-                    <strong data-th-if="${#fields.hasErrors('fechaFinal')}" data-th-errors="*{fechaFinal}"></strong>
+                    <label class="control-label" for="periodo">Periodo:</label>
+                    <select class="form-control" id="periodo" name="periodo"
+                            data-th-errorclass="f-error" data-th-field="*{periodo}">
+                        <option data-th-each="periodo : ${periodos}"
+                        data-th-value="${periodo.id}"
+                        data-th-text="|Periodo ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Periodo 1</option>
+                        <option value="0" data-th-remove="all">Periodo 2</option>
+                        <option value="0" data-th-remove="all">Periodo 3</option>
+                    </select>
+                    <strong data-th-if="${#fields.hasErrors('periodo')}" data-th-errors="*{periodo}"></strong>
                 </div>
 
                 <div class="form-group">

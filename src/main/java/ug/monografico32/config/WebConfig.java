@@ -33,10 +33,7 @@ import org.springframework.format.FormatterRegistry;
 import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
-import ug.monografico32.util.converter.StringToAsignaturaConverter;
-import ug.monografico32.util.converter.StringToClaseConverter;
-import ug.monografico32.util.converter.StringToCursoConverter;
-import ug.monografico32.util.converter.StringToDocenteConverter;
+import ug.monografico32.util.converter.*;
 
 /**
  * Created by Jose Elias on 24/10/2016.
@@ -60,6 +57,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Autowired
     private StringToClaseConverter stringToClaseConverter;
+
+    @Autowired
+    private StringToPeriodoConverter stringToPeriodoConverter;
     
     @Override
     public void setApplicationContext(ApplicationContext applicationContext){
@@ -134,7 +134,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         conversionService.addConverter(stringToAsignaturaConverter);
         conversionService.addConverter(stringToCursoConverter);
         conversionService.addConverter(stringToDocenteConverter);
+
+        conversionService.addConverter(stringToPeriodoConverter);
         conversionService.addConverter(stringToClaseConverter);
+
 
         return conversionService;
     }

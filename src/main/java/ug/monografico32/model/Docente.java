@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Docente extends PersonaLegal implements Serializable{
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "docenteEncargado")
     private List<Curso> cursosEncargado;
     {cursosEncargado = new ArrayList<>();}
 

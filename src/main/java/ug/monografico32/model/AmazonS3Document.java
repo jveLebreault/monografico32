@@ -14,30 +14,13 @@ import ug.monografico32.model.aws.URLSignerWrapper;
  */
 @Entity
 public class AmazonS3Document extends CloudDocument implements Serializable{
-    
-    /*@Autowired
-    @Transient
-    private URLSignerWrapper urlSigner;
-
-    public AmazonS3Document(URLSignerWrapper urlSigner){
-        super();
-        this.urlSigner = urlSigner;
-    }*/
 
     public AmazonS3Document(String key, DocumentType dType) {
         super(key, dType);
     }
-
-    /*public AmazonS3Document(String key, DocumentType dType, URLSignerWrapper urlSigner){
-        super(key, dType);
-        this.urlSigner = urlSigner;
-    }*/
     
     public AmazonS3Document(){
         super();
     }
-    
-    /*public String getDocumentURL() throws InvalidKeySpecException, IOException{
-        return urlSigner.getURLFor(this.getDocumentKey());
-    }*/
+
 }

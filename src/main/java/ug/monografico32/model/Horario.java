@@ -16,10 +16,10 @@ public class Horario implements Serializable{
     @Id @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "horario")
+    @OneToOne
     private Curso curso;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "horario")
     private Set<Clase> clases;
     {clases = new HashSet<>();}
     

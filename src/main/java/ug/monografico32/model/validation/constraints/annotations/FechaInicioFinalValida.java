@@ -1,6 +1,6 @@
 package ug.monografico32.model.validation.constraints.annotations;
 
-import ug.monografico32.model.validation.constraints.validators.FechaInicioFinalValidator;
+import ug.monografico32.model.validation.constraints.validators.PeriodoStartAndFinishValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -18,7 +18,7 @@ import static java.lang.annotation.ElementType.TYPE;
 @Target({METHOD, TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint( validatedBy = FechaInicioFinalValidator.class)
+@Constraint( validatedBy = { PeriodoStartAndFinishValidator.class })
 public @interface FechaInicioFinalValida {
 
     String message() default "{FechaInicioFinalValida.message}";

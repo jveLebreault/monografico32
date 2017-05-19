@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Ver periodo')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">Periodo:
+            <span class="small" data-th-text="|Desde ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Desde 2016/08/12 hasta 2016/12/30</span></h2>
+        <h3>Cursos en calendario</h3>
+        <strong data-th-if="${#sets.isEmpty(periodo.cursos)}">Este periodo no tiene cursos programados</strong>
+        <div data-th-unless="${#sets.isEmpty(periodo.curso)}" data-th-each="curso : ${periodo.cursos}" class="well well-sm">
+            <h4 class="" data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
+            <span class="h4" data-th-text="${curso.grado.literal}">Kinder </span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+            <p>
+                <strong>Docente encargado:</strong>
+                <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Perez</span>
+            </p>
+            <a data-th-href="@{/curso/{cursoId}(cursoId=${curso.id})}">Ver detalles del curso</a>
+        </div>
+    </div>
+</body>
+</html>

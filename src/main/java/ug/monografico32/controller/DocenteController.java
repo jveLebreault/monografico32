@@ -32,13 +32,11 @@ public class DocenteController {
     @GetMapping(path = "/agregar")
     public String agregarDocente(Model model){
         model.addAttribute( new Docente() );
-        System.out.println("docente/agregar @GetMapping");
         return "docente/agregar-docente";
     }
 
     @PostMapping(path = "/agregar")
     public String procesarDocente(@Valid Docente docente, BindingResult result){
-        System.out.println("docente/agregar @PostMapping");
         if( result.hasErrors() ){
             return "docente/agregar-docente";
         }
@@ -55,8 +53,6 @@ public class DocenteController {
     @GetMapping( path="/all")
     public String verTodos(Model model){
         List<Docente> docentes = repository.findAll();
-        /*if( docentes == null || docentes.isEmpty())
-            return"";*/
         model.addAttribute("docentes", docentes);
         return "docente/todos";
     }

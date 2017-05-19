@@ -78,7 +78,6 @@ public class Sesion implements Serializable {
 
     @Override
     public int hashCode() {
-        //return Objects.hash(dia, horaInicio, horaFinal);
         return 0;
     }
 

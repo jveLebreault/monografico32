@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Ver todos los periodos')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 class="page-header">Todos los periodos</h2>
+            <div class="col-md-6 col-md-offset-3 well " data-th-each="periodo : ${periodos}">
+                <p>
+                    <span>Periodo desde: </span>
+                    <strong data-th-text="${periodo.fechaInicio}">2016/12/12</strong>
+                    <span> hasta</span>
+                    <strong data-th-text="${periodo.fechaFinal}">2017/12/12</strong>
+                </p>
+                <br/>
+                <a data-th-href="@{/periodo/{periodoId}(periodoId=${periodo.id})}">Detalle del periodo</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

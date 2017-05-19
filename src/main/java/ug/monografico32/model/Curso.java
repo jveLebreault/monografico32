@@ -30,7 +30,7 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
  * @author Administrador
  */
 @CursoGradoValido
-@FechaInicioFinalValida
+//@FechaInicioFinalValida
 @Entity
 public class Curso implements Serializable {
 
@@ -58,27 +58,32 @@ public class Curso implements Serializable {
     @Valid
     @ManyToOne(cascade = CascadeType.MERGE)
     private Docente docenteEncargado;
-    
-    @Future
+
+    /*@Future
     @NotNull
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicio;
-    
+
     @Future
     @NotNull
     @Temporal( TemporalType.DATE )
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaFinal;
+    private Date fechaFinal;*/
+
+    @NotNull
+    @Valid
+    @ManyToOne(optional = false)
+    private Periodo periodo;
     
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "curso")
     private Horario horario;
     {horario = new Horario();}
 
     
     public Curso(){}
     
-    public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
+    /*public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
                 Date inicio, Date termino){
         this.nivel = nivel;
         this.grado = grado;
@@ -87,6 +92,15 @@ public class Curso implements Serializable {
         this.fechaInicio = inicio;
         this.fechaFinal = termino;
         //estudiantes = new ArrayList<>();
+    }*/
+
+    public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
+                 Periodo periodo){
+        this.nivel = nivel;
+        this.grado = grado;
+        this.seccion = seccion;
+        this.docenteEncargado = encargado;
+        this.periodo = periodo;
     }
     
     public void setId(Long id){
@@ -146,7 +160,9 @@ public class Curso implements Serializable {
     public Docente getDocenteEncargado(){
         return docenteEncargado;
     }
-    
+
+
+    /*
     public void setFechaInicio(Date inicio){
         this.fechaInicio = inicio;
     }
@@ -161,8 +177,16 @@ public class Curso implements Serializable {
     
     public Date getFechaFinal(){
         return fechaFinal;
+    }*/
+
+    public Periodo getPeriodo() {
+        return periodo;
     }
-    
+
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
+    }
+
     public void setHorario(Horario horario){
         this.horario = horario;
     }
@@ -188,8 +212,7 @@ public class Curso implements Serializable {
             return ( (this.getNivel().equals(curso.getNivel())) &&
                      (this.getGrado().equals(curso.getGrado())) &&
                      (this.getSeccion().equals(curso.getSeccion())) &&
-                     (this.getFechaInicio().equals(curso.getFechaInicio())) &&
-                     (this.getFechaFinal().equals(curso.getFechaFinal())) );
+                     (this.periodo.equals(curso.getPeriodo()) ));
         }
 
         return false;
@@ -197,6 +220,6 @@ public class Curso implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(nivel, grado, seccion, fechaInicio, fechaFinal);
+        return Objects.hash(nivel, grado, seccion, periodo);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import ug.monografico32.dao.PeriodoRepository;
 import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Docente;
+import ug.monografico32.model.Periodo;
 
 /**
  * Created by Jose Elias on 20/12/2016.
@@ -30,12 +32,16 @@ public class CursoController {
     @Autowired
     private DocenteRepository docenteRepository;
 
+    @Autowired
+    private PeriodoRepository periodoRepository;
+
 
     @GetMapping(path = "/agregar")
     public String agregarCurso(Model model){
         
         model.addAttribute( new Curso() );
         model.addAttribute("docentes", docenteRepository.findAll() );
+        model.addAttribute("periodos", periodoRepository.findAll() );
         return "curso/agregar-curso";
     }
 

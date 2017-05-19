@@ -20,9 +20,6 @@ public class PeriodoStartAndFinishValidator implements ConstraintValidator<Fecha
         if( p == null){
             return true;
         }
-        //System.out.println(c.getGrado()+"\n"+c.getNivel()+"\n"+c.getSeccion()+c.getFechaInicio()+"\n"+c.getFechaFinal());
-        if( (p.getFechaFinal() == null) || (p.getFechaInicio() == null))
-            return false;
 
         return p.getFechaFinal().after( p.getFechaInicio() );
     }

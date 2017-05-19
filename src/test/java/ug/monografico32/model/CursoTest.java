@@ -41,16 +41,19 @@ public class CursoTest {
     public Date getFechaFinal(){
         return Date.from(Instant.now().plus(3, ChronoUnit.DAYS));
     }
+
+    public Periodo getPeriodo(){
+        return new Periodo( getFechaInicio(), getFechaFinal());
+    }
     
     @Test
     public void nivelInicialGradoConstraintTest() {
         
         Docente encargado = getDocenteEncargado();
-        Date inicio = getFechaInicio();
-        Date fin = getFechaFinal();
+        Periodo periodo = getPeriodo();
         
         Curso c = new Curso(Nivel.INICIAL, Grado.SEPTIMO, "B", encargado, 
-                inicio, fin);
+                periodo);
         //Nivel.BASICA.toString().toLowerCase();
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
 
@@ -62,11 +65,10 @@ public class CursoTest {
     @Test
     public void nivelBasicoGradoConstraintTest(){
         Docente encargado = getDocenteEncargado();
-        Date inicio = getFechaInicio();
-        Date fin = getFechaFinal();
+        Periodo periodo = getPeriodo();
         
         Curso c = new Curso(Nivel.BASICA, Grado.KINDER, "B", encargado, 
-                inicio, fin);
+                periodo);
         
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
         
@@ -78,34 +80,16 @@ public class CursoTest {
     @Test
     public void nivelMedioGradoConstraintTest(){
         Docente encargado = getDocenteEncargado();
-        Date inicio = getFechaInicio();
-        Date fin = getFechaFinal();
+        Periodo periodo = getPeriodo();
         
         Curso c = new Curso(Nivel.MEDIA, Grado.PRE_PRIMARIO, "B", encargado, 
-                inicio, fin);
+                periodo);
         
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
         
         assertEquals(1, violations.size());
         assertEquals("Nivel media no puede tener grado Pre Primario",
                 violations.iterator().next().getMessage());
-    }
-
-    @Test
-    public void fechaInicioFinalConstraintTest(){
-
-        Docente encargado = getDocenteEncargado();
-        Date inicio = getFechaInicio();
-        Date fin = getFechaFinal();
-
-        Curso c = new Curso(Nivel.INICIAL, Grado.KINDER, "A", encargado, fin, inicio);
-
-        Set<ConstraintViolation<Curso>> violations = validator.validate( c );
-
-        assertEquals(1, violations.size());
-        assertEquals("Fecha de inicio deber ser anterior a fecha final",
-                violations.iterator().next().getMessage());
-
     }
     
 }
