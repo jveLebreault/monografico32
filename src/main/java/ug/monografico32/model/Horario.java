@@ -17,6 +17,7 @@ public class Horario implements Serializable{
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "curso_id")
     private Curso curso;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "horario")
