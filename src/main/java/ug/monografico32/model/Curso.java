@@ -30,7 +30,6 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
  * @author Administrador
  */
 @CursoGradoValido
-//@FechaInicioFinalValida
 @Entity
 public class Curso implements Serializable {
 
@@ -59,18 +58,6 @@ public class Curso implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Docente docenteEncargado;
 
-    /*@Future
-    @NotNull
-    @Temporal( TemporalType.DATE )
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaInicio;
-
-    @Future
-    @NotNull
-    @Temporal( TemporalType.DATE )
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaFinal;*/
-
     @NotNull
     @Valid
     @ManyToOne(optional = false)
@@ -78,21 +65,13 @@ public class Curso implements Serializable {
     
     @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "curso")
     private Horario horario;
-    {horario = new Horario();}
+    {
+        horario = new Horario();
+        horario.setCurso(this);
+    }
 
     
     public Curso(){}
-    
-    /*public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
-                Date inicio, Date termino){
-        this.nivel = nivel;
-        this.grado = grado;
-        this.seccion = seccion;
-        this.docenteEncargado = encargado;
-        this.fechaInicio = inicio;
-        this.fechaFinal = termino;
-        //estudiantes = new ArrayList<>();
-    }*/
 
     public Curso(Nivel nivel, Grado grado, String seccion, Docente encargado,
                  Periodo periodo){
@@ -148,7 +127,6 @@ public class Curso implements Serializable {
     }
     
     public boolean eliminarEstudiante(final Estudiante estudiante){
-        //final long estId = estudiante.getId();
         return estudiantes.removeIf( (Estudiante e) -> 
                                         e.getId().equals( estudiante.getId() ));
     }
@@ -160,24 +138,6 @@ public class Curso implements Serializable {
     public Docente getDocenteEncargado(){
         return docenteEncargado;
     }
-
-
-    /*
-    public void setFechaInicio(Date inicio){
-        this.fechaInicio = inicio;
-    }
-    
-    public Date getFechaInicio(){
-        return fechaInicio;
-    }
-    
-    public void setFechaFinal(Date fin){
-        this.fechaFinal = fin;
-    }
-    
-    public Date getFechaFinal(){
-        return fechaFinal;
-    }*/
 
     public Periodo getPeriodo() {
         return periodo;
