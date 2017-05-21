@@ -126,6 +126,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addConverter( stringToDocenteConverter );
         registry.addConverter( stringToAsignaturaConverter);
         registry.addConverter( stringToCursoConverter );
+        registry.addConverter( stringToPeriodoConverter);
     }
 
     @Bean(name = "conversionService")
