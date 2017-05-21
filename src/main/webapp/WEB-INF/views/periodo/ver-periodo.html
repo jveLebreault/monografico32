@@ -11,7 +11,7 @@
             <span class="small" data-th-text="|Desde ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Desde 2016/08/12 hasta 2016/12/30</span></h2>
         <h3>Cursos en calendario</h3>
         <strong data-th-if="${#sets.isEmpty(periodo.cursos)}">Este periodo no tiene cursos programados</strong>
-        <div data-th-unless="${#sets.isEmpty(periodo.curso)}" data-th-each="curso : ${periodo.cursos}" class="well well-sm">
+        <div data-th-unless="${#sets.isEmpty(periodo.cursos)}" data-th-each="curso : ${periodo.cursos}" class="well well-sm">
             <h4 class="" data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
             <span class="h4" data-th-text="${curso.grado.literal}">Kinder </span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
             <p>

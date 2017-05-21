@@ -65,10 +65,12 @@
     </decision-state>
 
     <action-state id="persist">
-        <evaluate expression="persistenceContext.persist(clase)" />
-
+        <evaluate expression="clase.setHorario(curso.horario)"/>
+        
         <evaluate expression="curso.horario.agregarClase(clase)" />
-
+        
+        <evaluate expression="persistenceContext.persist(clase)" />
+        
         <evaluate expression="persistenceContext.merge(curso)" result="flowScope.curso">
             <attribute name="name" value="persist"/>
         </evaluate>
@@ -80,5 +82,5 @@
         <output name="curso" value="flowScope.curso"/>
     </end-state>
 
-    <end-state id="error" view="" />
+    <end-state id="error" view="" commit="false"/>
 </flow>
