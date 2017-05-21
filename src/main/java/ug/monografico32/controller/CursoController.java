@@ -22,7 +22,7 @@ import ug.monografico32.model.Periodo;
  * Created by Jose Elias on 20/12/2016.
  */
 @Controller
-@SessionAttributes("docentes")
+@SessionAttributes({"docentes","periodos"})
 @RequestMapping(path = "/curso")
 public class CursoController {
     
@@ -47,7 +47,6 @@ public class CursoController {
 
     @PostMapping(path = "/agregar")
     public String procesarCurso(@Valid Curso curso, BindingResult bindingResult,
-                                Model model, @ModelAttribute("docentes") List<Docente> docentes,
                                 SessionStatus sessionStatus){
 
         if ( bindingResult.hasErrors() ){
