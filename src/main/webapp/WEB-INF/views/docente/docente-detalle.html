@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head data-th-replace="~{/agregar-persona::header('Agregar docente')}">
+<head data-th-replace="~{/agregar-persona::header('Detalle de Docente')}">
     <title>TODO supply a title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,11 @@
         <p class="well well-lg">
             <strong data-th-text="*{nombres}">Juana</strong>
             <strong data-th-text="*{apellidos}">D'arc</strong>
-            <strong data-th-text="*{numeroCedula}">D'arc</strong>
+            <strong class="pull-right" data-th-text="|Cedula: *{numeroCedula}|">D'arc</strong>
+            <br/>
+            <a>Ver Curso encargado</a>
+            <br/>
+            <a>Ver Clases</a>
         </p>
     </div>
 </body>
