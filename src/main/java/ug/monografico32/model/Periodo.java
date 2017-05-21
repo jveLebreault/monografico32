@@ -1,5 +1,6 @@
 package ug.monografico32.model;
 
+import java.io.Serializable;
 import org.springframework.format.annotation.DateTimeFormat;
 import ug.monografico32.model.validation.constraints.annotations.FechaInicioFinalValida;
 
@@ -15,7 +16,7 @@ import java.util.Set;
  */
 @Entity
 @FechaInicioFinalValida
-public class Periodo {
+public class Periodo implements Serializable{
 
     @Id @GeneratedValue
     private Long id;
