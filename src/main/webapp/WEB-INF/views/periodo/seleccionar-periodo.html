@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head data-th-replace="~{/agregar-persona::header('Seleccione un periodo')}">
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-$END$
+    <div class="container">
+        <h2 class="page-header">Seleccione un periodo:</h2>
+        <form class="col-md-6 col-md-offset-3 form-horizontal" method="post" data-th-action="@{/periodo/seleccionar}">
+            <div class="form-group">
+                <label class="control-label" for="periodo">Periodo:</label>
+                <select class="form-control" id="periodo" name="periodo"
+                        data-th-errorclass="f-error">
+                    <option data-th-each="periodo : ${periodos}"
+                            data-th-value="${periodo.id}"
+                            data-th-text="|Periodo ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Periodo 1</option>
+                    <option value="0" data-th-remove="all">Periodo 2</option>
+                    <option value="0" data-th-remove="all">Periodo 3</option>
+                </select>
+                <strong data-th-if="${#fields.hasErrors('periodo')}" data-th-errors="*{periodo}"></strong>
+            </div>
+
+            <input type="hidden" name="previousServletPath"
+                   data-th-if="${previousServletPath}" data-th-value="${previousServletPath}"/>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Confirmar"/>
+            </div>
+
+        </form>
+    </div>
+
 </body>
 </html>

@@ -79,5 +79,4 @@ public class CursoController {
         model.addAttribute(cursos);
         return "curso/ver-todos";
     }
-
 }
