@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head data-th-replace="~{/agregar-persona::header('Todos los cursos')}">
+        <meta charset="UTF-8">
+        <title>Todos los cursos</title>
+        <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="page-header">Todos los cursos</h2>
+            <div class="well well-lg" data-th-each="cursoEntry : ${cursosPorPerido}">
+                <h4 class="pull-right" data-th-text="|Periodo: ${cursoEntry.key.fechaInicio} hasta ${cursoEntry.key.fechaFinal}|">Periodo 10/10/10 hasta 20/20/20</h4>
+                <div data-th-each=" curso : ${cursoEntry.value}">
+                    <div id="curso-summary">
+                        <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
+                        <span class="h4" data-th-text="${curso.grado.literal}">Kinder</span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+                        <p>
+                            <b>Docente encargado:</b>
+                            <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
+                        </p>
+                        <a data-th-href="@{/curso/{id}(id=${curso.id})}" href="#">Ver detalles</a>
+                        <hr/>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+    </body>
+</html>
