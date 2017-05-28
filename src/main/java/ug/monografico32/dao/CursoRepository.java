@@ -5,11 +5,13 @@
  */
 package ug.monografico32.dao;
 
+import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
+import ug.monografico32.model.Docente;
 
 /**
  *
@@ -35,5 +37,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long>{
             "LEFT JOIN FETCH cs.sesiones "+
             "WHERE ?1 MEMBER OF h.clases")
     Curso findCursoContainingClase(Clase clase);
+    
+    Stream<Curso> findByDocenteEncargadoId(Long docenteId);
     
 }

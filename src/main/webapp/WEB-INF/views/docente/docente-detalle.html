@@ -15,9 +15,9 @@
             <strong data-th-text="*{apellidos}">D'arc</strong>
             <strong class="pull-right" data-th-text="|Cedula: *{numeroCedula}|">D'arc</strong>
             <br/>
-            <a>Ver Curso encargado</a>
+            <a data-th-href="@{/curso/all(docente=*{id})}">Ver Curso encargado</a>
             <br/>
-            <a>Ver Clases</a>
+            <a data-th-href="@{/horario/clase(docente=*{id})}">Ver Clases</a>
         </p>
     </div>
 </body>

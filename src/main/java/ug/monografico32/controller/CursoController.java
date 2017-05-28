@@ -1,6 +1,10 @@
 package ug.monografico32.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,5 +82,24 @@ public class CursoController {
         
         model.addAttribute(cursos);
         return "curso/ver-todos";
+    }
+    
+    @GetMapping(path = "/all", params = "docente")
+    public String getCursoByDocente(@RequestParam Long docenteId, Model model){
+        Stream<Curso> cursoStream = cursoRepository.findByDocenteEncargadoId(docenteId);
+        
+        Map<Periodo, List<Curso>> periodoCursoMap = groupCursosByPeriodo(cursoStream);
+        
+        model.addAttribute("cursosPorPerido", periodoCursoMap);
+        return "curso/curso-por-periodo";
+    }
+    
+    private Map<Periodo, List<Curso>> groupCursosByPeriodo(Stream<Curso> cursoStream){
+        Map<Periodo, List<Curso>> periodoCursoMap = cursoStream.
+                collect(Collectors.
+                        groupingBy(Curso::getPeriodo, HashMap::new, Collectors.toList()));
+        
+        cursoStream.close();
+        return periodoCursoMap;
     }
 }
