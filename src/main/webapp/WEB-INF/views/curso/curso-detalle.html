@@ -34,7 +34,7 @@
             </div>
             <div class="row" id="horario" data-th-case="false" >
                 <div>
-                    <div class="col-sm-2" style="border-left-style: solid; border-left-width: 1px;" data-th-each="entry : ${curso.horario.getSesionsByDayOfWeek()}">
+                    <div class="col-sm-2" style="border-left-style: solid; border-left-width: 1px;" data-th-each="entry : ${sessionsByDay}">
                         <h4 class="text-capitalize text-center" data-th-text="${entry.key}"></h4>
                         <div style="border-top-style: solid; border-top-width: 1px;" data-th-each="sesion : ${entry.value}">
                             <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}"></span> -

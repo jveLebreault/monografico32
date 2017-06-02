@@ -72,7 +72,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor( new PeriodoSelectionInterceptor() ).
-                addPathPatterns("/docente/{id}");
+                addPathPatterns("/horario/clase*");
     }
 
     @Override

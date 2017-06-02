@@ -1,6 +1,8 @@
 package ug.monografico32.dao;
 
 import java.util.List;
+import java.util.stream.Stream;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ug.monografico32.model.Clase;
@@ -12,6 +14,11 @@ public interface ClaseRepository extends JpaRepository<Clase, Long>{
 
     @Query("SELECT c FROM Clase c LEFT JOIN FETCH c.sesiones WHERE c.id = ?1")
     Clase findAndFetchSesiones(Long id);
-    
-    List<Clase> findByInstructorId(Long id);
+
+    @Query("SELECT c FROM Clase c LEFT JOIN FETCH c.sesiones WHERE c.instructor.id = ?1")
+    Stream<Clase> findByInstructorId(Long id);
+
+    @Query("SELECT c FROM Clase c LEFT JOIN FETCH c.sesiones " +
+            "WHERE c.instructor.id = ?1 AND c.horario.curso.periodo.id = ?2")
+    Stream<Clase> findByInstructorIdAndPeriodoId(Long instructorId, Long periodoId);
 }

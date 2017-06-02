@@ -67,6 +67,7 @@ public class CursoController {
 
         Curso curso = cursoRepository.findByIdAndFetchHorario(cursoId);
         model.addAttribute(curso);
+        model.addAttribute("sessionsByDay", curso.getHorario().getSesionsByDayOfWeek());
         return "curso/curso-detalle";
     }
 
@@ -83,10 +84,20 @@ public class CursoController {
         model.addAttribute(cursos);
         return "curso/ver-todos";
     }
+
+    /*@GetMapping(path = "/all", params = "encargado")
+    public String getCursosByDocenteAndPeriodo(@RequestParam Long encargado,
+                                               @SessionAttribute Periodo periodo,
+                                               Model model){
+
+        List<Curso> cursos = cursoRepository.
+                findByDocenteEncargadoIdAndPeriodoId(encargado, periodo.getId());
+        return "curso/ver-todos";
+    }*/
     
-    @GetMapping(path = "/all", params = "docente")
-    public String getCursoByDocente(@RequestParam Long docenteId, Model model){
-        Stream<Curso> cursoStream = cursoRepository.findByDocenteEncargadoId(docenteId);
+    @GetMapping(path = "/all", params = "encargado")
+    public String getCursosByDocente(@RequestParam Long encargado, Model model){
+        Stream<Curso> cursoStream = cursoRepository.findByDocenteEncargadoId(encargado);
         
         Map<Periodo, List<Curso>> periodoCursoMap = groupCursosByPeriodo(cursoStream);
         

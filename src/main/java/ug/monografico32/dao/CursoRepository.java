@@ -5,6 +5,7 @@
  */
 package ug.monografico32.dao;
 
+import java.util.List;
 import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,5 +40,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long>{
     Curso findCursoContainingClase(Clase clase);
     
     Stream<Curso> findByDocenteEncargadoId(Long docenteId);
+
+    List<Curso> findByDocenteEncargadoIdAndPeriodoId(Long docenteEncargadoId, Long periodoId);
     
 }

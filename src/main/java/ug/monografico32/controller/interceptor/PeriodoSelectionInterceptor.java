@@ -19,8 +19,7 @@ public class PeriodoSelectionInterceptor extends HandlerInterceptorAdapter{
 
         if ( session.getAttribute("periodo") == null ){
             String servletPath = request.getServletPath();
-            //String servletPath = request.getRequestURI();
-            System.out.print("\n\n\n\n\n\n"+servletPath);
+
             request.setAttribute("previousServletPath", servletPath);
             
             request.getRequestDispatcher("/periodo/seleccionar").
