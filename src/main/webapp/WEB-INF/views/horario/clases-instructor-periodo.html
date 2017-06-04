@@ -9,7 +9,17 @@
 </head>
 <body>
     <div class="container">
-
+        <h2 class="page-header">Clases del docente</h2>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <strong class="pull-left" data-th-text="|Instructor: ${instructor.getNombreCompleto()}|">Docente: Juan Perez</strong>
+                <h5 class="pull-right" data-th-text="|Periodo: ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Periodo: 10/10/10 - 10/10/10</h5>
+            </div>
+        </div>
+        <div class="row col-md-8 col-md-offset-2">
+            <div class="pull-left" data-th-replace="~{/curso/curso-detalle::#horario}">
+            </div>
+        </div>
     </div>
 </body>
 </html>

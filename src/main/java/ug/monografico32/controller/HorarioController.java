@@ -42,14 +42,17 @@ public class HorarioController {
         return "horario/clase-detalle";
     }
 
-    @GetMapping( path = "/clase", params = "instructor")
-    public String showClasesByInstructor(@RequestParam Long instructor, Model model,
+    @GetMapping( path = "/clase")
+    public String showClasesByInstructor(@RequestParam Docente instructor, Model model,
                                          @SessionAttribute Periodo periodo){
 
         Stream<Clase> claseStream = claseRepository.
-                findByInstructorIdAndPeriodoId(instructor, periodo.getId());
+                findByInstructorIdAndPeriodoId(instructor.getId(), periodo.getId());
 
         Map<DayOfWeek, List<Sesion>> sesionsByDay = groupSessionsByDay(claseStream);
+        
+        model.addAttribute("instructor", instructor);
+        model.addAttribute(periodo);
         model.addAttribute("sessionsByDay", sesionsByDay);
         return "horario/clases-instructor-periodo";
     }

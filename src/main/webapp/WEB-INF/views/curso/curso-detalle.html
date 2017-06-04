@@ -32,10 +32,10 @@
             <div data-th-case="true">
                 <strong data-th-text="#{noclases}">No class</strong><br/>
             </div>
-            <div class="row" id="horario" data-th-case="false" >
-                <div>
+            <div class="row" data-th-case="false" >
+                <div id="horario">
                     <div class="col-sm-2" style="border-left-style: solid; border-left-width: 1px;" data-th-each="entry : ${sessionsByDay}">
-                        <h4 class="text-capitalize text-center" data-th-text="${entry.key}"></h4>
+                        <h4 class="text-capitalize text-center" data-th-text="${entry.key}">Dia</h4>
                         <div style="border-top-style: solid; border-top-width: 1px;" data-th-each="sesion : ${entry.value}">
                             <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}"></span> -
                             <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}"></span><br/>
