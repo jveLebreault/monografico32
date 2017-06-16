@@ -21,8 +21,8 @@ public class Estudiante extends Persona implements Serializable{
     {tutores = new ArrayList<>();}
 
     @ManyToMany( mappedBy = "estudiantes")
-    private List<Curso> cursos;
-    {cursos = new ArrayList<>();}
+    private Set<Curso> cursos;
+    {cursos = new HashSet<>();}
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<AmazonS3Document> documents;
@@ -79,11 +79,11 @@ public class Estudiante extends Persona implements Serializable{
         this.transferido = transferido;
     }
 
-    public void setCursos(List<Curso> cursos){
+    public void setCursos(Set<Curso> cursos){
         this.cursos = cursos;
     }
 
-    public List<Curso> getCursos(){
+    public Set<Curso> getCursos(){
         return cursos;
     }
 
@@ -115,5 +115,20 @@ public class Estudiante extends Persona implements Serializable{
     public boolean eliminarDocumento(final AmazonS3Document doc){
         return documents.removeIf( (d)->
                                     d.equals(doc) );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if( !(obj instanceof Estudiante) )
+            return false;
+
+        Estudiante other = (Estudiante) obj;
+
+        return this.getId().equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId().hashCode();
     }
 }

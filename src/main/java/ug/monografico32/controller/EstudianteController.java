@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ug.monografico32.dao.EstudianteRepository;
+import ug.monografico32.model.Curso;
 import ug.monografico32.model.Estudiante;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Jose Elias on 23/11/2016.
@@ -39,6 +43,30 @@ public class EstudianteController {
     public String showById(@PathVariable Long id, Model model){
         model.addAttribute( repository.findById(id) );
         return "estudiante/estudiante-detalle";
+    }
+
+    @GetMapping( path = "/{id}/cursos")
+    public String verCursosEstudiante(@PathVariable Long id,Model model){
+        Estudiante estudiante = repository.findByIdAndFetchCursos(id);
+        List<Curso> cursos = ordenarCursos( estudiante.getCursos() );
+
+        model.addAttribute(estudiante);
+        model.addAttribute("cursos", cursos);
+
+        return "estudiante/estudiante-cursos";
+    }
+
+    private List<Curso> ordenarCursos(Set<Curso> cursos){
+        List<Curso> cursosOrdenados = new ArrayList<>(cursos);
+
+        cursosOrdenados.sort( (c1, c2) -> {
+            Date fechaInicioC1 = c1.getPeriodo().getFechaInicio();
+            Date fechaInicioC2 = c2.getPeriodo().getFechaInicio();
+
+            return fechaInicioC1.compareTo(fechaInicioC2);
+        });
+
+        return cursosOrdenados;
     }
 
 }
