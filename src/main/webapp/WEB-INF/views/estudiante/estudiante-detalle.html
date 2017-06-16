@@ -8,10 +8,6 @@
     </head>
     <body>
         <div class="container">
-            <!--<span>contains</span>
-            <span data-th-text="${persistenceContext.contains(estudiante)}"></span>
-            <span>open:</span><span data-th-text="${persistenceContext.isOpen()}"></span>
-            <span>tx active:</span><span data-th-text="${persistenceContext.getTransaction().isActive()}"></span>-->
             <div id="estudiante" data-th-object="${estudiante}" class="well well-lg">
 
                 <h3 class="page-header">Informacion de estudiante:</h3>
@@ -21,6 +17,9 @@
                     <span data-th-text="*{estado}">Inactivo</span>
                 </p>
                 <br/>
+                <hr/>
+                <a data-th-href="@{/estudiante/{id}/cursos (id=*{id}) }">Ver Cursos inscritos</a>
+                <hr/>
                 <div id="documentos">
                     <h4>Documentos</h4>
                     <p data-th-each="document : *{documents}">
