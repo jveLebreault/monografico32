@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Agregar estudiante')}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <h2 class="page-header">Seleccione estudiante</h2>
+        <div class="row">
+            <div data-th-switch="${cursoAgregado}">
+                <div data-th-case="true" class="bg-success">
+                    <p class="text-center">
+                        <strong>Estudiante agregado exitosamente</strong>
+                    </p>
+                </div>
+                <div data-th-case="false" class="bg-danger">
+                    <p class="text-center">
+                        <strong>Estudiante no fue agregado</strong>
+                    </p>
+                </div>
+            </div>
 
+            <div class="">
+                <table class="table table-striped">
+                    <caption class="text-center">Estudiantes</caption>
+                    <thead>
+                    <tr>
+                        <th>Apellidos</th>
+                        <th>Nombre</th>
+                        <th> Detalle </th>
+                        <th> - </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="estudiante : ${estudiantes}">
+                        <td data-th-text="${estudiante.apellidos}">Perez</td>
+                        <td data-th-text="${estudiante.nombres}">Juan</td>
+                        <td> <a target="_blank" data-th-href="@{/estudiante/{id}(id=${estudiante.id})}">Ver estudiante</a></td>
+                        <td>
+                            <form method="post" data-th-action="@{/curso/{curso}/estudiantes/agregar(curso=${curso.id})}">
+                                <!--<input type="hidden" name="curso" data-th-value="${curso.id}"/>-->
+                                <input type="hidden" name="estudianteId" data-th-value="${estudiante.id}"/>
+                                <input type="submit" class="btn btn-primary" value="Agregar"/>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr data-th-remove="all">
+                        <td>Santana</td>
+                        <td>Emilio</td>
+                        <td>  <a>Ver estudiante</a></td>
+                        <td> <button class="btn btn-primary">Agregar</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

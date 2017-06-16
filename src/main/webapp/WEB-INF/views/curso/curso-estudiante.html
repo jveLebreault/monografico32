@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head data-th-replace="~{/agregar-persona::header('Detalle del curso')}">
+<head data-th-replace="~{/agregar-persona::header('Estudiantes')}">
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -8,9 +8,40 @@
 <body>
     <div class="container" id="lista-estudiantes">
         <h3 class="page-header" 
-            data-th-text="|Lista de estudiantes del curso ${curso.grado} ${curso.seccion}|">Lista de estudiantes</h3>
-        <div class="well well-sm" data-th-each="estudiante : ${cuso.estudiantes}">
-            
+            data-th-text="|Lista de estudiantes del curso ${curso.grado} ${curso.seccion}|">Lista de estudiantes del curso 3ro B </h3>
+        <div>
+            <p class="pull-left">
+                <strong>Periodo: </strong>
+                <span data-th-text="|${curso.periodo.fechaInicio} hasta ${curso.periodo.fechaFinal}|">10/10/10 hasta 20/20/20</span>
+            </p>
+            <a data-th-href="@{/curso/{curso}/estudiantes/agregar(curso=${curso.id})}" class="pull-right">Agregar estudiantes</a>
+        </div>
+        <div class="well well-lg" style="clear: both">
+            <table class="table table-striped">
+                <caption class="text-center">Estudiantes en lista</caption>
+                <thead>
+                    <tr>
+                        <th>Apellidos</th>
+                        <th>Nombre</th>
+                        <th> - </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="estudiante : ${curso.estudiantes}" data-th-unless="${curso.estudiantes.isEmpty()}">
+                        <td data-th-text="${estudiante.apellidos}">Perez</td>
+                        <td data-th-text="${estudiante.nombres}">Juan</td>
+                        <td> <a target="_blank" data-th-href="@{/estudiante/{id}(id=${estudiante.id})}">Ver estudiante</a></td>
+                    </tr>
+                    <tr data-th-if="${curso.estudiantes.isEmpty()}">
+                        <th class="text-center" colspan="3">No existen estudiantes inscritos</th>
+                    </tr>
+                    <tr data-th-remove="all">
+                        <td>Santana</td>
+                        <td>Emilio</td>
+                        <td>  <a>Ver estudiante</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

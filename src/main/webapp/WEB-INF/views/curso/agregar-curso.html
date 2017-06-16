@@ -35,7 +35,6 @@
                     <input class="form-control" id="seccion" type="text" name="seccion"
                            data-th-field="*{seccion}" minlength="1" maxlength="5"
                            data-th-errorclass="f-error"/>
-                    <strong data-th-if="${#fields.hasErrors('seccion')}" data-th-errors="*{seccion}"></strong>
                 </div>
 
                 <div class="form-group">
@@ -48,7 +47,6 @@
                         <option value="0" data-th-remove="all">Periodo 2</option>
                         <option value="0" data-th-remove="all">Periodo 3</option>
                     </select>
-                    <strong data-th-if="${#fields.hasErrors('periodo')}" data-th-errors="*{periodo}"></strong>
                 </div>
 
                 <div class="form-group">
@@ -61,11 +59,12 @@
                         <option value="0" data-th-remove="all">Profesor 2</option>
                         <option value="0" data-th-remove="all">Profesor 3</option>
                     </select>
-                    <strong data-th-if="${#fields.hasErrors('docenteEncargado')}" data-th-errors="*{docenteEncargado}"></strong>
                 </div>
-                <div data-th-if="${#fields.hasGlobalErrors()}" class="has-error well well-sm">
-                    <strong data-th-each="err : ${#fields.globalErrors()}"
-                       data-th-text="${err}" class="help-block">Error XYZ</strong>
+                <div data-th-if="${#fields.hasAnyErrors()}" class="has-error well well-sm">
+                    <p data-th-each="err : ${#fields.detailedErrors()}"  class="help-block">
+                        <strong data-th-text="${err.global} ? '*' : ${err.fieldName}"></strong>
+                        <strong data-th-text="${err.message}"></strong>
+                    </p>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary pull-right" value="Crear"/>
