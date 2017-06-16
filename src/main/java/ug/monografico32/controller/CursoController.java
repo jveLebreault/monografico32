@@ -1,6 +1,7 @@
 package ug.monografico32.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,16 +12,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ug.monografico32.dao.EstudianteRepository;
 import ug.monografico32.dao.PeriodoRepository;
-import ug.monografico32.model.Clase;
-import ug.monografico32.model.Curso;
+import ug.monografico32.model.*;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
-import ug.monografico32.model.Docente;
-import ug.monografico32.model.Periodo;
 
 /**
  * Created by Jose Elias on 20/12/2016.
@@ -38,6 +38,9 @@ public class CursoController {
 
     @Autowired
     private PeriodoRepository periodoRepository;
+
+    @Autowired
+    private EstudianteRepository estudianteRepository;
 
 
     @GetMapping(path = "/agregar")
@@ -72,9 +75,37 @@ public class CursoController {
     }
 
     @GetMapping(path = "/{curso}/estudiantes")
-    public String verEstudiantes(){
-        //TODO: Make this work dude!!
-        return "";
+    public String verEstudiantes(@PathVariable Long curso, Model model){
+
+        model.addAttribute("curso", cursoRepository.findByIdAndFetchEstudiantes(curso));
+        return "curso/curso-estudiante";
+    }
+
+    @GetMapping(path = "/{curso}/estudiantes/agregar")
+    public String agregarEstudiantes(@PathVariable Curso curso, Model model){
+        List<Estudiante> estudiantes = estudianteRepository.findEstudiantesNotInCurso(curso);
+
+        model.addAttribute("estudiantes", estudiantes);
+        model.addAttribute(curso);
+        return "curso/agregar-estudiante";
+    }
+
+    @PostMapping(path = "/{cursoId}/estudiantes/agregar")
+    public String procesarAgregarEstudiante(@PathVariable Long cursoId,
+                                            @RequestParam Long estudianteId, RedirectAttributes model){
+
+        Estudiante estudiante = estudianteRepository.findByIdAndFetchCursos(estudianteId);
+        Curso curso = cursoRepository.findByIdAndFetchEstudiantes(cursoId);
+
+        if ( estudiante.agregarCurso(curso)) {
+            curso.agregarEstudiante(estudiante);
+            cursoRepository.save(curso);
+
+            model.addFlashAttribute("cursoAgregado", true);
+        }else
+            model.addFlashAttribute("cursoAgregado", false);
+
+        return "redirect:/curso/"+curso.getId()+"/estudiantes/agregar";
     }
     
     @GetMapping(path = "/all")
@@ -84,16 +115,6 @@ public class CursoController {
         model.addAttribute(cursos);
         return "curso/ver-todos";
     }
-
-    /*@GetMapping(path = "/all", params = "encargado")
-    public String getCursosByDocenteAndPeriodo(@RequestParam Long encargado,
-                                               @SessionAttribute Periodo periodo,
-                                               Model model){
-
-        List<Curso> cursos = cursoRepository.
-                findByDocenteEncargadoIdAndPeriodoId(encargado, periodo.getId());
-        return "curso/ver-todos";
-    }*/
     
     @GetMapping(path = "/all", params = "encargado")
     public String getCursosByDocente(@RequestParam Long encargado, Model model){

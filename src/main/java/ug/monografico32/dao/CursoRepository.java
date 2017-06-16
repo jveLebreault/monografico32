@@ -29,7 +29,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long>{
     public Curso findByIdAndFetchHorario(Long id);
 
 
-    @Query("SELECT c FROM Curso c JOIN FETCH c.estudiantes WHERE c.id = ?1")
+    @Query("SELECT c FROM Curso c LEFT JOIN FETCH c.estudiantes WHERE c.id = ?1")
     public Curso findByIdAndFetchEstudiantes(Long id);
 
 

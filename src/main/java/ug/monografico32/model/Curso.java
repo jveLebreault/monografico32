@@ -50,8 +50,8 @@ public class Curso implements Serializable {
     
     @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Valid
-    private List<Estudiante> estudiantes;
-    {estudiantes = new ArrayList<>();}
+    private Set<Estudiante> estudiantes;
+    {estudiantes = new HashSet<>();}
 
     @NotNull
     @Valid
@@ -114,11 +114,11 @@ public class Curso implements Serializable {
         return seccion;
     }
     
-    public void setEstudiantes(List<Estudiante> estudiantes){
+    public void setEstudiantes(Set<Estudiante> estudiantes){
         this.estudiantes = estudiantes;
     }
     
-    public List<Estudiante> getEstudiantes(){
+    public Set<Estudiante> getEstudiantes(){
         return estudiantes;
     }
     
@@ -166,13 +166,15 @@ public class Curso implements Serializable {
 
         if(obj == this)
             return true;
+
         if(obj instanceof Curso){
             Curso curso = (Curso) obj;
 
-            return ( (this.getNivel().equals(curso.getNivel())) &&
+            return ( (this.periodo.equals(curso.getPeriodo()) ) &&
+                     (this.getNivel().equals(curso.getNivel())) &&
                      (this.getGrado().equals(curso.getGrado())) &&
-                     (this.getSeccion().equals(curso.getSeccion())) &&
-                     (this.periodo.equals(curso.getPeriodo()) ));
+                     (this.getSeccion().equals(curso.getSeccion()))
+                    );
         }
 
         return false;
