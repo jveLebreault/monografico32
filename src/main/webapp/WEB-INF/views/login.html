@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Log in')}">
+    <meta charset="UTF-8">
+    <title>Menu administrador</title>
+    <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../resources/css/standard.css">
+
+</head>
+<body style="background-color: #E3E2DE">
+    <div class="container" style="position: absolute; top: 20%; left: 5%; max-width: 30%">
+
+        <div data-th-if="${error} != null" class="has-error">
+            <strong data-th-text="#{login.error}" class="help-block">Usuario incorrecto</strong>
+        </div>
+
+        <div data-th-if="${logout} != null" class="has-success">
+            <strong data-th-text="#{logout.success}" class="help-block">Desconeccion</strong>
+        </div>
+
+        <form class="form-signin" data-th-action="@{/login}" method="post">
+            <h2 class="form-signin-heading">Favor autenticarse</h2>
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Email" name="username" required="required" autofocus="autofocus">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required="required">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
+        </form>
+
+    </div>
+
+    <footer class="container-fluid" id="footer">
+        <div class="pull-left">
+            <h6>Monografico 32</h6>
+            <h6>--Nombre del proyecto</h6>
+        </div>
+
+        <ul class="list-unstyled pull-right">
+            <strong >Sustentantes:</strong>
+            <li>Juan Perez - 1234</li>
+            <li>Julio Hazim - 4321</li>
+            <li>Jacinto De la Concha - 9876</li>
+        </ul>
+    </footer>
+
+</body>
+</html>

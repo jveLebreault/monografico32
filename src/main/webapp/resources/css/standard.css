@@ -1,3 +1,20 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body { padding-top: 70px; }
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    color: #EEEBE1;
+    background-color: #363A3D;
+    font-size: 85%;
+}
+
 .f-error.help-block,
 .f-error.control-label,
 .f-error.radio,

@@ -5,16 +5,23 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home Page</title>
-        <link href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" 
-              rel="stylesheet" type="text/css" media="all" 
-              data-th-href="@{/resources/node_modules/bootstrap/dist/css/bootstrap.min.css}"/>
+    <head data-th-replace="~{/agregar-persona::header('Log in')}">
+        <meta charset="UTF-8">
+        <title>Menu administrador</title>
+        <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <script src="../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../../resources/css/standard.css">
+
     </head>
     <body>
+        <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+        </nav>
         <div data-th-text="#{prueba}">TODO write content</div>
+
+        <footer data-th-replace="~{/footer-monografico::#footer}">
+
+        </footer>
     </body>
 </html>

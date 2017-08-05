@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu administrador</title>
+    <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top">
+        <div sec:authorize="hasRole('ROLE_ADMIN') OR ( hasRole('ROLE_ADMIN') AND hasRole('ROLE_DOCENTE') )" data-th-replace="~{/menu/admin-menu::#admin-menu}">
+
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_DOCENTE') AND !hasRole('ROLE_ADMIN')" data-th-replace="~{/menu/docente-menu::#docente-menu}">
+
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_ESTUDIANTE')" data-th-replace="~{/menu/estudiante-menu::#estudiante-menu}">
+
+        </div>
+
+    </nav>
+
+</body>
+</html>

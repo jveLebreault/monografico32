@@ -7,10 +7,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import ug.monografico32.model.aws.URLSignerWrapper;
 
@@ -18,6 +15,7 @@ import ug.monografico32.model.aws.URLSignerWrapper;
  * Created by Jose Elias on 24/10/2016.
  */
 @Configuration
+@Import(SecurityConfig.class)
 @PropertySource("classpath:/aws/cloudfront.properties")
 @ComponentScan( basePackages = {"ug.monografico32.model"})
 public class AppConfig {

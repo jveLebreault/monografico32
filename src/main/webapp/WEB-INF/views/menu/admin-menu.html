@@ -1,15 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Menu administrador</title>
+    <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div id="admin-menu" class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">AAA</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Monografico 32</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Docentes <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-th-href="@{/docente/agregar}" href="#">Agregar</a></li>
+                            <li><a data-th-href="@{/docente/all}" href="#">Ver todos</a></li>
+                        </ul>
+                    </li>
+                    <li  class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estudiantes <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-th-href="@{/estudiante/agregar}" href="#">Agregar</a></li>
+                            <li><a href="#">Ver todos</a></li>
+                        </ul>
+                    </li>
+                    <li  class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cursos <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-th-href="@{/curso/agregar}" href="#">Agregar</a></li>
+                            <li><a data-th-href="@{/curso/all}" href="#">Ver todos</a></li>
+                        </ul>
+                    </li>
+                    <li  class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Periodos <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-th-href="@{/periodo/crear}" href="#">Agregar</a></li>
+                            <li><a data-th-href="@{/periodo/all}" href="#">Ver todos</a></li>
+                            <li><a data-th-href="@{/periodo/seleccionar}" href="#">Seleccionar Periodo</a></li>
+                        </ul>
+                    </li>
+                    <li  class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Asignaturas <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-th-href="@{/asignatura/agregar}" href="#">Agregar</a></li>
+                            <li><a data-th-href="@{/asignatura/all}" href="#">Ver todos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li> <a href="#" data-th-text="${#authentication.name}">Juan Perez</a></li>
+                    <li><a href="#" data-th-href="@{/logout}">Desconectar <span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
             </div>
         </div>
     </nav>
