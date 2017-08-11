@@ -26,12 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.
             authorizeRequests().
-                antMatchers("/resources/**").permitAll().and().
+                antMatchers("/resources/**", "/login**").permitAll().and().
             authorizeRequests().
                 anyRequest().authenticated().and().
                 formLogin().
                     loginPage("/login").
-                    permitAll().
+                    //permitAll().
                     defaultSuccessUrl("/home");
     }
 }
