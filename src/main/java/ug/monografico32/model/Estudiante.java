@@ -129,6 +129,6 @@ public class Estudiante extends Persona implements Serializable{
 
     @Override
     public int hashCode() {
-        return this.getId().hashCode();
+        return Objects.hashCode(this.getId());
     }
 }
