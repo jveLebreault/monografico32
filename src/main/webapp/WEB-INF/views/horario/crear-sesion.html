@@ -60,7 +60,7 @@
                         <td data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}">10:00 AM</td>
                         <td data-th-text="${#dates.format(sesion.horaFinal, 'hh:mm a')}">10:30 AM</td>
                         <td>
-                            <a href="" data-th-href="@{${flowExecutionUrl}(_eventId='eliminar',
+                            <a href="" data-th-href="@{'~'+${flowExecutionUrl}(_eventId='eliminar',
                             dia=${sesion.dia}, horaInicio=${sesion.horaInicio.getTime()}, horaFinal=${sesion.horaFinal.getTime()})}">Eliminar</a>
                         </td>
                     </tr>

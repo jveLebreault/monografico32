@@ -12,7 +12,7 @@
         <div class="well well-sm" data-th-each="asignatura : ${asignaturaList}">
             <strong data-th-text="${asignatura.clave}">Clave</strong><br/>
             <span data-th-text="${asignatura.nombre}">Nombre</span><br/>
-            <a data-th-href="|/asignatura/${asignatura.id}|" href="#">Ver detalles</a>
+            <a data-th-href="@{/asignatura/${asignatura.id}}" href="#">Ver detalles</a>
         </div>
     </div>
 </body>

@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <h2 class="page-header">Agregar Docente</h2>
-            <form class="form-horizontal" method="post" data-th-object="${docente}" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" data-th-object="${docente}" enctype="multipart/form-data" data-th-action="@{/docente/agregar}">
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3"
                          data-th-insert="~{/agregar-persona-legal::#persona}"></div>

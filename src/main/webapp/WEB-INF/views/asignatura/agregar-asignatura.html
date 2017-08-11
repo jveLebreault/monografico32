@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h3 class="page-header">Nueva asignatura</h3>
-        <form class="form-horizontal" method="post" data-th-object="${asignatura}">
+        <form class="form-horizontal" method="post" data-th-action="@{/asignatura/agregar}" data-th-object="${asignatura}">
             <div class="col-md-7 col-md-offset-2">
                 <div class="form-group">
                     <label class="control-label" for="nombre-asignatura">Nombre:</label>
