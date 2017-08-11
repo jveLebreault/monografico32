@@ -86,7 +86,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowHandlerMapping flowHandlerMapping(){
         FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
         handlerMapping.setFlowRegistry(flowRegistry());
-        handlerMapping.setOrder(0);
+        handlerMapping.setOrder(-1);
         return handlerMapping;
     }
 
