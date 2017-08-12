@@ -7,6 +7,10 @@
 </head>
 <body>
 
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h4 class="page-header" data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
         <span class="h2" data-th-text="${curso.grado.literal}">Kinder </span><span class="h2"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
@@ -50,5 +54,9 @@
         <hr/>
         <a href="#" target="_blank" data-th-href="@{/horario/agregar(curso=${curso.id})}">Agregar clases</a>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

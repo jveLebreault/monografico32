@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
     <body>
+
+        <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+        </nav>
+
         <div class="container">
             <h3 class="page-header">Lista de docentes</h3>
             <p class="well well-sm" data-th-each="docente : ${docentes}">
@@ -13,7 +18,10 @@
                 <strong data-th-text="${docente.apellidos}"></strong><br/>
                 <a data-th-href="@{/docente/${docente.id}}" href="#">Ver detalles</a>
             </p>
-            
         </div>
+
+        <footer data-th-replace="~{/footer-monografico::#footer}">
+
+        </footer>
     </body>
 </html>

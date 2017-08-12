@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <div class="row">
             <h2 class="page-header">Todos los periodos</h2>
@@ -21,5 +26,9 @@
             </div>
         </div>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

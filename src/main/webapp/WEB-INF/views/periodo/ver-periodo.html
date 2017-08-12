@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h2 class="page-header">Periodo:
             <span class="small" data-th-text="|Desde ${periodo.fechaInicio} hasta ${periodo.fechaFinal}|">Desde 2016/08/12 hasta 2016/12/30</span></h2>
@@ -21,5 +26,9 @@
             <a data-th-href="@{/curso/{cursoId}(cursoId=${curso.id})}">Ver detalles del curso</a>
         </div>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

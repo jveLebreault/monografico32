@@ -7,6 +7,11 @@
         <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+
+        <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+        </nav>
+
         <div class="container">
             <div id="estudiante" data-th-object="${estudiante}" class="well well-lg">
 
@@ -42,5 +47,9 @@
                 </p>
             </div>
         </div>
+
+        <footer data-th-replace="~{/footer-monografico::#footer}">
+
+        </footer>
     </body>
 </html>

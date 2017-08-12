@@ -7,6 +7,11 @@
 
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h3 class="page-header">Nueva asignatura</h3>
         <form class="form-horizontal" method="post" data-th-action="@{/asignatura/agregar}" data-th-object="${asignatura}">
@@ -32,5 +37,9 @@
             </div>
         </form>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

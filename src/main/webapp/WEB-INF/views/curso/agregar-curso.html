@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h2 class="page-header">Crear curso</h2>
         <form class="form-horizontal" method="post" data-th-object="${curso}" data-th-action="@{/curso/agregar}">
@@ -72,6 +77,10 @@
             </div>
         </form>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
     <!--TODO: Add dynamic behavior on change of the nivel option-->
 </body>
 </html>

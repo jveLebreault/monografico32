@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
+
+        <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+        </nav>
+
         <div class="container">
             <h2 class="page-header">Todos los cursos</h2>
             <div class="well well-lg" data-th-each="cursoEntry : ${cursosPorPerido}">
@@ -27,5 +32,9 @@
             </div>
             
         </div>
+
+        <footer data-th-replace="~{/footer-monografico::#footer}">
+
+        </footer>
     </body>
 </html>

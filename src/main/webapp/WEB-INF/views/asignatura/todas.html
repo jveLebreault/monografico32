@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h3 class="page-header">Todas las asignaturas</h3>
         <strong data-th-if="${#lists.isEmpty(asignaturaList)}">No existen asignaturas</strong>
@@ -15,5 +20,9 @@
             <a data-th-href="@{/asignatura/${asignatura.id}}" href="#">Ver detalles</a>
         </div>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

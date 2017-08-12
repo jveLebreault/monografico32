@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h2 class="page-header" data-th-text="|Agregar sesion(es) a ${clase.asignatura.nombre}|">Agregar sesion(es) a :</h2>
         <form id="session-form" class="form-horizontal col-md-8 col-md-offset-2"
@@ -88,5 +93,9 @@
                 })
         );*/
     </script>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

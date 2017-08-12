@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h3 class="page-header">Asignatura: <small data-th-text="|${clase.asignatura.nombre} - ${clase.asignatura.clave}|">Educacion fisica - EDU101</small></h3>
         <h4>Instructor: <small data-th-text="${clase.instructor.getNombreCompleto()}">Juan Perez</small></h4><br/><br/>
@@ -27,5 +32,9 @@
         <a href="#" target="_blank" data-th-href="@{/horario/agregar(clase=${clase.id})}">Agregar clases</a>
 
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

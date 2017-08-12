@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h2 class="page-header">Crear nuevo periodo</h2>
         <form class="form-horizontal" method="post" data-th-object="${periodo}" data-th-action="@{/periodo/crear}">
@@ -36,5 +41,9 @@
 
         </form>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

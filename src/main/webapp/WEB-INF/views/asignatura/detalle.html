@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
     <div class="container">
         <h3 class="page-header">Detalle de la asignatura</h3>
         <div class="well well-sm">
@@ -13,5 +18,9 @@
             <span data-th-text="${asignatura.nombre}">Nombre</span>
         </div>
     </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
 </body>
 </html>

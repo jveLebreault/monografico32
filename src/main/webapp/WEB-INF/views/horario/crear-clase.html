@@ -11,6 +11,11 @@ and open the template in the editor.
         <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
+
+        <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+        </nav>
+
         <div class="container">
             <h3 class="page-header" data-th-text="#{clase.agregar(${curso.getGradoSeccion()})}">Agregar clase</h3>
             <form class="form-horizontal col-md-8 col-md-offset-2" method="post" data-th-object="${clase}" data-th-action="${flowExecutionUrl}">
@@ -39,5 +44,9 @@ and open the template in the editor.
                 </div>
             </form>
         </div>
+
+        <footer data-th-replace="~{/footer-monografico::#footer}">
+
+        </footer>
     </body>
 </html>
