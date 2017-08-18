@@ -42,7 +42,7 @@ public class HorarioController {
         return "horario/clase-detalle";
     }
 
-    @GetMapping( path = "/clase")
+    @GetMapping( path = "/clase", params = "instructor")
     public String showClasesByInstructor(@RequestParam Docente instructor, Model model,
                                          @SessionAttribute Periodo periodo){
 
