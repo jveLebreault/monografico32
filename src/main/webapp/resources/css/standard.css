@@ -20,6 +20,11 @@ footer{
     font-size: 85%;
 }
 
+.anchor-block {
+    display: block;
+    font-size: small;
+}
+
 .f-error.help-block,
 .f-error.control-label,
 .f-error.radio,
