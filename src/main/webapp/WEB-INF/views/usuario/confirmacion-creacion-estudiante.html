@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Usario creado')}">
+    <meta charset="UTF-8">
+    <title>Usuario creado</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <div class="well well-lg  col-md-8 col-md-offset-2">
+            <p class="alert alert-success text-center">
+                <strong>USUARIO CREADO EXITOSAMENTE</strong>
+            </p>
+
+            <div class="text-center">
+                <p>
+                    <strong>Estudiante: </strong>
+                    <span data-th-text="${estudiante.getNombreCompleto()}">Juan Perez</span>
+                </p>
+
+                <p>
+                    <strong>Usuario: </strong>
+                    <span data-th-text="${estudiante.username}">perezju</span>
+                </p>
+            </div>
+
+            <a class="btn btn-info" href="#" data-th-href="@{/estudiante/{id}(id=${estudiante.id})}" role="button">Aceptar</a>
+        </div>
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+</body>
+</html>
