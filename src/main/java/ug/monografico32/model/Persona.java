@@ -5,13 +5,16 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Jose Elias on 25/10/2016.
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Persona implements Serializable{
+public abstract class Persona implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
@@ -28,6 +31,10 @@ public abstract class Persona implements Serializable{
     @NotNull
     @Enumerated(EnumType.STRING)
     private Estado estado; //activo, inactivo etc...
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AmazonS3Document> documents;
+    {documents = new HashSet<>();}
 
     public Persona(){
         this.estado = Estado.PENDIENTE_APROBACION;
@@ -78,5 +85,26 @@ public abstract class Persona implements Serializable{
     
     public Estado getEstado(){
         return estado;
+    }
+
+    public void setDocuments(Set<AmazonS3Document> docs){
+        this.documents = docs;
+    }
+
+    public Set<AmazonS3Document> getDocuments(){
+        return documents;
+    }
+
+    public boolean agregarDocumentos(AmazonS3Document... docs){
+        return documents.addAll( Arrays.asList(docs) );
+    }
+
+    public boolean agregarDocumento(AmazonS3Document doc){
+        return documents.add(doc);
+    }
+
+    public boolean eliminarDocumento(final AmazonS3Document doc){
+        return documents.removeIf( (d)->
+                d.equals(doc) );
     }
 }
