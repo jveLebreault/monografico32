@@ -15,9 +15,9 @@ import ug.monografico32.model.aws.URLSignerWrapper;
  * Created by Jose Elias on 24/10/2016.
  */
 @Configuration
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, PersistenceConfig.class})
 @PropertySource("classpath:/aws/cloudfront.properties")
-@ComponentScan( basePackages = {"ug.monografico32.model"})
+@ComponentScan( basePackages = {"ug.monografico32.model", "ug.monografico32.service"})
 public class AppConfig {
     
     @Autowired
