@@ -16,29 +16,12 @@ public abstract class CloudDocument {
 
     @Id
     @NotNull
+    @Column(updatable = false)
     private String documentKey;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
-
-    @Override
-    public boolean equals(Object obj){
-        if( !(obj instanceof CloudDocument) )
-            return false;
-
-        if(obj == this)
-            return true;
-
-        CloudDocument doc = (CloudDocument) obj;
-
-        return( this.documentKey.equals( doc.getDocumentKey() ));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(documentKey);
-    }
 
     public CloudDocument(String key, DocumentType dType){
         this.documentKey = key;
@@ -65,6 +48,24 @@ public abstract class CloudDocument {
 
     public DocumentType getDocumentType(){
         return documentType;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if( !(obj instanceof CloudDocument) )
+            return false;
+
+        if(obj == this)
+            return true;
+
+        CloudDocument doc = (CloudDocument) obj;
+
+        return( this.documentKey.equals( doc.getDocumentKey() ));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(documentKey);
     }
     
 }
