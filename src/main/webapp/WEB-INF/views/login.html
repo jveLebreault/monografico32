@@ -23,12 +23,13 @@
         <form class="form-signin" data-th-action="@{/login}" method="post">
             <h2 class="form-signin-heading">Favor autenticarse</h2>
             <label for="inputEmail" class="sr-only">Email</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Email" name="username" required="required" autofocus="autofocus">
+            <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" name="username" required="required" autofocus="autofocus">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required="required">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
         </form>
-
+        <a href="#" data-th-href="@{/estudiante/agregar}" class="anchor-block">Registrar estudiante</a>
+        <a href="#" data-th-href="@{/docente/agregar}" class="anchor-block">Registrar docente</a>
     </div>
 
     <footer class="container-fluid" id="footer">
