@@ -10,15 +10,15 @@
 <body>
 
     <nav id="main-menu" class="navbar navbar-default navbar-fixed-top">
-        <div sec:authorize="hasRole('ROLE_ADMIN') OR ( hasRole('ROLE_ADMIN') AND hasRole('ROLE_DOCENTE') )" data-th-replace="~{/menu/admin-menu::#admin-menu}">
+        <div sec:authorize="hasAuthority('ADMINISTRADOR') OR ( hasAuthority('ADMINISTRADOR') AND hasAuthority('DOCENTE') )" data-th-replace="~{/menu/admin-menu::#admin-menu}">
 
         </div>
 
-        <div sec:authorize="hasRole('ROLE_DOCENTE') AND !hasRole('ROLE_ADMIN')" data-th-replace="~{/menu/docente-menu::#docente-menu}">
+        <div sec:authorize="hasAuthority('DOCENTE') AND !hasAuthority('ADMINISTRADOR')" data-th-replace="~{/menu/docente-menu::#docente-menu}">
 
         </div>
 
-        <div sec:authorize="hasRole('ROLE_ESTUDIANTE')" data-th-replace="~{/menu/estudiante-menu::#estudiante-menu}">
+        <div sec:authorize="hasAuthority('ESTUDIANTE')" data-th-replace="~{/menu/estudiante-menu::#estudiante-menu}">
 
         </div>
 
