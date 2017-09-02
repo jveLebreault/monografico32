@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar usuario</title>
+    <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../resources/css/standard.css">
+
+</head>
+<body>
+    <div class="container">
+        <form class="form-horizontal ">
+            <fieldset class="well" id="informacion-usuario">
+                <legend>Informacion de usuario</legend>
+                <div class="form-group">
+                    <label class="control-label" for="usuario">Usuario:</label>
+                    <input class="form-control" type="text" id="usuario"
+                           minlength="2" maxlength="50" name="username"
+                           data-th-field="*{username}"
+                           data-th-errorclass="f-error"/>
+                    <p data-th-if="${#fields.hasErrors('username')}" data-th-errors="*{username}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password">Contrase&ntildea:</label>
+                    <input class="form-control" type="password" id="password"
+                           minlength="2" maxlength="50" name="password"
+                           data-th-field="*{password}"
+                           data-th-errorclass="f-error"/>
+                    <p data-th-if="${#fields.hasErrors('password')}" data-th-errors="*{password}"></p>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+</html>
