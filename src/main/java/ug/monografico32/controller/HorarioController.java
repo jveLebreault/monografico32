@@ -6,22 +6,16 @@
 package ug.monografico32.controller;
 
 import java.time.DayOfWeek;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.dao.ClaseRepository;
-import ug.monografico32.dao.CursoRepository;
-import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.*;
 
 /**
@@ -49,7 +43,7 @@ public class HorarioController {
         Stream<Clase> claseStream = claseRepository.
                 findByInstructorIdAndPeriodoId(instructor.getId(), periodo.getId());
 
-        Map<DayOfWeek, List<Sesion>> sesionsByDay = groupSessionsByDay(claseStream);
+        Map<DayOfWeek, Set<Sesion>> sesionsByDay = groupSessionsByDay(claseStream);
         
         model.addAttribute("instructor", instructor);
         model.addAttribute(periodo);
@@ -57,10 +51,10 @@ public class HorarioController {
         return "horario/clases-instructor-periodo";
     }
 
-    private Map<DayOfWeek,List<Sesion>> groupSessionsByDay(Stream<Clase> claseStream) {
+    private Map<DayOfWeek,Set<Sesion>> groupSessionsByDay(Stream<Clase> claseStream) {
         return claseStream.flatMap(clase -> clase.getSesiones().stream()).
                 collect( Collectors.
-                        groupingBy( Sesion::getDia, TreeMap::new, Collectors.toList()));
+                        groupingBy( Sesion::getDia, TreeMap::new, Collectors.toSet()));
     }
 
 
