@@ -11,50 +11,50 @@ import javax.validation.Valid;
  * Created by Jose Elias on 25/10/2016.
  */
 @Entity
-public class Estudiante extends Persona implements Serializable{
+public class Estudiante extends Usuario implements Serializable{
 
     @NotNull
     private boolean transferido;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Tutor> tutores;
-    {tutores = new ArrayList<>();}
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Tutor> tutores;
+    {tutores = new HashSet<>();}
 
     @ManyToMany( mappedBy = "estudiantes")
     private Set<Curso> cursos;
     {cursos = new HashSet<>();}
-    
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<AmazonS3Document> documents;
-    {documents = new HashSet<>();}
+
     
     public Estudiante(){
         super();
+        this.addAuthority(Roles.ESTUDIANTE);
     }
-    
+
     public Estudiante(String nombres, String apellidos, AmazonS3Document foto,
                       AmazonS3Document certificadoMedico, AmazonS3Document actaNacimiento){
-        super(nombres,apellidos);
+        super();
+        this.setNombres(nombres);
+        this.setApellidos(apellidos);
         this.transferido = false;
-        documents.addAll( Arrays.asList(foto, certificadoMedico, actaNacimiento) );
+        this.getDocuments().addAll( Arrays.asList(foto, certificadoMedico, actaNacimiento) );
     }
-    
+
     public Estudiante(String nombres, String apellidos, AmazonS3Document foto,
                       AmazonS3Document certificadoMedico, AmazonS3Document actaNacimiento,
                       AmazonS3Document recordNotaTransferido,
                       AmazonS3Document certificadoConductaTransferido){
-        
+
         this(nombres, apellidos, foto, certificadoMedico, actaNacimiento);
         this.transferido = true;
-        documents.addAll( Arrays.asList(recordNotaTransferido,
+        this.getDocuments().addAll( Arrays.asList(recordNotaTransferido,
                             certificadoConductaTransferido) );
     }
     
-    public void setTutores(List<Tutor> tutores){
+    public void setTutores(Set<Tutor> tutores){
         this.tutores = tutores;
     }
     
-    public List<Tutor> getTutores(){
+    public Set<Tutor> getTutores(){
         return tutores;
     }
     
@@ -96,26 +96,7 @@ public class Estudiante extends Persona implements Serializable{
                                 c.getId().equals( curso.getId() ) );
     }
 
-    public void setDocuments(Set<AmazonS3Document> docs){
-        this.documents = docs;
-    }
 
-    public Set<AmazonS3Document> getDocuments(){
-        return documents;
-    }
-
-    public boolean agregarDocumentos(AmazonS3Document... docs){
-        return documents.addAll( Arrays.asList(docs) );
-    }
-
-    public boolean agregarDocumento(AmazonS3Document doc){
-        return documents.add(doc);
-    }
-
-    public boolean eliminarDocumento(final AmazonS3Document doc){
-        return documents.removeIf( (d)->
-                                    d.equals(doc) );
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -124,7 +105,7 @@ public class Estudiante extends Persona implements Serializable{
 
         Estudiante other = (Estudiante) obj;
 
-        return this.getId().equals(other.getId());
+        return Objects.equals(this.getId(), other.getId());
     }
 
     @Override

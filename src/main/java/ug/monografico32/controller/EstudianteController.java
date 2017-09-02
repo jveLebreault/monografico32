@@ -41,7 +41,7 @@ public class EstudianteController {
 
     @GetMapping( path = "/{id}")
     public String showById(@PathVariable Long id, Model model){
-        model.addAttribute( repository.findById(id) );
+        model.addAttribute( repository.findByIdAndFetchTutores(id) );
         return "estudiante/estudiante-detalle";
     }
 
