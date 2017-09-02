@@ -1,16 +1,19 @@
 package ug.monografico32.controller;
 
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ug.monografico32.dao.DocenteRepository;
+import ug.monografico32.model.AmazonS3Document;
 import ug.monografico32.model.Docente;
+import ug.monografico32.model.DocumentType;
+import ug.monografico32.model.aws.AWSFileUploader;
 
 import javax.jws.WebParam;
 import javax.validation.Valid;
@@ -25,8 +28,12 @@ public class DocenteController {
     @Autowired
     private DocenteRepository repository;
 
-    public DocenteController(DocenteRepository repository){
+    @Autowired
+    private AWSFileUploader fileUploader;
+
+    public DocenteController(DocenteRepository repository, AWSFileUploader fileUploader){
         this.repository = repository;
+        this.fileUploader = fileUploader;
     }
 
     @GetMapping(path = "/agregar")
@@ -36,12 +43,30 @@ public class DocenteController {
     }
 
     @PostMapping(path = "/agregar")
-    public String procesarDocente(@Valid Docente docente, BindingResult result){
+    public String procesarDocente(@Valid Docente docente, BindingResult result, RedirectAttributes model,
+                                  @RequestParam("docente-cedula") MultipartFile file) throws IOException{
+
         if( result.hasErrors() ){
             return "docente/agregar-docente";
         }
+
         docente = repository.save(docente);
-        return "redirect:"+docente.getId();
+
+        AmazonS3Document cedulaFile = fileUploader.uploadFile(file.getInputStream(), docente, DocumentType.CEDULA);
+
+        docente.agregarDocumento(cedulaFile);
+
+        docente = repository.saveAndFlush(docente);
+
+        model.addFlashAttribute("usuario", docente);
+
+        return "redirect:agregar/confirmar";
+    }
+
+    @GetMapping(path = "/agregar/confirmar")
+    public String confirmarCreacion(){
+
+        return "usuario/confirmacion-creacion-usuario";
     }
 
     @GetMapping( path = "/{id}")
