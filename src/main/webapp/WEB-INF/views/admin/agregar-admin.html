@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Agregar administrador')}">
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../../../../../../../../Desktop/f2toMe/jquery.js"></script>
+</head>
+<body>
+
+<nav data-th-replace="~{/menu/menu::#main-menu}">
+
+</nav>
+
+<div class="container">
+    <h2 class="page-header">Crear cuenta de Administrador</h2>
+    <form class="form-horizontal" method="post" data-th-object="${administrador}" enctype="multipart/form-data" data-th-action="@{/admin/agregar}">
+        <div class="col-md-6 col-md-offset-3">
+
+            <fieldset class="well">
+                <legend>Informacion personal</legend>
+                <div class="">
+                    <div class=""
+                         data-th-insert="~{/agregar-persona::#persona}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="cedula">Cedula:</label>
+                    <input class="form-control" type="text" id="cedula"
+                           minlength="11" maxlength="13" name="numeroCedula"
+                           data-th-field="*{numeroCedula}" data-th-errorclass="f-error"/>
+                    <strong data-th-if="${#fields.hasErrors('numeroCedula')}" data-th-errors="*{numeroCedula}"></strong>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="admin-cedula">Copia de cedula:</label>
+                    <input class="" type="file" name="admin-cedula" id="admin-cedula" required="required"/>
+                </div>
+            </fieldset>
+
+            <fieldset data-th-replace="~{/agregar-usuario::#informacion-usuario}">
+            </fieldset>
+
+
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Crear"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer data-th-replace="~{/footer-monografico::#footer}">
+
+</footer>
+</body>
+</html>
