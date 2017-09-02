@@ -12,6 +12,8 @@
             <binding property="nombres"/>
             <binding property="apellidos"/>
             <binding property="transferido"/>
+            <binding property="username" />
+            <binding property="password"/>
         </binder>
         <transition on="crear" to="agregarTutor">
             <evaluate expression="T(ug.monografico32.util.WebflowUtils).getEstudianteFiles(flowRequestContext)"
@@ -28,6 +30,7 @@
         <binder>
             <binding property="nombres"/>
             <binding property="apellidos"/>
+            <binding property="numeroCedula"/>
         </binder>
 
         <on-render>
@@ -67,5 +70,6 @@
         <transition on="persist.success" to="estudiante-detalle"/>
     </action-state>
 
-    <end-state id="estudiante-detalle" view="estudiante/estudiante-detalle" commit="true"/>
+
+    <end-state id="estudiante-detalle" view="usuario/confirmacion-creacion-estudiante" commit="true"/>
 </flow>
