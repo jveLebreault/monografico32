@@ -6,6 +6,7 @@
 package ug.monografico32.controller;
 
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -25,10 +26,10 @@ import ug.monografico32.model.*;
 @Controller
 @RequestMapping( path = "/horario")
 public class HorarioController {
-    
+
     @Autowired
     private ClaseRepository claseRepository;
-    
+
     @GetMapping( path = "/clase/{claseId}")
     public String verClase(Model model, @PathVariable("claseId") Long id){
         Clase clase = claseRepository.findAndFetchSesiones(id);
@@ -40,21 +41,20 @@ public class HorarioController {
     public String showClasesByInstructor(@RequestParam Docente instructor, Model model,
                                          @SessionAttribute Periodo periodo){
 
-        Stream<Clase> claseStream = claseRepository.
-                findByInstructorIdAndPeriodoId(instructor.getId(), periodo.getId());
+        List<Clase> clases = claseRepository.findListByDocenteAndPeriodo(instructor, periodo);
+        Map<DayOfWeek, List<Sesion>> sesionsByDay = groupSessionsByDay(clases);
 
-        Map<DayOfWeek, Set<Sesion>> sesionsByDay = groupSessionsByDay(claseStream);
-        
         model.addAttribute("instructor", instructor);
         model.addAttribute(periodo);
         model.addAttribute("sessionsByDay", sesionsByDay);
+
         return "horario/clases-instructor-periodo";
     }
 
-    private Map<DayOfWeek,Set<Sesion>> groupSessionsByDay(Stream<Clase> claseStream) {
-        return claseStream.flatMap(clase -> clase.getSesiones().stream()).
+    private Map<DayOfWeek,List<Sesion>> groupSessionsByDay(List<Clase> claseList) {
+        return claseList.stream().flatMap(clase -> clase.getSesiones().stream()).
                 collect( Collectors.
-                        groupingBy( Sesion::getDia, TreeMap::new, Collectors.toSet()));
+                        groupingBy( Sesion::getDia, TreeMap::new, Collectors.toList()));
     }
 
 
