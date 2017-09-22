@@ -36,9 +36,6 @@ import javax.transaction.TransactionManager;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Jose Elias on 08/12/2016.
- */
 @Configuration
 @ComponentScan
 public class WebFlowConfig extends AbstractFlowConfiguration {

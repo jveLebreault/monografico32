@@ -9,9 +9,6 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Created by Jose Elias on 24/11/2016.
- */
 @Entity
 public class Tutor extends Persona implements Serializable{
 

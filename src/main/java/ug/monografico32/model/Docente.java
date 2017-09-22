@@ -10,9 +10,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Created by Jose Elias on 25/10/2016.
- */
 @Entity
 public class Docente extends Usuario implements Serializable{
 

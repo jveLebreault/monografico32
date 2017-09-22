@@ -18,10 +18,6 @@ import ug.monografico32.model.Usuario;
 
 import java.util.Collection;
 
-/**
- *
- * @author Administrador
- */
 @Controller
 public class HomeController {
 

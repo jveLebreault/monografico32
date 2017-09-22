@@ -5,9 +5,6 @@ import org.springframework.stereotype.Component;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.model.Curso;
 
-/**
- * Created by Jose Elias on 24/02/2017.
- */
 @Component
 public class StringToCursoConverter implements Converter<String, Curso> {
 

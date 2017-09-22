@@ -7,9 +7,6 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.persistence.*;
 
-/**
- * Created by Jose Elias on 28/01/2017.
- */
 @Entity
 public class Horario implements Serializable{
     

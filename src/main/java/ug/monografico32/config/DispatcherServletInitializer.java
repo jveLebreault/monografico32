@@ -6,9 +6,6 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.Registration;
 import javax.servlet.ServletRegistration;
 
-/**
- * Created by Jose Elias on 24/10/2016.
- */
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     
     @Override

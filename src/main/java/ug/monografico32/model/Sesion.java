@@ -13,9 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Jose Elias on 01/02/2017.
- */
 @Embeddable
 public class Sesion implements Serializable {
 

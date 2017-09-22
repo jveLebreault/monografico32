@@ -5,10 +5,6 @@
  */
 package ug.monografico32.model;
 
-/**
- *
- * @author Administrador
- */
 public enum Estado {
 
     ACTIVO ("Activo"),

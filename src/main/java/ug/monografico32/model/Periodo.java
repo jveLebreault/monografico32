@@ -11,9 +11,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * Created by Jose Elias on 13/04/2017.
- */
 @Entity
 @FechaInicioFinalValida
 public class Periodo implements Serializable{

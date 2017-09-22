@@ -8,9 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Created by Jose Elias on 28/01/2017.
- */
 @Entity
 public class Asignatura implements Serializable {
 

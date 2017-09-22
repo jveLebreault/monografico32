@@ -21,7 +21,3 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long>{
             "WHERE ?1 MEMBER OF a.asignados AND a.clase.id = ?2 ")
     List<Asignacion> findByAsignadosContainsAndClaseId(Estudiante estudiante, Long claseId);
 }
-/**
- "SELECT DISTINCT a FROM Asignacion a LEFT JOIN FETCH a.calificaciones cf " +
- "WHERE cf.estudiante = ?1 AND ?1 MEMBER OF a.asignados AND a.clase.id = ?2 "
- */

@@ -9,9 +9,6 @@ import javax.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import ug.monografico32.model.aws.URLSignerWrapper;
 
-/**
- * Created by Jose Elias on 28/11/2016.
- */
 @Entity
 public class AmazonS3Document extends CloudDocument implements Serializable{
 

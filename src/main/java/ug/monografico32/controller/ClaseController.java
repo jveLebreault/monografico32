@@ -28,10 +28,6 @@ import ug.monografico32.model.*;
 
 import javax.validation.Valid;
 
-/**
- *
- * @author Administrador
- */
 @Controller
 @SessionAttributes({"estudiantes","claseAsignada"})
 @RequestMapping( path = "/clase")

@@ -22,9 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Jose Elias on 23/11/2016.
- */
 @Controller
 @RequestMapping( path = "/estudiante")
 public class EstudianteController {

@@ -6,9 +6,6 @@ import org.springframework.stereotype.Component;
 import ug.monografico32.dao.ClaseRepository;
 import ug.monografico32.model.Clase;
 
-/**
- * Created by Jose Elias on 02/05/2017.
- */
 @Component
 public class StringToClaseConverter implements Converter<String, Clase> {
 

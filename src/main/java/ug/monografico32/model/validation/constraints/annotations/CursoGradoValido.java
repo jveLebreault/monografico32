@@ -15,10 +15,6 @@ import javax.validation.Payload;
 
 import ug.monografico32.model.validation.constraints.validators.CursoGradoValidator;
 
-/**
- *
- * @author Administrador
- */
 @Target({METHOD, TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

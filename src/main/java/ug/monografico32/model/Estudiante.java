@@ -7,9 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.Valid;
 
-/**
- * Created by Jose Elias on 25/10/2016.
- */
 @Entity
 public class Estudiante extends Usuario implements Serializable{
 

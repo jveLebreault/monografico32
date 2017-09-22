@@ -16,9 +16,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Jose Elias on 17/12/2016.
- */
 @Service("fileUploader")
 public class AWSFileUploader implements IFileUploader {
 

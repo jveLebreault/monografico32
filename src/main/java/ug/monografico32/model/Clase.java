@@ -10,9 +10,6 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Jose Elias on 28/01/2017.
- */
 @Entity
 public class Clase implements Serializable {
 

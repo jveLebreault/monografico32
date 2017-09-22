@@ -6,9 +6,6 @@ import ug.monografico32.model.validation.constraints.annotations.FechaInicioFina
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-/**
- * Created by Jose Elias on 13/04/2017.
- */
 public class PeriodoStartAndFinishValidator implements ConstraintValidator<FechaInicioFinalValida, Periodo> {
 
     @Override

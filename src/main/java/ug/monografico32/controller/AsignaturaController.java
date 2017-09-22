@@ -18,9 +18,6 @@ import ug.monografico32.model.Asignatura;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by Jose Elias on 14/02/2017.
- */
 @Controller
 @RequestMapping(path="/asignatura")
 public class AsignaturaController {

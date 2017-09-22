@@ -36,9 +36,6 @@ import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.util.converter.*;
 
-/**
- * Created by Jose Elias on 24/10/2016.
- */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"ug.monografico32.controller",

@@ -6,9 +6,6 @@ import org.springframework.stereotype.Component;
 import ug.monografico32.dao.PeriodoRepository;
 import ug.monografico32.model.Periodo;
 
-/**
- * Created by Jose Elias on 18/05/2017.
- */
 @Component
 public class StringToPeriodoConverter implements Converter<String, Periodo> {
 

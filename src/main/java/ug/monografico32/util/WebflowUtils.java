@@ -10,9 +10,6 @@ import java.util.*;
 import org.springframework.webflow.core.collection.ParameterMap;
 import ug.monografico32.model.Tutor;
 
-/**
- * Created by Jose Elias on 31/12/2016.
- */
 public class WebflowUtils {
 
     public static EnumMap getEstudianteFiles(RequestContext context) throws IOException{

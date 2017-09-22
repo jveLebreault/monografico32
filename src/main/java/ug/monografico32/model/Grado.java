@@ -5,10 +5,6 @@
  */
 package ug.monografico32.model;
 
-/**
- *
- * @author Administrador
- */
 public enum Grado {
     KINDER("Kinder", 1),
     PRE_PRIMARIO("Pre Primario" ,2),

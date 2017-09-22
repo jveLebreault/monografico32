@@ -13,10 +13,6 @@ import java.net.URISyntaxException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 
-/**
- *
- * @author Administrador
- */
 /*
 This class will be provded as a singleton through the spring Autowiring facility
 */

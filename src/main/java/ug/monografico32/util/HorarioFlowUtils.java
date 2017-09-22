@@ -14,9 +14,6 @@ import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.Optional;
 
-/**
- * Created by Jose Elias on 20/03/2017.
- */
 public class HorarioFlowUtils {
 
     public static boolean eliminarSesion(RequestContext context){

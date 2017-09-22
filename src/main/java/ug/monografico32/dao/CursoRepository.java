@@ -15,10 +15,6 @@ import ug.monografico32.model.Clase;
 import ug.monografico32.model.Curso;
 import ug.monografico32.model.Docente;
 
-/**
- *
- * @author Administrador
- */
 public interface CursoRepository extends JpaRepository<Curso, Long>, JpaSpecificationExecutor<Curso>{
 
     public Curso findById(Long id);

@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
-//@MappedSuperclass
 @Entity
 @Table( indexes = {
             @Index(columnList = "username", unique = true)

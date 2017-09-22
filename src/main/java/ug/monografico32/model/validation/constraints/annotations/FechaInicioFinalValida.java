@@ -12,9 +12,6 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
-/**
- * Created by Jose Elias on 28/11/2016.
- */
 @Target({METHOD, TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

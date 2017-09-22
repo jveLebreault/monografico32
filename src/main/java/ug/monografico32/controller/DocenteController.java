@@ -22,9 +22,6 @@ import ug.monografico32.model.aws.AWSFileUploader;
 import javax.jws.WebParam;
 import javax.validation.Valid;
 
-/**
- * Created by Jose Elias on 20/12/2016.
- */
 @Controller
 @RequestMapping( path = "/docente")
 public class DocenteController {

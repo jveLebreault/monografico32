@@ -10,9 +10,6 @@ import ug.monografico32.model.Estudiante;
 
 import java.util.List;
 
-/**
- * Created by Jose Elias on 07/12/2016.
- */
 public interface EstudianteRepository extends JpaRepository<Estudiante, Long>, QueryByExampleExecutor<Estudiante>{
     
     Estudiante findById(Long id);

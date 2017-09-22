@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ug.monografico32.model.AmazonS3Document;
 import ug.monografico32.model.aws.URLSignerWrapper;
 
-/**
- *
- * @author Administrador
- */
 @Controller
 @RequestMapping("/documents")
 public class CloudDocumentController {

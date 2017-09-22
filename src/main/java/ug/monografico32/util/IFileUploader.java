@@ -10,9 +10,6 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Set;
 
-/**
- * Created by Jose Elias on 27/12/2016.
- */
 public interface IFileUploader {
 
     CloudDocument uploadFile(InputStream file, Persona p, DocumentType t) throws IOException;

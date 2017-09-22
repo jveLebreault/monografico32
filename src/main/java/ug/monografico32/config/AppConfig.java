@@ -11,9 +11,6 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import ug.monografico32.model.aws.URLSignerWrapper;
 
-/**
- * Created by Jose Elias on 24/10/2016.
- */
 @Configuration
 @Import({SecurityConfig.class, PersistenceConfig.class})
 @PropertySource("classpath:/aws/cloudfront.properties")

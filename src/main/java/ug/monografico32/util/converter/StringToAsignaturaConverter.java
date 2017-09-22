@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
 import ug.monografico32.dao.AsignaturaRepository;
 import ug.monografico32.model.Asignatura;
 
-/**
- *
- * @author Administrador
- */
 @Component
 public class StringToAsignaturaConverter implements Converter<String, Asignatura>{
     

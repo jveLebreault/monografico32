@@ -25,9 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ug.monografico32.dao.CursoRepository;
 import ug.monografico32.dao.DocenteRepository;
 
-/**
- * Created by Jose Elias on 20/12/2016.
- */
 @Controller
 @SessionAttributes({"docentes","periodos"})
 @RequestMapping(path = "/curso")

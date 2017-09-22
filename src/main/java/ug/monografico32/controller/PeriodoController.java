@@ -15,10 +15,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by Jose Elias on 15/05/2017.
- */
-
 @Controller
 @RequestMapping(path = "/periodo")
 public class PeriodoController {

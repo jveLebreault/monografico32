@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
 import ug.monografico32.dao.DocenteRepository;
 import ug.monografico32.model.Docente;
 
-/**
- *
- * @author Administrador
- */
 @Component
 public class StringToDocenteConverter implements Converter<String, Docente>{
         

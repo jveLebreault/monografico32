@@ -11,10 +11,6 @@ import ug.monografico32.model.Curso;
 import ug.monografico32.model.Grado;
 import ug.monografico32.model.validation.constraints.annotations.CursoGradoValido;
 
-/**
- *
- * @author Administrador
- */
 public class CursoGradoValidator implements ConstraintValidator<CursoGradoValido, Curso>{
 
     @Override

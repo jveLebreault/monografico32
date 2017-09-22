@@ -12,9 +12,6 @@ import ug.monografico32.model.Docente;
 
 import java.util.List;
 
-/**
- * Created by Jose Elias on 15/03/2017.
- */
 @Service("horarioService")
 public class HorarioService {
 

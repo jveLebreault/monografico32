@@ -25,10 +25,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import ug.monografico32.model.validation.constraints.annotations.CursoGradoValido;
 import ug.monografico32.model.validation.constraints.annotations.FechaInicioFinalValida;
 
-/**
- *
- * @author Administrador
- */
 @CursoGradoValido
 @Entity
 public class Curso implements Serializable {

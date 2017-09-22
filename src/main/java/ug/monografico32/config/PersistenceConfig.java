@@ -17,9 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-/**
- * Created by Jose Elias on 22/12/2016.
- */
 @Configuration
 @EnableSpringDataWebSupport
 @EnableJpaRepositories("ug.monografico32.dao")

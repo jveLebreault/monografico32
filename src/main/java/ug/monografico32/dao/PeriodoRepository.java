@@ -8,9 +8,6 @@ import ug.monografico32.model.Periodo;
 
 import java.sql.Date;
 
-/**
- * Created by Jose Elias on 15/05/2017.
- */
 public interface PeriodoRepository extends JpaRepository<Periodo, Long>{
 
     @Query("SELECT p FROM Periodo p LEFT JOIN FETCH p.cursos WHERE p.id = ?1")
