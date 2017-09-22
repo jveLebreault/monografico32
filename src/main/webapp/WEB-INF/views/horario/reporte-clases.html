@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Reporte de clases')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <h3 class="page-header">Reporte de clases</h3>
+        <div class="row">
+            <span class="h4" data-th-text="${curso.grado.literal}">Kinder </span><span class="h2"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+            <p class="pull-right">
+                <b>Periodo desde:</b><br/>
+                <span data-th-text="${curso.periodo.fechaInicio}">01/01/2017</span>
+                <span>hasta</span>
+                <span data-th-text="${curso.periodo.fechaFinal}">10/10/2017</span>
+            </p>
+            <p>
+                <strong>Estudiante: </strong>
+                <span data-th-text="${estudiante.getNombreCompleto()}">Juan Perez</span>
+            </p>
+
+        </div>
+        <div class="row col-sm-8 col-sm-offset-2">
+            <table class="table">
+                <caption class="caption text-center">Reporte de clases</caption>
+                <thead>
+                    <th>Asignatura</th>
+                    <th class="text-center">Porcentaje acumulado</th>
+                    <th> - </th>
+                </thead>
+                <tbody>
+                    <tr data-th-each="entry : ${porcentajes}">
+                        <td data-th-text="${entry.key.asignatura.nombre}">Informatica</td>
+                        <td class="text-center" data-th-text="|${entry.value}%|">30%</td>
+                        <td>
+                            <a sec:authorize="hasAuthority('ESTUDIANTE')" href="#" data-th-href="@{/asignacion/{claseId}/calificaciones (claseId=${entry.key.id})}">
+                                Ver detalle
+                            </a>
+                            <a sec:authorize="hasAuthority('ADMINISTRADOR') OR  hasAuthority('DOCENTE')" href="#" data-th-href="@{/asignacion/{claseId}/calificaciones/{estudianteId} (claseId=${entry.key.id}, estudianteId=${estudiante.id})}">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+
+</body>
+</html>
