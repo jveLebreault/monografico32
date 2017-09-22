@@ -33,7 +33,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estudiantes <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a data-th-href="@{/estudiante/agregar}" href="#">Agregar</a></li>
-                            <li><a href="#">Ver todos</a></li>
+                            <li><a href="#" data-th-href="@{/estudiante/all}">Ver todos</a></li>
                         </ul>
                     </li>
                     <li  class="dropdown">
@@ -61,7 +61,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li> <a href="#" data-th-text="${#authentication.name}">Juan Perez</a></li>
+                    <li> <a href="#" data-th-text="${#authentication.principal.getNombreCompleto()}">Juan Perez</a></li>
                     <li>
                         <form class="navbar-form" method="post" data-th-action="@{/logout}">
                             <button type="submit" class="btn btn-default btn-sm">Desconectar <span class="glyphicon glyphicon-log-out"></span></button>

@@ -22,12 +22,12 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#"> Inicio</a></li>
-                <li><a href="#">Cursos</a></li>
+                <li><a href="#" data-th-href="@{/home}"> Inicio</a></li>
+                <li><a href="#" data-th-href="@{/estudiante/{id}/cursos (id=${#authentication.principal.id})}">Cursos</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li> <a href="#" data-th-text="${#authentication.name}">Juan Perez</a></li>
+                <li> <a href="#" data-th-text="${#authentication.principal.getNombreCompleto()}">Juan Perez</a></li>
                 <li>
                     <form class="navbar-form" method="post" data-th-action="@{/logout}">
                         <button type="submit" class="btn btn-default btn-sm">Desconectar <span class="glyphicon glyphicon-log-out"></span></button>
