@@ -1,6 +1,10 @@
 package ug.monografico32.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,9 +52,26 @@ public class AsignaturaController {
     }
 
     @GetMapping(path = "/all")
-    public String verTodos(Model model){
-        List<Asignatura> asignaturas = asignaturaRepository.findAll();
-        model.addAttribute(asignaturas);
+    public String verTodos(Model model, Pageable pageable){
+        Page<Asignatura> asignaturas = asignaturaRepository.findAll(pageable);
+
+        model.addAttribute(new Asignatura());
+        model.addAttribute("asignaturas", asignaturas);
+        return "asignatura/todas";
+    }
+
+    @GetMapping(path = "/all", params = {"nombre","clave"})
+    public String buscarAsigntura(Asignatura asignatura, Model model, Pageable pageable){
+
+        ExampleMatcher matcher = ExampleMatcher.matching().
+                                                withIgnoreCase().
+                                                withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Asignatura> asignaturaExample = Example.of(asignatura, matcher);
+
+        Page<Asignatura> asignaturas = asignaturaRepository.findAll(asignaturaExample, pageable);
+
+        model.addAttribute("asignaturas", asignaturas);
         return "asignatura/todas";
     }
 }

@@ -12,9 +12,27 @@
     </nav>
 
     <div class="container">
+        <h2 class="page-header">Todos los periodos</h2>
+
         <div class="row">
-            <h2 class="page-header">Todos los periodos</h2>
-            <div class="col-md-6 col-md-offset-3 well " data-th-each="periodo : ${periodos}">
+            <form class="form-inline col-md-6 col-md-offset-3" method="get"  data-th-action="@{/periodo/all}">
+                <fieldset class="well well-sm">
+                    <legend>Buscar periodo</legend>
+                    <div class="form-group">
+                        <label class="control-label" for="year">A&ntilde;o: </label>
+                        <input class="form-control" id="year" name="year"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit" value="Buscar"/>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 well " data-th-each="periodo : ${periodos.getContent()}">
                 <p>
                     <span>Periodo desde: </span>
                     <strong data-th-text="${periodo.fechaInicio}">2016/12/12</strong>
@@ -25,6 +43,28 @@
                 <a data-th-href="@{/periodo/{periodoId}(periodoId=${periodo.id})}">Detalle del periodo</a>
             </div>
         </div>
+
+        <div id="pager" class="row">
+            <div class="col-sm-2 col-sm-offset-4">
+
+                <div id="prev-pager" class="pull-left" data-th-if="${periodos.hasPrevious()}" data-th-object="${periodos.previousPageable()}">
+                    <a href="#" data-th-href="@{/periodo/all (year=${param.year}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                        <span data-th-text="*{getPageNumber()}+1">1</span>
+                        <span class="glyphicon glyphicon-menu-left"></span><br/>
+                        Anterior
+                    </a>
+                </div>
+
+                <div id="next-pager" class="pull-right" data-th-if="${periodos.hasNext()}" data-th-object="${periodos.nextPageable()}">
+                    <a href="#" data-th-href="@{/periodo/all (nombre=${param.year}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                        <span class="pull-right" data-th-text="*{getPageNumber()}+1">2</span>
+                        <span class="glyphicon glyphicon-menu-right pull-right"></span><br/>
+                        Siguiente
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer data-th-replace="~{/footer-monografico::#footer}">

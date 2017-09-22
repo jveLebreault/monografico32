@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Todos los estudiantes')}">
+    <meta charset="UTF-8">
+    <title>Nueva asignatura</title>
+    <link rel="stylesheet" href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<nav data-th-replace="~{/menu/menu::#main-menu}">
+
+</nav>
+
+<div class="container">
+    <h3 class="page-header">Lista de estudiantes</h3>
+
+    <div class="row">
+        <form class="form-inline" method="get" data-th-object="${estudiante}" data-th-action="@{/estudiante/all}">
+            <fieldset class="well well-sm">
+                <legend>Buscar estudiante</legend>
+                <div class="form-group">
+                    <label class="control-label" for="nombres">Nombre: </label>
+                    <input class="form-control" id="nombres" name="nombres" data-th-field="*{nombres}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="apellidos">Apellidos: </label>
+                    <input class="form-control" id="apellidos" name="apellidos" data-th-field="*{apellidos}"/>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-info" type="submit" value="Buscar"/>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="row">
+        <p class="well well-sm col-sm-12" data-th-each="estudiante : ${estudiantes.getContent()}">
+            <strong data-th-text="${estudiante.nombres}"></strong>
+            <strong data-th-text="${estudiante.apellidos}"></strong><br/>
+            <a data-th-href="@{/estudiante/{id}(id=${estudiante.id})}" href="#">Ver detalles</a>
+        </p>
+    </div>
+
+    <div id="pager" class="row">
+        <div class="col-sm-2 col-sm-offset-4">
+
+            <div id="prev-pager" class="pull-left" data-th-if="${estudiantes.hasPrevious()}" data-th-object="${estudiantes.previousPageable()}">
+                <a href="#" data-th-href="@{/estudiante/all (nombres=${param.nombres}, apellidos=${param.apellidos}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                    <span data-th-text="*{getPageNumber()}+1">1</span>
+                    <span class="glyphicon glyphicon-menu-left"></span><br/>
+                    Anterior
+                </a>
+            </div>
+
+            <div id="next-pager" class="pull-right" data-th-if="${estudiantes.hasNext()}" data-th-object="${estudiantes.nextPageable()}">
+                <a href="#" data-th-href="@{/estudiante/all (nombres=${param.nombres}, apellidos=${param.apellidos}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                    <span class="pull-right" data-th-text="*{getPageNumber()}+1">2</span>
+                    <span class="glyphicon glyphicon-menu-right pull-right"></span><br/>
+                    Siguiente
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer data-th-replace="~{/footer-monografico::#footer}">
+
+</footer>
+</body>
+</html>

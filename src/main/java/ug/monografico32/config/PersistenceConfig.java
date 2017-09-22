@@ -3,6 +3,7 @@ package ug.monografico32.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
  * Created by Jose Elias on 22/12/2016.
  */
 @Configuration
+@EnableSpringDataWebSupport
 @EnableJpaRepositories("ug.monografico32.dao")
 @EnableTransactionManagement
 public class PersistenceConfig {

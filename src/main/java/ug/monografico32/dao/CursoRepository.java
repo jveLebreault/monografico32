@@ -8,6 +8,7 @@ package ug.monografico32.dao;
 import java.util.List;
 import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ug.monografico32.model.Clase;
@@ -18,7 +19,7 @@ import ug.monografico32.model.Docente;
  *
  * @author Administrador
  */
-public interface CursoRepository extends JpaRepository<Curso, Long>{
+public interface CursoRepository extends JpaRepository<Curso, Long>, JpaSpecificationExecutor<Curso>{
 
     public Curso findById(Long id);
 

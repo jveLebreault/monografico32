@@ -1,6 +1,8 @@
 package ug.monografico32.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,10 +51,25 @@ public class PeriodoController {
     }
 
     @GetMapping( path = "/all" )
-    public  String getAllPeriodos(Model model){
-        List<Periodo> periodos = periodoRepository.findAll();
-        model.addAttribute("periodos", periodos);
+    public  String getAllPeriodos(Model model, Pageable pageable){
+        Page<Periodo> periodos = periodoRepository.findAll(pageable);
 
+        model.addAttribute("periodos", periodos);
+        return "periodo/ver-todos";
+    }
+
+    @GetMapping( path = "/all", params = "year")
+    public  String buscarPeriodos(@RequestParam Integer year, Model model, Pageable pageable){
+
+        Page<Periodo> periodos;
+
+        if( year == null) {
+            periodos = periodoRepository.findAll(pageable);
+        } else {
+            periodos = periodoRepository.findAllByYear(year, pageable);
+        }
+
+        model.addAttribute("periodos", periodos);
         return "periodo/ver-todos";
     }
 

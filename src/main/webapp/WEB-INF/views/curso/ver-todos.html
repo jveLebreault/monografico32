@@ -12,22 +12,97 @@
         </nav>
 
         <div class="container">
+
             <h2 class="page-header">Todos los cursos</h2>
-            <div class="well well-sm" data-th-each="curso : ${cursoList}">
-                <div id="curso-summary">
-                    <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
-                    <span class="h4" data-th-text="${curso.grado.literal}">Kinder</span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
-                    <p class="pull-right">
-                        <b>Periodo desde:</b><br/>
-                        <span data-th-text="${curso.periodo.fechaInicio}">01/01/2017</span>
-                        <span>hasta</span>
-                        <span data-th-text="${curso.periodo.fechaFinal}">10/10/2017</span>
-                    </p>
-                    <p>
-                        <b>Docente encargado:</b>
-                        <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
-                    </p>
-                    <a data-th-href="@{/curso/{id}(id=${curso.id})}" href="#">Ver detalles</a>
+
+            <div class="row">
+                <form class="form-inline" method="get" data-th-object="${curso}" data-th-action="@{/curso/all}">
+                    <fieldset class="well well-sm">
+                        <legend>Buscar curso</legend>
+
+                        <div class="form-group">
+                            <label class="control-label" for="nivel">Nivel: </label>
+                            <select class="form-control" id="nivel" name="nivel" data-th-field="*{nivel}">
+                                <option value="">Seleccionar nivel</option>
+                                <option data-th-each="nivel : ${T (ug.monografico32.model.Nivel).values()}"
+                                        data-th-value="${nivel}" data-th-text="${nivel}">Niveles</option>
+                                <option value="" data-th-remove="all">Inicial</option>
+                                <option value="" data-th-remove="all">Basica</option>
+                                <option value="" data-th-remove="all">Media</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="grado">Grado: </label>
+                            <select class="form-control" name="grado" id="grado" data-th-field="*{grado}">
+                                <option value="">Seleccionar grado</option>
+                                <option data-th-each="grado : ${T (ug.monografico32.model.Grado).values()}"
+                                        data-th-value="${grado}" data-th-text="${grado.getLiteral()}">1</option>
+                                <option value="" data-th-remove="all">2</option>
+                                <option value="" data-th-remove="all">3</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="seccion">Seccion: </label>
+                            <input class="form-control" id="seccion" name="seccion" data-th-field="*{seccion}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="year">A&nacute;o: </label>
+                            <input class="form-control" id="year" name="year"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" value="Buscar"/>
+                        </div>
+
+                        <div class="form-group">
+                            <a class="btn btn-info" data-th-href="@{/curso/all}">Restablecer</a>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="well well-sm" data-th-each="curso : ${cursos.getContent()}">
+                    <div id="curso-summary">
+                        <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
+                        <span class="h4" data-th-text="${curso.grado.literal}">Kinder</span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+                        <p class="pull-right">
+                            <b>Periodo desde:</b><br/>
+                            <span data-th-text="${curso.periodo.fechaInicio}">01/01/2017</span>
+                            <span>hasta</span>
+                            <span data-th-text="${curso.periodo.fechaFinal}">10/10/2017</span>
+                        </p>
+                        <p>
+                            <b>Docente encargado:</b>
+                            <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
+                        </p>
+                        <a data-th-href="@{/curso/{id}(id=${curso.id})}" href="#">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pager" class="row">
+                <div class="col-sm-2 col-sm-offset-4">
+
+                    <div id="prev-pager" class="pull-left" data-th-if="${cursos.hasPrevious()}" data-th-object="${cursos.previousPageable()}">
+                        <a href="#" data-th-href="@{/curso/all (nivel=${param.nivel}, grado=${param.grado}, seccion=${param.seccion}, year=${param.year}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                            <span data-th-text="*{getPageNumber()}+1">1</span>
+                            <span class="glyphicon glyphicon-menu-left"></span><br/>
+                            Anterior
+                        </a>
+                    </div>
+
+                    <div id="next-pager" class="pull-right" data-th-if="${cursos.hasNext()}" data-th-object="${cursos.nextPageable()}">
+                        <a href="#" data-th-href="@{/curso/all (nivel=${param.nivel}, grado=${param.grado}, seccion=${param.seccion},year=${param.year} ,page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                            <span class="pull-right" data-th-text="*{getPageNumber()}+1">2</span>
+                            <span class="glyphicon glyphicon-menu-right pull-right"></span><br/>
+                            Siguiente
+                        </a>
+                    </div>
                 </div>
             </div>
             

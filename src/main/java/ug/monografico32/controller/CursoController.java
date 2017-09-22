@@ -1,20 +1,23 @@
 package ug.monografico32.controller;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ug.monografico32.dao.EstudianteRepository;
 import ug.monografico32.dao.PeriodoRepository;
+import static ug.monografico32.dao.specification.CursoSpecification.*;
 import ug.monografico32.model.*;
 
 import javax.validation.Valid;
@@ -109,10 +112,11 @@ public class CursoController {
     }
     
     @GetMapping(path = "/all")
-    public String verTodos(Model model){
-        List<Curso>cursos = cursoRepository.findAll();
-        
-        model.addAttribute(cursos);
+    public String verTodos(Model model, Pageable pageable){
+        Page<Curso>cursos = cursoRepository.findAll(pageable);
+
+        model.addAttribute(new Curso());
+        model.addAttribute("cursos", cursos);
         return "curso/ver-todos";
     }
     
@@ -124,6 +128,24 @@ public class CursoController {
         
         model.addAttribute("cursosPorPerido", periodoCursoMap);
         return "curso/curso-por-periodo";
+    }
+
+    @GetMapping(path = "/all", params = {"nivel","grado","seccion", "year"})
+    public String buscarCurso(Curso curso, @RequestParam Integer year, Model model, Pageable pageable){
+
+        Page<Curso> cursos = cursoRepository.findAll(this.createSpecficiation(curso,year), pageable );
+
+        model.addAttribute("cursos", cursos);
+        return "curso/ver-todos";
+    }
+
+    private Specifications<Curso> createSpecficiation(Curso curso, Integer year){
+
+        return Specifications.where(
+                periodoHasYear(year)).and(
+                        hasGrado(curso.getGrado())).and(
+                                hasNivel(curso.getNivel())).and(
+                                        hasSeccion(curso.getSeccion()));
     }
     
     private Map<Periodo, List<Curso>> groupCursosByPeriodo(Stream<Curso> cursoStream){

@@ -3,6 +3,10 @@ package ug.monografico32.controller;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,8 +80,25 @@ public class DocenteController {
     }
     
     @GetMapping( path="/all")
-    public String verTodos(Model model){
-        List<Docente> docentes = repository.findAll();
+    public String verTodos(Model model, Pageable pageable){
+        Page<Docente> docentes = repository.findAll(pageable);
+
+        model.addAttribute(new Docente());
+        model.addAttribute("docentes", docentes);
+        return "docente/todos";
+    }
+
+    @GetMapping( path="/all", params = {"nombres","apellidos", "numeroCedula"})
+    public String buscarDocente(Docente docente, Model model, Pageable pageable){
+
+        ExampleMatcher matcher = ExampleMatcher.matching().
+                                withIgnoreCase().
+                                withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Docente> docenteExample = Example.of(docente, matcher);
+
+        Page<Docente> docentes = repository.findAll(docenteExample, pageable);
+
         model.addAttribute("docentes", docentes);
         return "docente/todos";
     }

@@ -13,12 +13,58 @@
 
     <div class="container">
         <h3 class="page-header">Todas las asignaturas</h3>
-        <strong data-th-if="${#lists.isEmpty(asignaturaList)}">No existen asignaturas</strong>
-        <div class="well well-sm" data-th-each="asignatura : ${asignaturaList}">
-            <strong data-th-text="${asignatura.clave}">Clave</strong><br/>
-            <span data-th-text="${asignatura.nombre}">Nombre</span><br/>
-            <a data-th-href="@{/asignatura/{id}(id=${asignatura.id})}" href="#">Ver detalles</a>
+        <div class="row">
+            <form class="form-inline" method="get" data-th-object="${asignatura}" data-th-action="@{/asignatura/all}">
+                <fieldset class="well well-sm">
+                    <legend>Buscar asignatura</legend>
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre: </label>
+                        <input class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="clave">Clave: </label>
+                        <input class="form-control" id="clave" name="clave" data-th-field="*{clave}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit" value="Buscar"/>
+                    </div>
+
+                </fieldset>
+            </form>
         </div>
+
+        <div class="row">
+            <strong data-th-if="${#lists.isEmpty(asignaturas.getContent())}">No existen asignaturas</strong>
+            <div class="well well-sm" data-th-each="asignatura : ${asignaturas.getContent()}">
+                <strong data-th-text="${asignatura.clave}">Clave</strong><br/>
+                <span data-th-text="${asignatura.nombre}">Nombre</span><br/>
+                <a data-th-href="@{/asignatura/{id}(id=${asignatura.id})}" href="#">Ver detalles</a>
+            </div>
+        </div>
+
+        <div id="pager" class="row">
+            <div class="col-sm-2 col-sm-offset-4">
+
+                <div id="prev-pager" class="pull-left" data-th-if="${asignaturas.hasPrevious()}" data-th-object="${asignaturas.previousPageable()}">
+                    <a href="#" data-th-href="@{/asignatura/all (nombre=${param.nombre}, clave=${param.clave}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                        <span data-th-text="*{getPageNumber()}+1">1</span>
+                        <span class="glyphicon glyphicon-menu-left"></span><br/>
+                        Anterior
+                    </a>
+                </div>
+
+                <div id="next-pager" class="pull-right" data-th-if="${asignaturas.hasNext()}" data-th-object="${asignaturas.nextPageable()}">
+                    <a href="#" data-th-href="@{/asignatura/all (nombre=${param.nombre}, clave=${param.clave}, page=*{getPageNumber()}, size=*{getPageSize()} )}">
+                        <span class="pull-right" data-th-text="*{getPageNumber()}+1">2</span>
+                        <span class="glyphicon glyphicon-menu-right pull-right"></span><br/>
+                        Siguiente
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer data-th-replace="~{/footer-monografico::#footer}">

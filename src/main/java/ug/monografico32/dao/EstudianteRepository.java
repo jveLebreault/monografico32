@@ -2,6 +2,7 @@ package ug.monografico32.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ug.monografico32.model.Curso;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by Jose Elias on 07/12/2016.
  */
-public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
+public interface EstudianteRepository extends JpaRepository<Estudiante, Long>, QueryByExampleExecutor<Estudiante>{
     
     Estudiante findById(Long id);
 
@@ -25,4 +26,6 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
 
     @Query("SELECT e FROM Estudiante e WHERE ?1 NOT MEMBER OF e.cursos ")
     List<Estudiante> findEstudiantesNotInCurso( Curso curso);
+
+    List<Estudiante> findByCursosIn(Curso... cursos);
 }

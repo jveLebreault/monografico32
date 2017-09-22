@@ -2,6 +2,7 @@ package ug.monografico32.controller;
 
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,6 +56,34 @@ public class EstudianteController {
 
         return "estudiante/estudiante-cursos";
     }
+
+    @GetMapping(path = "/all")
+    public String verTodos(Model model, Pageable pageable){
+
+        Page<Estudiante> estudiantes = repository.findAll(pageable);
+
+        model.addAttribute(new Estudiante());
+        model.addAttribute("estudiantes", estudiantes);
+        return "estudiante/ver-todos";
+    }
+
+    @GetMapping(path = "/all", params = {"nombres", "apellidos"})
+    public String buscar(Estudiante estudiante, Model model, Pageable pageable){
+
+        ExampleMatcher matcher = ExampleMatcher.matching().
+                                    withIgnorePaths("transferido").
+                                    withIgnoreCase().
+                                    withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example<Estudiante> estudianteExample = Example.of(estudiante, matcher);
+
+        Page<Estudiante> estudiantes = repository.findAll(estudianteExample, pageable);
+
+        model.addAttribute("estudiantes", estudiantes);
+        return "estudiante/ver-todos";
+    }
+
+
 
     private List<Curso> ordenarCursos(Set<Curso> cursos){
         List<Curso> cursosOrdenados = new ArrayList<>(cursos);
