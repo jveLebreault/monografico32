@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -36,6 +37,9 @@ public class Clase implements Serializable {
 
     @ManyToOne
     private Horario horario;
+
+    @OneToMany(mappedBy ="clase", orphanRemoval = true)
+    private Set<Asignacion> asignaciones;
     
     public Clase(){}
     
@@ -100,6 +104,14 @@ public class Clase implements Serializable {
 
     public boolean removerSesion(Sesion sesion){
         return this.sesiones.remove(sesion);
+    }
+
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
+    }
+
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
     @Override
