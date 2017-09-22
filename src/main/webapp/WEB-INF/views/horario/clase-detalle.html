@@ -13,7 +13,13 @@
 
     <div class="container">
         <h3 class="page-header">Asignatura: <small data-th-text="|${clase.asignatura.nombre} - ${clase.asignatura.clave}|">Educacion fisica - EDU101</small></h3>
-        <h4>Instructor: <small data-th-text="${clase.instructor.getNombreCompleto()}">Juan Perez</small></h4><br/><br/>
+        <h4>Instructor: <small data-th-text="${clase.instructor.getNombreCompleto()}">Juan Perez</small></h4>
+        <div data-th-object="${clase.horario.curso}">
+            <a href="#" data-th-href="@{/curso/{id} (id=*{id})}">
+                <span data-th-text="*{getGradoSeccion()}"></span>
+            </a>
+        </div>
+        <br/>
         <h4>Sesiones</h4>
         <div class="row">
             <div class="col-sm-3" style="border-left-style: solid; border-left-width: 1px;" data-th-each="sesion : ${clase.sesiones}">
@@ -29,7 +35,15 @@
         </div>
         <br/>
 
-        <a href="#" target="_blank" data-th-href="@{/horario/agregar(clase=${clase.id})}">Agregar clases</a>
+        <a class="" href="#" data-th-href="@{/clase/{clase}/asignacion/all(clase=${clase.id})}">Ver asignaciones</a><br/>
+
+        <div sec:authorize="hasAuthority('ESTUDIANTE')">
+                <a href="#" data-th-href="@{/asignacion/{claseId}/calificaciones (claseId=${clase.id})}">Ver reporte de Asignaciones</a>
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMINISTRADOR')">
+            <a href="#" target="_blank" data-th-href="@{/horario/agregar(clase=${clase.id})}">Agregar clases</a>
+        </div>
 
     </div>
 

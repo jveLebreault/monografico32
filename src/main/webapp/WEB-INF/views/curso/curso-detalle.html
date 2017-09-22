@@ -24,9 +24,12 @@
             <b>Docente encargado:</b>
             <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
         </p>
-        <p>
+        <p sec:authorize="hasAuthority('ADMINISTRADOR') OR  hasAuthority('DOCENTE')">
             <a href="#" target="_blank"
                data-th-href="@{/curso/{id}/estudiantes(id=${curso.id})}">Ver estudiantes inscritos</a>
+        </p>
+        <p sec:authorize="hasAuthority('ESTUDIANTE')">
+            <a href="#" data-th-href="@{/clase/calificaciones/{curso} (curso=${curso.id})}">Reporte de calificaciones</a>
         </p>
     </div>
     
@@ -43,8 +46,9 @@
                         <div style="border-top-style: solid; border-top-width: 1px;" data-th-each="sesion : ${entry.value}">
                             <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}"></span> -
                             <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}"></span><br/>
+                            <span data-th-text="${sesion.clase.asignatura.nombre}"></span><br/>
                             <a data-th-text="${sesion.clase.asignatura.clave}"
-                                data-th-href="@{/horario/clase/{id}(id=${sesion.clase.id})}"></a>
+                                data-th-href="@{/clase/{id}(id=${sesion.clase.id})}"></a>
                         </div>
                     </div>
                     
@@ -52,7 +56,9 @@
             </div>
         </div>
         <hr/>
-        <a href="#" target="_blank" data-th-href="@{/horario/agregar(curso=${curso.id})}">Agregar clases</a>
+        <div class="row" sec:authorize="hasAuthority('ADMINISTRADOR')">
+            <a href="#" target="_blank" data-th-href="@{/horario/agregar(curso=${curso.id})}">Agregar clases</a>
+        </div>
     </div>
 
     <footer data-th-replace="~{/footer-monografico::#footer}">

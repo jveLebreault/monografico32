@@ -19,7 +19,10 @@
                 <strong>Periodo: </strong>
                 <span data-th-text="|${curso.periodo.fechaInicio} hasta ${curso.periodo.fechaFinal}|">10/10/10 hasta 20/20/20</span>
             </p>
-            <a data-th-href="@{/curso/{curso}/estudiantes/agregar(curso=${curso.id})}" class="pull-right">Agregar estudiantes</a>
+            <div sec:authorize="hasAuthority('ADMINISTRADOR')">
+                <a data-th-href="@{/curso/{curso}/estudiantes/agregar(curso=${curso.id})}" class="pull-right">Agregar estudiantes</a>
+            </div>
+
         </div>
         <div class="well well-lg" style="clear: both">
             <table class="table table-striped">
@@ -29,6 +32,7 @@
                         <th>Apellidos</th>
                         <th>Nombre</th>
                         <th> - </th>
+                        <th> - </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +40,7 @@
                         <td data-th-text="${estudiante.apellidos}">Perez</td>
                         <td data-th-text="${estudiante.nombres}">Juan</td>
                         <td> <a target="_blank" data-th-href="@{/estudiante/{id}(id=${estudiante.id})}">Ver estudiante</a></td>
+                        <td> <a target="_blank" data-th-href="@{/clase/calificaciones/{curso} (curso=${curso.id}, estudianteId=${estudiante.id})}">Reporte de calificaciones</a></td>
                     </tr>
                     <tr data-th-if="${curso.estudiantes.isEmpty()}">
                         <th class="text-center" colspan="3">No existen estudiantes inscritos</th>
