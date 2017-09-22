@@ -37,14 +37,14 @@ public abstract class Persona implements Serializable {
     {documents = new HashSet<>();}
 
     public Persona(){
-        this.estado = Estado.PENDIENTE_APROBACION;
+        this.estado = Estado.ACTIVO;
     }
 
     public Persona(Long id, String nombres, String apellidos){
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.estado = Estado.PENDIENTE_APROBACION;
+        this.estado = Estado.ACTIVO;
     }
 
     public Persona(String nombres, String apellidos){
