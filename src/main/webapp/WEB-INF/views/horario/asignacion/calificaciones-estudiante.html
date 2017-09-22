@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Calificaciones de clase')}">
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../../../../../../../../Desktop/f2toMe/jquery.js"></script>
+</head>
+<body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <h3 class="page-header">Calificaciones</h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <strong >Estudiante: </strong>
+                <span data-th-text="${estudiante.getNombreCompleto()}">Juan perez</span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12" data-th-object="${asignaciones[0].clase}">
+                <h4>Asignatura: <small data-th-text="|*{asignatura.nombre} - *{asignatura.clave}|">Educacion fisica - EDU101</small></h4>
+                <strong>Instructor: </strong><span data-th-text="*{instructor.getNombreCompleto()}">Juan Perez</span><br/><br/>
+            </div>
+        </div>
+        <div class="row well">
+            <div class="col-sm-8 col-sm-offset-2">
+                <table class="table">
+                    <caption class="text-center">Calificaciones</caption>
+                    <thead>
+                        <th>Asignacion</th>
+                        <th>Calificacion</th>
+                    </thead>
+                    <tbody>
+                        <tr data-th-each="asignacion : ${asignaciones}">
+                            <td >
+                                <a href="#" data-th-href="@{/asignacion/{id} (id=${asignacion.id})}">
+                                    <span data-th-text="${asignacion.nombre}">Primer parcial</span>
+                                </a>
+                            </td>
+                            <td data-th-unless="${asignacion.calificaciones.size() == 0}">
+                                <span data-th-text="${asignacion.calificaciones[0].puntuacion}">3</span>/
+                                <span data-th-text="${asignacion.calificaciones[0].asignacion.valor}">10</span> pts
+                            </td>
+                            <td data-th-if="${asignacion.calificaciones.size() == 0}">
+                                0 (Sin calificar)/
+                                <span data-th-text="${asignacion.valor}">10</span> pts
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <strong>Acumulados: </strong>
+                                <span data-th-text="${acumulado}">3</span>/
+                                <span data-th-text="${total}">10</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <strong>Porcentaje alcanzado:</strong>
+                                <span data-th-text="|${porcentaje}%|">30%</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+</body>
+</html>

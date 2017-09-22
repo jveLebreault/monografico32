@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Asignacion')}">
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../../../../../../../../Desktop/f2toMe/jquery.js"></script>
+</head>
+<body>
+
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <h3 class="page-header">Detalles de la asignacion</h3>
+
+        <div class="row">
+            <p class="col-sm-2">
+                <strong>Instructor:</strong> <span data-th-text="${asignacion.clase.instructor.getNombreCompleto()}">Juan</span>
+            </p>
+            <p class="col-sm-2">
+                <strong>Asignatura:</strong> <span data-th-text="${asignacion.clase.asignatura.nombre}">MAT</span>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <strong data-th-text="|${asignacion.nombre}: |">Nombre</strong><br/>
+                <strong>Creacion: </strong><span data-th-text="${#dates.format(asignacion.fechaCreacion, 'dd/ MMM/ yyyy')}">10/10/10</span><br/>
+                <strong>Entrega: </strong><span data-th-text="${#dates.format(asignacion.fechaEntrega, 'dd/ MMM/ yyyy')}">20/20/20</span><br/>
+                <strong data-th-text="|Valor: ${asignacion.valor} puntos|">10 puntos</strong><br/><br/>
+                <p data-th-text="${asignacion.descripcion}"></p>
+            </div>
+        </div>
+
+        <div class="row" sec:authorize="hasAuthority('ESTUDIANTE')">
+            <div class="col-sm-12">
+                <a href="#" data-th-href="@{/asignacion/{asignacion}/calificacion(asignacion=${asignacion.id}, estudianteId=${usuario.id})}">Ver Calificacion</a><br/>
+            </div>
+        </div>
+
+        <div class="row" sec:authorize="hasAuthority('ADMINISTRADOR') OR  hasAuthority('DOCENTE')">
+            <div class="col-sm-12">
+                <strong>Asignados:</strong><br/>
+                <div data-th-each="estudiante: ${asignacion.asignados}">
+                    <a data-th-href="@{/estudiante/{id}(id=${estudiante.id})}" data-th-text="${estudiante.getNombreCompleto()}">Juan Perez</a> | <a data-th-href="@{/asignacion/calificar(asignacionId=${asignacion.id}, estudianteId=${estudiante.id})}">Calificar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+</body>
+</html>

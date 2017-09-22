@@ -15,6 +15,7 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.http.CacheControl;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -74,7 +75,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor( new PeriodoSelectionInterceptor() ).
-                addPathPatterns("/horario/clase*");
+                addPathPatterns("/clase**");
     }
 
     @Override
@@ -134,6 +135,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addConverter( stringToAsignaturaConverter);
         registry.addConverter( stringToCursoConverter );
         registry.addConverter( stringToPeriodoConverter);
+        registry.addConverter( stringToClaseConverter);
     }
 
     @Bean(name = "conversionService")

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Asignaciones')}">
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <h3 class="page-header">Crear asignacion</h3>
+
+        <div class="row">
+            <p class="col-sm-2">
+                <strong>Instructor:</strong> <span data-th-text="${claseAsignada.instructor.getNombreCompleto()}">Juan</span>
+            </p>
+            <p class="col-sm-2">
+                <strong>Asignatura:</strong> <span data-th-text="${claseAsignada.asignatura.nombre}">MAT</span>
+            </p>
+        </div>
+
+        <div class="row">
+            <form class="form-horizontal col-sm-10 col-md-offset-1" data-th-object="${asignacion}" method="post" data-th-action="@{/clase/{clase}/asignacion/crear(clase=${claseAsignada.id})}">
+                <fieldset class="well">
+                    <legend>Informacion de la asignacion</legend>
+
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre: </label>
+                        <input class="form-control" type="text" minlength="5" maxlength="40"
+                                name="nombre" id="nombre" data-th-errorclass="f-error"
+                                data-th-field="*{nombre}"/>
+
+                        <div class="has-error">
+                            <strong class="help-block" data-th-if="${#fields.hasErrors('nombre')}"
+                                    data-th-errors="*{nombre}"></strong>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="fechaCreacion">Fecha de creacion: </label>
+                        <input type="date" class="form-control"
+                               data-th-field="*{fechaCreacion}" disabled="disabled"
+                               name="fechaCreacion" id="fechaCreacion"/>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="fechaEntrega">Fecha de entrega:</label>
+                        <input type="date" class="form-control" data-th-field="*{fechaEntrega}"
+                               name="fechaEntrega" id="fechaEntrega"
+                               data-th-errorclass="f-error"/>
+
+                        <div class="has-error">
+                            <strong class="help-block" data-th-if="${#fields.hasErrors('fechaEntrega')}"
+                                    data-th-errors="*{fechaEntrega}"></strong>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="valor">Valor: </label>
+                        <input type="number" class="form-control" data-th-field="*{valor}"
+                               name="valor" id="valor" min="1" data-th-errorclass="f-error"/>
+
+                        <div class="has-error">
+                            <strong class="help-block" data-th-if="${#fields.hasErrors('valor')}"
+                                    data-th-errors="*{valor}"></strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="descripcion">Descripcion: </label>
+                        <textarea rows="5" minlength="5" maxlength="250" style="resize: none"
+                                  class="form-control" name="descripcion" id="descripcion"
+                                  data-th-errorclass="f-error" data-th-field="*{descripcion}"></textarea>
+
+                        <div class="has-error">
+                            <strong class="help-block" data-th-if="${#fields.hasErrors('descripcion')}"
+                                    data-th-errors="*{descripcion}"></strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Asignar a:</label>
+                        <div>
+                            <input type="checkbox" id="all-checkbox"/>
+                            <label>Todos</label>
+                        </div>
+                        <hr/>
+                        <div data-th-each="estudiante : ${estudiantes}">
+                            <input type="checkbox" data-th-value="${estudiante.id}" data-th-field="*{asignados}"/>
+                            <label data-th-for="${#ids.prev('asignados')}" data-th-text="${estudiante.getNombreCompleto()}">Juan Perez</label>
+                        </div>
+
+                        <div class="has-error">
+                            <strong class="help-block" data-th-if="${#fields.hasErrors('asignados')}"
+                                    data-th-errors="*{asignados}"></strong>
+                        </div>
+                    </div>
+
+                    <div data-th-if="${#fields.hasGlobalErrors()}" class="has-error well well-sm">
+                        <strong data-th-each="err : ${#fields.globalErrors()}"
+                                data-th-text="${err}" class="help-block">Error XYZ</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Crear"/>
+                    </div>
+                </fieldset>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+<script>
+    $(document).ready(function(){
+
+        $('#all-checkbox').on('click', function () {
+
+            var checkBoxes = $('input[type="checkbox"]');
+
+            if( !this.checked){
+                checkBoxes.prop('checked', false);
+            }else {
+                checkBoxes.prop('checked', true);
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
