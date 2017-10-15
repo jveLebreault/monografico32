@@ -54,6 +54,14 @@ public class ClaseController {
         return "horario/clase-detalle";
     }
 
+    @PostMapping(path = "/{claseId}/eliminar", params = "cursoId")
+    public String eliminarClase(@PathVariable Long claseId, @RequestParam Long cursoId, Model model){
+        Long wasRemoved = claseRepository.deleteById(claseId);
+        model.addAttribute("wasRemoved", wasRemoved);
+        model.addAttribute("cursoId", cursoId);
+        return "redirect:/curso/{cursoId}/clases";
+    }
+
     @GetMapping( params = "instructor")
     public String showClasesByInstructor(@RequestParam Docente instructor, Model model,
                                          @SessionAttribute Periodo periodo){
@@ -136,6 +144,19 @@ public class ClaseController {
 
         sessionStatus.setComplete();
         return "redirect:/asignacion/"+asignacion.getId();
+    }
+
+    @PostMapping(path = "/{claseId}/asignacion/eliminar", params = "asignacionId")
+    public String eliminarAsignacion(@PathVariable Long claseId, @RequestParam Long asignacionId, Model model){
+        Clase clase = claseRepository.findAndFetchAsignaciones(claseId);
+
+        boolean wasRemoved = clase.getAsignaciones().removeIf(a -> a.getId().equals(asignacionId));
+
+        claseRepository.save(clase);
+
+        model.addAttribute("wasRemoved",wasRemoved);
+        model.addAttribute(clase);
+        return "redirect:/clase/"+clase.getId()+"/asignacion/all";
     }
 
     @GetMapping(path = "/calificaciones/{curso}")
