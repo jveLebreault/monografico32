@@ -38,6 +38,10 @@ public interface CursoRepository extends JpaRepository<Curso, Long>, JpaSpecific
     
     Stream<Curso> findByDocenteEncargadoId(Long docenteId);
 
+    @Query("SELECT DISTINCT c FROM Curso c WHERE c.docenteEncargado.id = ?1 " +
+            "AND (YEAR (c.periodo.fechaInicio) = ?2 OR YEAR (c.periodo.fechaFinal) = ?2)")
+    Stream<Curso> findByDocenteEncargadoIdAndPeridoYear(Long docenteId, Integer year);
+
     List<Curso> findByDocenteEncargadoIdAndPeriodoId(Long docenteEncargadoId, Long periodoId);
     
 }
