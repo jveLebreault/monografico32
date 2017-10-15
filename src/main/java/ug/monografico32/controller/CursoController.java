@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specifications;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ug.monografico32.dao.EstudianteRepository;
 import ug.monografico32.dao.PeriodoRepository;
 import static ug.monografico32.dao.specification.CursoSpecification.*;
+import static ug.monografico32.dao.specification.EstudianteSpecification.byNombresApellidosNotInCurso;
+
 import ug.monografico32.model.*;
 
 import javax.validation.Valid;
@@ -77,14 +81,19 @@ public class CursoController {
     @GetMapping(path = "/{curso}/estudiantes")
     public String verEstudiantes(@PathVariable Long curso, Model model){
 
+        if( model.containsAttribute("curso"))
+            return "curso/curso-estudiante";
+
         model.addAttribute("curso", cursoRepository.findByIdAndFetchEstudiantes(curso));
         return "curso/curso-estudiante";
     }
 
     @GetMapping(path = "/{curso}/estudiantes/agregar")
-    public String agregarEstudiantes(@PathVariable Curso curso, Model model){
-        List<Estudiante> estudiantes = estudianteRepository.findEstudiantesNotInCurso(curso);
+    public String agregarEstudiantes(@PathVariable Curso curso, Estudiante estudiante, Model model, Pageable pageable){
 
+        Page<Estudiante> estudiantes = estudianteRepository.findAll(byNombresApellidosNotInCurso(estudiante, curso), pageable);
+
+        model.addAttribute(new Estudiante());
         model.addAttribute("estudiantes", estudiantes);
         model.addAttribute(curso);
         return "curso/agregar-estudiante";
@@ -107,6 +116,26 @@ public class CursoController {
 
         return "redirect:/curso/"+curso.getId()+"/estudiantes/agregar";
     }
+
+    @PostMapping(path = "/{cursoId}/estudiantes/eliminar")
+    public String eliminarEstudiante(@PathVariable Long cursoId, @RequestParam Long estudianteId, RedirectAttributes model){
+        Curso curso = cursoRepository.findByIdAndFetchEstudiantes(cursoId);
+
+        boolean wasRemoved = curso.getEstudiantes().removeIf(e -> e.getId().equals(estudianteId));
+
+        cursoRepository.save(curso);
+
+        model.addFlashAttribute("wasRemoved", wasRemoved);
+        model.addFlashAttribute(curso);
+        return "redirect:/curso/"+curso.getId()+"/estudiantes";
+    }
+
+    @GetMapping(path = "/{cursoId}/clases")
+    public String allClasesFromCurso(@PathVariable Long cursoId, Model model){
+        Curso curso = cursoRepository.findByIdAndFetchHorario(cursoId);
+        model.addAttribute(curso);
+        return "curso/curso-clases";
+    }
     
     @GetMapping(path = "/all")
     public String verTodos(Model model, Pageable pageable){
@@ -120,9 +149,26 @@ public class CursoController {
     @GetMapping(path = "/all", params = "encargado")
     public String getCursosByDocente(@RequestParam Long encargado, Model model){
         Stream<Curso> cursoStream = cursoRepository.findByDocenteEncargadoId(encargado);
-        
+
         Map<Periodo, List<Curso>> periodoCursoMap = groupCursosByPeriodo(cursoStream);
-        
+
+        model.addAttribute("cursosPorPerido", periodoCursoMap);
+        return "curso/curso-por-periodo";
+    }
+
+    @GetMapping(path = "/all", params = {"encargado","year"})
+    public String getCursosByDocente(@RequestParam Long encargado,@RequestParam Integer year ,Model model){
+
+        Stream<Curso> cursoStream;
+
+        if (year == null || year == 0){
+            cursoStream = cursoRepository.findByDocenteEncargadoId(encargado);
+        } else {
+            cursoStream = cursoRepository.findByDocenteEncargadoIdAndPeridoYear(encargado, year);
+        }
+
+        Map<Periodo, List<Curso>> periodoCursoMap = groupCursosByPeriodo(cursoStream);
+
         model.addAttribute("cursosPorPerido", periodoCursoMap);
         return "curso/curso-por-periodo";
     }
