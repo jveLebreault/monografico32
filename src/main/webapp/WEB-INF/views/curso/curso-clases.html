@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head data-th-replace="~{/agregar-persona::header('Clases del curso')}">
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../../resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../../../../../../../Desktop/f2toMe/jquery.js"></script>
+</head>
+<body>
+    <nav data-th-replace="~{/menu/menu::#main-menu}">
+
+    </nav>
+
+    <div class="container">
+        <h3 class="page-header">Sumario de clases
+            <small>
+                <a data-th-text="${curso.getGradoSeccion()}" data-th-href="@{/curso/{id} (id=${curso.id})}">
+                    4to C
+                </a>
+            </small>
+        </h3>
+        <div class="row well well-sm" data-th-each="clase : ${curso.horario.clases}">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <strong>Nombre asignatura: </strong>
+                        <span data-th-text="${clase.asignatura.nombre}">Informatica</span><br/>
+
+                        <strong>Instructor: </strong>
+                        <span data-th-text="${clase.instructor.getNombreCompleto()}">Juan Perez</span><br/>
+                    </div>
+                    <div class="col-sm-7">
+                        <strong>Sesiones:</strong>
+                        <div data-th-each="sesion : ${clase.sesiones}">
+                            <span data-th-text="${sesion.dia}">Lunes</span><br/>
+                            Desde <span data-th-text="${#dates.format(sesion.horaInicio,'hh:mm a')}">10:00 a</span>
+                            hasta <span data-th-text="${#dates.format(sesion.horaFinal,'hh:mm a')}">12:00 a</span>
+                            <hr style="border-color: black"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" sec:authorize="hasAuthority('ADMINISTRADOR')">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <form method="post" data-th-action="@{/clase/{claseId}/eliminar (claseId=${clase.id}) }">
+                        <input type="hidden" name="claseId" data-th-value="${clase.id}"/>
+                        <input type="hidden" name="cursoId" data-th-value="${curso.id}"/>
+                        <input type="submit" class="btn btn-primary" value="Eliminar clase"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer data-th-replace="~{/footer-monografico::#footer}">
+
+    </footer>
+</body>
+</html>
