@@ -21,6 +21,9 @@
             <p class="col-sm-2">
                 <strong>Asignatura:</strong> <span data-th-text="${clase.asignatura.nombre}">MAT</span>
             </p>
+            <p class="col-sm-2">
+                <a data-th-href="@{/clase/{id} (id=${clase.id})}">Ir a clase</a>
+            </p>
         </div>
 
         <div class="row" sec:authorize="hasAuthority('ADMINISTRADOR') OR  hasAuthority('DOCENTE')">
@@ -33,7 +36,7 @@
             </div>
 
             <div class="col-sm-12" data-th-unless="${#lists.isEmpty(asignaciones)}">
-                <table class="table table-striped">
+                <table class="table">
                     <caption class="text-center">Asignaciones</caption>
                     <thead>
                         <tr>
@@ -42,6 +45,7 @@
                             <th>Fecha de entrega</th>
                             <th>Valor</th>
                             <th>Detalle</th>
+                            <th sec:authorize="hasAuthority('ADMINISTRADOR') OR hasAuthority('DOCENTE')"> - </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +55,12 @@
                             <td data-th-text="${asignacion.fechaEntrega}">20/20/20 </td>
                             <td data-th-text="|${asignacion.valor} ptos|">10 puntos </td>
                             <td> <a data-th-href="@{/asignacion/{id}(id=${asignacion.id})}">Ver</a> </td>
+                            <td sec:authorize="hasAuthority('ADMINISTRADOR') OR hasAuthority('DOCENTE')">
+                                <form method="post" data-th-action="@{/clase/{claseId}/asignacion/eliminar (claseId=${asignacion.clase.id})}">
+                                    <input type="hidden" name="asignacionId" data-th-value="${asignacion.id}"/>
+                                    <input type="submit" class="btn btn-primary" value="Eliminar"/>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
