@@ -31,6 +31,7 @@
         <p sec:authorize="hasAuthority('ESTUDIANTE')">
             <a href="#" data-th-href="@{/clase/calificaciones/{curso} (curso=${curso.id})}">Reporte de calificaciones</a>
         </p>
+        <a data-th-href="@{/curso/{id}/clases (id=${curso.id})}">Sumario de clases</a>
     </div>
     
     <div class="container" >

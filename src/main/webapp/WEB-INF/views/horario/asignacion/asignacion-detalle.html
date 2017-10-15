@@ -23,6 +23,9 @@
             <p class="col-sm-2">
                 <strong>Asignatura:</strong> <span data-th-text="${asignacion.clase.asignatura.nombre}">MAT</span>
             </p>
+            <p>
+                <a data-th-href="@{/clase/{id}/asignacion/all (id=${asignacion.clase.id})}">Ver asignaciones</a>
+            </p>
         </div>
 
         <div class="row">
