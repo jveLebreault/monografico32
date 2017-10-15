@@ -49,7 +49,7 @@
         <div class="col-md-8 col-md-offset-2" data-th-fragment="sesiones">
             <strong class="text-center" data-th-if="${colision} == false">Sesion no agregada, colisiona con sesiones existentes</strong>
             <strong data-th-if="${#sets.isEmpty(clase.sesiones)}">Debe agregar una sesion por lo menos</strong>
-            <table class="table table-bordered table-striped" data-th-unless="${#sets.isEmpty(clase.sesiones)}">
+            <table class="table table-bordered" data-th-unless="${#sets.isEmpty(clase.sesiones)}">
                 <caption class="text-center"><strong>Sesiones</strong></caption>
                 <thead>
                     <tr>
