@@ -35,7 +35,7 @@ public class Clase implements Serializable {
     @ManyToOne
     private Horario horario;
 
-    @OneToMany(mappedBy ="clase", orphanRemoval = true)
+    @OneToMany(mappedBy ="clase", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Asignacion> asignaciones;
     
     public Clase(){}
