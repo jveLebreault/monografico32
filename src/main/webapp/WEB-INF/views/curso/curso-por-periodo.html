@@ -12,25 +12,44 @@
         </nav>
 
         <div class="container">
-            <h2 class="page-header">Todos los cursos</h2>
-            <div class="well well-lg" data-th-each="cursoEntry : ${cursosPorPerido}">
-                <h4 class="pull-right" data-th-text="|Periodo: ${cursoEntry.key.fechaInicio} hasta ${cursoEntry.key.fechaFinal}|">Periodo 10/10/10 hasta 20/20/20</h4>
-                <div data-th-each=" curso : ${cursoEntry.value}">
-                    <div id="curso-summary">
-                        <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
-                        <span class="h4" data-th-text="${curso.grado.literal}">Kinder</span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
-                        <p>
-                            <b>Docente encargado:</b>
-                            <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
-                        </p>
-                        <a data-th-href="@{/curso/{id}(id=${curso.id})}" href="#">Ver detalles</a>
-                        <hr/>
+            <h2 class="page-header">Cursos encargados</h2>
+
+            <div class="row">
+                <form class="form-inline col-md-6 col-md-offset-3" method="get"  data-th-action="@{/curso/all}">
+                    <fieldset class="well well-sm">
+                        <legend>Buscar por a&ntilde;o</legend>
+
+                        <input type="hidden" name="encargado" data-th-value="${param.encargado}"/>
+
+                        <div class="form-group">
+                            <label class="control-label" for="year">A&ntilde;o: </label>
+                            <input class="form-control" id="year" name="year" data-th-value="${param.year}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" value="Buscar"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="well well-lg" data-th-each="cursoEntry : ${cursosPorPerido}">
+                    <h4 class="pull-right" data-th-text="|Periodo: ${cursoEntry.key.fechaInicio} hasta ${cursoEntry.key.fechaFinal}|">Periodo 10/10/10 hasta 20/20/20</h4>
+                    <div data-th-each=" curso : ${cursoEntry.value}">
+                        <div id="curso-summary">
+                            <h4 data-th-text="|Nivel: ${curso.nivel}|">Nivel: Inicial</h4>
+                            <span class="h4" data-th-text="${curso.grado.literal}">Kinder</span><span class="h4"><small class="small" data-th-text="| Seccion: ${curso.seccion}|">Seccion: a</small></span>
+                            <p>
+                                <b>Docente encargado:</b>
+                                <span data-th-text="${curso.docenteEncargado.getNombreCompleto()}">Juan Cruzeta</span>
+                            </p>
+                            <a data-th-href="@{/curso/{id}(id=${curso.id})}" href="#">Ver detalles</a>
+                            <hr/>
+                        </div>
                     </div>
                 </div>
-                
-                
             </div>
-            
         </div>
 
         <footer data-th-replace="~{/footer-monografico::#footer}">
