@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/resources/**", "/login**"};
 
     private static final String[] AUTH_URL = {"/asignatura/\\d+",
-                            "/curso/\\d+",
+                            "/curso/\\d+", "/curso/\\d+/clases",
                             "/estudiante/\\d+","/estudiante/\\d+/cursos",
                             "/clase/\\d+", "/clase/\\d+/asignacion/all", "/clase/calificaciones/\\d+",
                             "/asignacion/\\d+", "/asignacion/\\d+/calificacion\\?estudianteId=\\d+", "/asignacion/\\d+/calificaciones",
@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] DOCENTE_URL = {"/curso/all\\?encargado=\\d+", "/docente/\\d+",
                                             "/curso/\\d+/estudiantes",
-                                            "/clase\\?instructor=\\d+", "/clase/asignacion/crear", "/clase/\\d+/asignacion/crear", "/clase/calificaciones/\\d+\\?estudianteId=\\d+",
+                                            "/clase\\?instructor=\\d+", "/clase/asignacion/crear", "/clase/\\d+/asignacion/crear", "/clase/calificaciones/\\d+\\?estudianteId=\\d+", "/clase/\\d+/asignacion/eliminar",
                                             "/asignacion/calificar\\?asignacionId=\\d+&estudianteId=\\d+", "/asignacion/calificar", "/asignacion/\\d+/calificaciones/\\d+",
                                             "/periodo/seleccionar"};
 
