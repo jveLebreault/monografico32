@@ -24,8 +24,14 @@
             </div>
 
         </div>
+        <span data-th-text="${param.wasRemoved}"></span>
+        <div data-th-if="${wasRemoved} == true" class="bg-success">
+            <p class="text-center">
+                <strong>Estudiante elmininado exitosamente</strong>
+            </p>
+        </div>
         <div class="well well-lg" style="clear: both">
-            <table class="table table-striped">
+            <table class="table">
                 <caption class="text-center">Estudiantes en lista</caption>
                 <thead>
                     <tr>
@@ -33,6 +39,7 @@
                         <th>Nombre</th>
                         <th> - </th>
                         <th> - </th>
+                        <th sec:authorize="hasAuthority('ADMINISTRADOR')"> - </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +48,12 @@
                         <td data-th-text="${estudiante.nombres}">Juan</td>
                         <td> <a target="_blank" data-th-href="@{/estudiante/{id}(id=${estudiante.id})}">Ver estudiante</a></td>
                         <td> <a target="_blank" data-th-href="@{/clase/calificaciones/{curso} (curso=${curso.id}, estudianteId=${estudiante.id})}">Reporte de calificaciones</a></td>
+                        <td sec:authorize="hasAuthority('ADMINISTRADOR')">
+                            <form method="post" data-th-action="@{/curso/{cursoId}/estudiantes/eliminar (cursoId=${curso.id})}">
+                                <input type="hidden" name="estudianteId" data-th-value="${estudiante.id}"/>
+                                <input type="submit" class="btn btn-primary" value="Eliminar"/>
+                            </form>
+                        </td>
                     </tr>
                     <tr data-th-if="${curso.estudiantes.isEmpty()}">
                         <th class="text-center" colspan="3">No existen estudiantes inscritos</th>
