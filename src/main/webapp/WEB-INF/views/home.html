@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head data-th-replace="~{/agregar-persona::header('Log in')}">
+    <head data-th-replace="~{/agregar-persona::header('Inicio')}">
         <meta charset="UTF-8">
         <title>Menu administrador</title>
         <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -13,7 +13,31 @@
         <nav data-th-replace="~{/menu/menu::#main-menu}">
 
         </nav>
-        <div data-th-text="#{prueba}">TODO write content</div>
+
+        <div class="container">
+            <h3 class="page-header">Informacion de usuario</h3>
+            <div class="row well well-lg" data-th-object="${#authentication.principal}">
+                <div class="pull-left">
+                    <strong>Nombre: </strong><span data-th-text="*{getNombreCompleto()}">Juan Perez</span><br/>
+                    <strong>Usuario: </strong><span data-th-text="*{username}">JPerez</span><br/><br/>
+                    <div>
+                        <input type="checkbox" data-th-checked="*{!isAccountNonLocked()}" disabled="disabled"/>
+                        <label>Cuenta bloqueada</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" data-th-checked="*{isEnabled()}" disabled="disabled"/>
+                        <label>Cuenta habilitada</label>
+                    </div>
+                </div>
+
+                <div class="pull-right">
+                    <strong>Roles: </strong><br/>
+                    <span data-th-each="rol : *{authorities}" data-th-text="${rol}"></span>
+
+                </div>
+
+            </div>
+        </div>
 
         <footer data-th-replace="~{/footer-monografico::#footer}">
 
