@@ -102,14 +102,14 @@ public class HorarioTest {
         bio2.agregarSesion(s6);
         
         assertTrue( bio2.getSesiones().size() == 1 );
-        assertTrue( horario.getClases().contains(bio2));
+        assertFalse( horario.getClases().contains(bio2));
         assertTrue( horario.agregarClase(bio2) );
 
 
         Clase c1 = horario.getClases().stream().filter(c -> c.equals(bio2)).
                 findFirst().orElse(bio2);
         
-        assertTrue(c1.getSesiones().size() == 3);
+        assertTrue(c1.getSesiones().size() == 1);
         assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.SATURDAY) );
         assertTrue( horario.getAllSesions().contains(s6));
     }
@@ -125,13 +125,13 @@ public class HorarioTest {
         bio2.agregarSesion(s6);
         
         assertTrue( bio2.getSesiones().size() == 1 );
-        assertTrue( horario.getClases().contains(bio2));
+        assertFalse( horario.getClases().contains(bio2));
         assertTrue( horario.agregarClase(bio2) );
 
         Clase c1 = horario.getClases().stream().filter(c -> c.equals(bio2)).
                 findFirst().orElse(bio2);
         
-        assertTrue(c1.getSesiones().size() == 3);
+        assertTrue(c1.getSesiones().size() == 1);
         assertTrue( horario.getSesionsByDayOfWeek().containsKey(DayOfWeek.SATURDAY) );
         assertTrue( horario.getAllSesions().contains(s6));
     }

@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -31,7 +32,11 @@ public class CursoTest {
     }
     
     public Docente getDocenteEncargado(){
-        return new Docente("Juan", "Perez", "123456789101");
+        Docente docente = new Docente("Juan", "Perez", "123456789101");
+        docente.setPassword("123456");
+        docente.setUsername("docente1");
+        docente.addAuthority(Roles.DOCENTE);
+        return docente;
     }
     
     public Date getFechaInicio(){
@@ -56,6 +61,16 @@ public class CursoTest {
                 periodo);
         //Nivel.BASICA.toString().toLowerCase();
         Set<ConstraintViolation<Curso>> violations =  validator.validate( c );
+
+        Iterator<ConstraintViolation<Curso>> iter = violations.iterator();
+        System.out.println("\n\n\n");
+        while (iter.hasNext()){
+            ConstraintViolation<Curso> violation = iter.next();
+
+            System.out.println(violation.getMessage()+"\n"+violation.getPropertyPath().toString());
+        }
+        System.out.println("\n\n\n");
+
 
         assertEquals(1, violations.size());
         assertEquals("Nivel inicial no puede tener grado 7mo",
