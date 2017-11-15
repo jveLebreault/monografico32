@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ug.monografico32.config.AppConfig;
@@ -13,6 +14,8 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.security.spec.InvalidKeySpecException;
 import static org.junit.Assert.assertNotNull;
+
+import ug.monografico32.config.TestConfig;
 import ug.monografico32.model.aws.URLSignerWrapper;
 
 /**
@@ -20,7 +23,8 @@ import ug.monografico32.model.aws.URLSignerWrapper;
  */
 
 @RunWith( SpringJUnit4ClassRunner.class )
-@ContextConfiguration( classes = {AppConfig.class} )
+@ContextConfiguration( classes = {AppConfig.class, TestConfig.class} )
+@ActiveProfiles("test")
 public class AWSTest {
 
     @Autowired

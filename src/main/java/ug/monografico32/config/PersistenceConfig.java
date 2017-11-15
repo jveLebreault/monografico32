@@ -2,8 +2,10 @@ package ug.monografico32.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -23,7 +25,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class PersistenceConfig {
 
-    @Bean(destroyMethod="")
+    @Bean(destroyMethod="", name = "datasource")
     public DataSource datasource(){
         return new JndiDataSourceLookup().getDataSource("jdbc/monografico32DB");
     }
@@ -45,7 +47,7 @@ public class PersistenceConfig {
         return txManager;
     }
 
-    @Bean
+    @Bean("jpaVendorAdapter")
     public JpaVendorAdapter jpaVendorAdapter(){
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.MYSQL);
