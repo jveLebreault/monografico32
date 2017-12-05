@@ -10,7 +10,7 @@
     </appender>
 
     <logger name="ug.monografico32" additivity="false">
-        <level value="DEBUG" />
+        <level value="ERROR" />
         <appender-ref ref="consoleAppender" />
     </logger>
 
