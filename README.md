@@ -1,2 +1,2 @@
 # monografico32
-Repositorio para proyceto de monografico 32
+Repositorio para proyecto de monografico 32
